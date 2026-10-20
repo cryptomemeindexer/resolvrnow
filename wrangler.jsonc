@@ -1,0 +1,16 @@
+// Publishes the website in site/ to resolvrnow.com as a static Cloudflare Worker.
+// Deploy with `npx wrangler deploy`. The ResolvrNow application itself is
+// self-hosted; see README.md.
+{
+  "name": "resolvrnow-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site"
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "resolvrnow.com", "custom_domain": true },
+    { "pattern": "www.resolvrnow.com", "custom_domain": true }
+  ]
+}
