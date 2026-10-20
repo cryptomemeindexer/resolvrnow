@@ -18,13 +18,14 @@ import { oncallModule } from './oncall/index.js';
 import { portalModule } from './portal/index.js';
 import { aiModule } from './ai/index.js';
 import { analyticsModule } from './analytics/index.js';
+import { importSetModule } from './importset/index.js';
 
 /**
  * Installed modules. The platform sorts them by `dependsOn`; ITSM applications each live
  * in their own folder under src/modules.
  */
 export const ALL_MODULES: AppModule[] = [
-  platformModule, taskModule, scriptsModule, notificationsModule, approvalsModule, schedulesModule, slaModule, cmdbModule, assetModule, flowModule, knowledgeModule, incidentModule, problemModule, changeModule, catalogModule, oncallModule, portalModule, aiModule, analyticsModule,
+  platformModule, taskModule, scriptsModule, notificationsModule, approvalsModule, schedulesModule, slaModule, cmdbModule, assetModule, flowModule, knowledgeModule, incidentModule, problemModule, changeModule, catalogModule, oncallModule, portalModule, aiModule, analyticsModule, importSetModule,
 ];
 
 /**

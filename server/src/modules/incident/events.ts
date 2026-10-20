@@ -1,0 +1,32 @@
+const ev = (name: string, description: string, table = 'incident') => ({ name, table, description });
+
+export const INCIDENT_EVENTS = [
+  ev('incident.inserted', 'An incident was created (parm1: user sys_id, parm2: user name)'),
+  ev('incident.updated', 'An incident was updated (parm1: user sys_id, parm2: user name)'),
+  ev('incident.assigned', 'Assigned to changed (parm1: new assignee, parm2: previous assignee)'),
+  ev('incident.assigned.to.group', 'Assignment group changed (parm1: new group, parm2: previous group)'),
+  ev('incident.commented', 'A customer-visible comment was added (parm1: author)'),
+  ev('incident.worknoted', 'A work note was added (parm1: author)'),
+  ev('incident.priority.1', 'Priority changed to 1 - Critical (parm1: new, parm2: previous)'),
+  ev('incident.severity.1', 'Severity changed to 1 - High (parm1: new, parm2: previous)'),
+  ev('incident.escalated', 'Escalation increased (parm1: new, parm2: previous)'),
+  ev('incident.resolved', 'The incident was resolved (parm1: user)'),
+  ev('incident.closed', 'The incident was closed (parm1: user)'),
+  ev('incident.canceled', 'The incident was canceled (parm1: user)'),
+  ev('incident.reopened', 'The incident was reopened (parm1: user)'),
+  ev(
+    'incident.caller.responded',
+    'The caller answered while the incident was on hold (parm1: caller, parm2: recipients)',
+  ),
+  ev('incident.strike.reminder', 'Reminder to an unresponsive caller (parm1: attempt, parm2: caller)'),
+  ev('incident.strike.resolved', 'Resolved after the last caller reminder (parm1: attempts, parm2: caller)'),
+  ev('incident.mim.proposed', 'Proposed as a major incident candidate (parm1: user, parm2: reason)'),
+  ev('incident.mim.accepted', 'Promoted to a major incident (parm1: user, parm2: reason)'),
+  ev('incident.mim.rejected', 'Major incident candidate rejected (parm1: user, parm2: reason)'),
+  ev('incident.mim.demoted', 'Major incident demoted (parm1: user, parm2: reason)'),
+  ev('incident.mim.reassigned', 'Reassigned on promotion (parm1: previous assignee, parm2: previous group)'),
+  ev('incident_alert.inserted', 'Communication plan raised', 'incident_alert'),
+  ev('incident_alert.actions_taken', 'Actions taken recorded on a communication plan', 'incident_alert'),
+  ev('incident_alert.canceled', 'Communication plan canceled', 'incident_alert'),
+  ev('incident_alert.closed', 'Communication plan closed', 'incident_alert'),
+];

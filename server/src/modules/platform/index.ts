@@ -125,26 +125,59 @@ function seedRoles(platform: Platform, ctx: Context): void {
   }
 }
 
-/** Mirrors native ACLs into sys_security_acl so they are visible and can be deactivated. */
+/**
+ * Mirrors native ACLs into sys_security_acl so they are visible and can be deactivated. The
+ * mirror is for display and the active flag only (enforcement reads roles from the code), but
+ * it is kept faithful: missing roles are created, role lists follow the definitions and
+ * mirrors of definitions that no longer exist are removed.
+ */
 function mirrorAcls(platform: Platform, ctx: Context): void {
-  const existing = new Set(
-    platform.db.all<{ native_id: string }>(`SELECT "native_id" FROM "sys_security_acl" WHERE "native_id" IS NOT NULL`).map((r) => r.native_id),
+  const defs = new Map(platform.acl.nativeDefs());
+  const rows = platform.db.all<{ sys_id: string; native_id: string }>(
+    `SELECT "sys_id","native_id" FROM "sys_security_acl" WHERE "native_id" IS NOT NULL`,
   );
-  for (const [id, def] of platform.acl.nativeDefs()) {
-    if (existing.has(id)) continue;
-    const acl = ctx.insert('sys_security_acl', {
-      name: def.name,
-      operation: def.operation,
-      type: 'record',
-      active: true,
-      admin_overrides: def.adminOverrides ?? true,
-      condition: def.condition ?? '',
-      description: def.description ?? (def.script ? 'Native access check implemented in TypeScript' : ''),
-      native_id: id,
-    });
-    for (const role of def.roles ?? []) {
-      const r = ctx.getBy('sys_user_role', 'name', role);
-      if (r) ctx.insert('sys_security_acl_role', { sys_security_acl: acl.sysId, sys_user_role: r.sysId });
+  const mirrored = new Map<string, string>();
+  for (const r of rows) {
+    if (defs.has(r.native_id) && !mirrored.has(r.native_id)) {
+      mirrored.set(r.native_id, r.sys_id);
+      continue;
+    }
+    const stale = ctx.get('sys_security_acl', r.sys_id);
+    if (stale) ctx.delete(stale);
+  }
+  const roleIds = new Map<string, string>();
+  const roleId = (name: string) => {
+    let id = roleIds.get(name);
+    if (!id) {
+      id = ensureRole(ctx, { name });
+      roleIds.set(name, id);
+    }
+    return id;
+  };
+  for (const [id, def] of defs) {
+    let aclId = mirrored.get(id);
+    if (!aclId) {
+      aclId = ctx.insert('sys_security_acl', {
+        name: def.name,
+        operation: def.operation,
+        type: 'record',
+        active: true,
+        admin_overrides: def.adminOverrides ?? true,
+        condition: def.condition ?? '',
+        description: def.description ?? (def.script ? 'Native access check implemented in TypeScript' : ''),
+        native_id: id,
+      }).sysId;
+    }
+    const want = new Set((def.roles ?? []).map(roleId));
+    const links = ctx.query('sys_security_acl_role', `sys_security_acl=${aclId}`);
+    const have = new Set<string>();
+    for (const link of links) {
+      const role = link.str('sys_user_role');
+      if (want.has(role) && !have.has(role)) have.add(role);
+      else ctx.delete(link);
+    }
+    for (const role of want) {
+      if (!have.has(role)) ctx.insert('sys_security_acl_role', { sys_security_acl: aclId, sys_user_role: role });
     }
   }
   platform.acl.invalidate();

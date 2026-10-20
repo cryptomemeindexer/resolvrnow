@@ -1,0 +1,431 @@
+import type { ChoiceDef, ColumnDef, TableDef } from '../../engine/types.js';
+
+const c = (value: string, label: string, sequence: number): ChoiceDef => ({ value, label, sequence });
+const choices = (pairs: [string, string][]): ChoiceDef[] => pairs.map(([v, l], i) => c(v, l, i + 1));
+
+const ref = (name: string, label: string, reference: string, extra: Partial<ColumnDef> = {}): ColumnDef => ({
+  name,
+  label,
+  type: 'reference',
+  reference,
+  ...extra,
+});
+const str = (name: string, label: string, extra: Partial<ColumnDef> = {}): ColumnDef => ({
+  name,
+  label,
+  type: 'string',
+  ...extra,
+});
+const bool = (
+  name: string,
+  label: string,
+  defaultValue: boolean,
+  extra: Partial<ColumnDef> = {},
+): ColumnDef => ({ name, label, type: 'boolean', defaultValue: String(defaultValue), ...extra });
+const int = (name: string, label: string, extra: Partial<ColumnDef> = {}): ColumnDef => ({
+  name,
+  label,
+  type: 'integer',
+  ...extra,
+});
+const dt = (name: string, label: string, extra: Partial<ColumnDef> = {}): ColumnDef => ({
+  name,
+  label,
+  type: 'glide_date_time',
+  ...extra,
+});
+const dur = (name: string, label: string, extra: Partial<ColumnDef> = {}): ColumnDef => ({
+  name,
+  label,
+  type: 'glide_duration',
+  ...extra,
+});
+const choice = (
+  name: string,
+  label: string,
+  list: ChoiceDef[],
+  extra: Partial<ColumnDef> = {},
+): ColumnDef => ({ name, label, type: 'choice', choices: list, ...extra });
+
+export const CHANNEL_CHOICES = choices([
+  ['email', 'Email'],
+  ['sms', 'SMS'],
+  ['voice', 'Voice'],
+  ['slack', 'Slack'],
+  ['ms_teams', 'Microsoft Teams'],
+  ['mobile_push', 'Mobile push'],
+]);
+
+const WEEKDAY_CHOICES = choices([
+  ['1', 'Monday'],
+  ['2', 'Tuesday'],
+  ['3', 'Wednesday'],
+  ['4', 'Thursday'],
+  ['5', 'Friday'],
+  ['6', 'Saturday'],
+  ['7', 'Sunday'],
+]);
+
+export const oncallTables: TableDef[] = [
+  {
+    name: 'cmn_rota',
+    label: 'Shift',
+    displayField: 'name',
+    audit: true,
+    columns: [
+      str('name', 'Name', { maxLength: 100, mandatory: true }),
+      ref('group', 'Group', 'sys_user_group', { mandatory: true }),
+      ref('schedule', 'Schedule', 'cmn_schedule', {
+        hint: 'When the shift is active; created automatically (24x7) when left empty',
+      }),
+      bool('active', 'Active', true),
+      choice(
+        'state',
+        'State',
+        choices([
+          ['draft', 'Draft'],
+          ['published', 'Published'],
+        ]),
+        { defaultValue: 'draft', choiceMode: 'dropdown_without_none' },
+      ),
+      ref('manager', 'Manager', 'sys_user'),
+      str('color', 'Background color', { maxLength: 7 }),
+      choice(
+        'catch_all',
+        'Catch all',
+        choices([
+          ['none', 'None'],
+          ['group_manager', 'Group manager'],
+          ['rota_manager', 'Shift manager'],
+          ['individual', 'Notify individual'],
+          ['all', 'Notify all'],
+        ]),
+        { defaultValue: 'none', choiceMode: 'dropdown_without_none' },
+      ),
+      ref('catch_all_member', 'Catch all member', 'sys_user'),
+      ref('catch_all_roster', 'Catch all roster', 'cmn_rota_roster'),
+      bool('use_custom_escalation', 'Use custom escalation', false),
+      bool('override_user_preference', 'Override user preference', false),
+      bool('send_reminders', 'Send on-call reminders', false),
+      int('reminder_lead_time', 'Reminder lead time (days)'),
+      choice(
+        'coverage_interval',
+        'Coverage interval',
+        choices([
+          ['daily', 'Daily'],
+          ['weekly', 'Weekly'],
+        ]),
+      ),
+      int('coverage_lead', 'Get coverage for'),
+    ],
+  },
+  {
+    name: 'cmn_rota_roster',
+    label: 'Roster',
+    displayField: 'name',
+    audit: true,
+    columns: [
+      ref('rota', 'Shift', 'cmn_rota', { mandatory: true, cascade: 'delete' }),
+      str('name', 'Name', { maxLength: 100, mandatory: true }),
+      bool('active', 'Active', true),
+      int('order', 'Order', { defaultValue: 100 }),
+      choice(
+        'rotation_interval_type',
+        'Rotation interval',
+        choices([
+          ['daily', 'Daily'],
+          ['weekly', 'Weekly'],
+          ['monthly', 'Monthly'],
+        ]),
+        { defaultValue: 'weekly', choiceMode: 'dropdown_without_none' },
+      ),
+      int('rotation_interval_count', 'Rotate every', { defaultValue: 1 }),
+      choice('rotation_day_of_week', 'Day of week for rotation', WEEKDAY_CHOICES),
+      choice(
+        'rotation_month_day_type',
+        'Day of the month for rotation',
+        choices([
+          ['last_day', 'Last day of the month'],
+          ['specific_day', 'Specific day'],
+        ]),
+      ),
+      int('rotation_day', 'Rotation day'),
+      { name: 'rotation_start_date', label: 'Rotation start date', type: 'glide_date', mandatory: true },
+      {
+        name: 'rotation_start_time',
+        label: 'Rotation start time',
+        type: 'glide_time',
+        defaultValue: '00:00:00',
+      },
+      bool('rotation_all_day', 'All day rotation', true),
+      int('attempts', '# reminders', { defaultValue: 0 }),
+      dur('time_between_reminders', 'Time between reminders', { defaultValue: 900000 }),
+      dur('time_before_escalation', 'Time before escalation', { readOnly: true }),
+      choice('force_channel', 'Forced communication channel', CHANNEL_CHOICES),
+      bool('send_reminders', 'Send on-call reminders', false),
+      int('reminder_lead_time', 'Reminder lead time (days)'),
+    ],
+  },
+  {
+    name: 'cmn_rota_member',
+    label: 'On-call Member',
+    displayField: 'member',
+    audit: true,
+    columns: [
+      ref('roster', 'Roster', 'cmn_rota_roster', { mandatory: true, cascade: 'delete' }),
+      ref('member', 'Member', 'sys_user', { mandatory: true }),
+      int('order', 'Order', { defaultValue: 100 }),
+      { name: 'from', label: 'From', type: 'glide_date' },
+      {
+        name: 'to',
+        label: 'To',
+        type: 'glide_date',
+        hint: 'First day the member is no longer on the roster',
+      },
+    ],
+  },
+  {
+    name: 'roster_schedule_span',
+    label: 'Roster Schedule Span',
+    extends: 'cmn_schedule_span',
+    columns: [
+      ref('group', 'Group', 'sys_user_group'),
+      ref('user', 'User', 'sys_user'),
+      ref('roster', 'Roster', 'cmn_rota_roster', { cascade: 'delete' }),
+      ref('proposed_cover', 'Proposed cover', 'sys_user'),
+      choice(
+        'state',
+        'State',
+        choices([
+          ['requested', 'Requested'],
+          ['approved', 'Approved'],
+          ['rejected', 'Rejected'],
+          ['cancelled', 'Cancelled'],
+        ]),
+        { defaultValue: 'approved', choiceMode: 'dropdown_without_none' },
+      ),
+    ],
+  },
+  {
+    name: 'cmn_rota_escalation_set',
+    label: 'Shift Escalation Set',
+    displayField: 'name',
+    columns: [
+      ref('cmn_rota', 'Shift', 'cmn_rota', { mandatory: true, cascade: 'delete' }),
+      str('name', 'Name', { maxLength: 100, mandatory: true }),
+      bool('default', 'Default', false),
+      { name: 'table', label: 'Table', type: 'table_name' },
+      { name: 'condition', label: 'Condition', type: 'conditions', maxLength: 4000, dependentOn: 'table' },
+      str('description', 'Description', { maxLength: 1000 }),
+      bool('active', 'Active', true),
+      bool('override_user_preference', 'Override user preference', false),
+      int('order', 'Order', { defaultValue: 100 }),
+    ],
+  },
+  {
+    name: 'cmn_rota_esc_step_def',
+    label: 'Shift Escalation Step Definition',
+    displayField: 'name',
+    columns: [
+      ref('cmn_rota_escalation_set', 'Escalation set', 'cmn_rota_escalation_set', {
+        mandatory: true,
+        cascade: 'delete',
+      }),
+      str('name', 'Name', { maxLength: 100 }),
+      int('escalation_level', 'Escalation level', { mandatory: true }),
+      dur('time_to_next_step', 'Time to next step'),
+      int('reminder_num', 'Number of reminders', { defaultValue: 0 }),
+      dur('time_between_reminders', 'Time between reminders', { defaultValue: 900000 }),
+      { name: 'rosters', label: 'Roster', type: 'glide_list', reference: 'cmn_rota_roster' },
+      { name: 'groups', label: 'Groups', type: 'glide_list', reference: 'sys_user_group' },
+      { name: 'users', label: 'Users', type: 'glide_list', reference: 'sys_user' },
+      str('devices', 'Devices', { maxLength: 4000 }),
+      bool('group_manager', 'Group manager', false),
+      str('group_manager_field', 'Group manager field', { defaultValue: 'manager', maxLength: 255 }),
+    ],
+  },
+  {
+    name: 'on_call_group_preference',
+    label: 'On-Call Group Preference',
+    displayField: 'group',
+    columns: [
+      ref('group', 'Group', 'sys_user_group', { mandatory: true }),
+      { name: 'shift_managers', label: 'Shift managers', type: 'glide_list', reference: 'sys_user' },
+      choice(
+        'allow_rota_overlap',
+        'Allow shift schedule overlap',
+        choices([
+          ['default', 'Default'],
+          ['yes', 'Yes'],
+          ['no', 'No'],
+        ]),
+        { defaultValue: 'default', choiceMode: 'dropdown_without_none' },
+      ),
+      choice(
+        'escalation_rule_rota_overlap',
+        'Escalation rule on shift overlap',
+        choices([
+          ['default', 'Default'],
+          ['outgoing', 'Escalate to outgoing shift'],
+          ['incoming', 'Escalate to incoming shift'],
+          ['all', 'Escalate to all shifts'],
+        ]),
+        { defaultValue: 'default', choiceMode: 'dropdown_without_none' },
+      ),
+      choice(
+        'pto_approval',
+        'PTO approval preferences',
+        choices([
+          ['default', 'Default'],
+          ['with_approval', 'With approval'],
+          ['without_approval', 'Without approval'],
+          ['not_allowed', 'Not allowed'],
+        ]),
+        { defaultValue: 'default', choiceMode: 'dropdown_without_none' },
+      ),
+      choice('first_day_of_week', 'First day of the week', WEEKDAY_CHOICES),
+    ],
+  },
+  {
+    name: 'on_call_escalation',
+    label: 'On-Call Escalation',
+    displayField: 'source',
+    columns: [
+      ref('group', 'Group', 'sys_user_group'),
+      { name: 'table', label: 'Table', type: 'table_name' },
+      { name: 'source', label: 'Source', type: 'document_id', dependentOn: 'table', indexed: true },
+      str('subflow', 'Subflow', { maxLength: 100 }),
+      ref('parent_escalation_level', 'Parent escalation level', 'on_call_escalation_level'),
+      choice(
+        'category',
+        'Category',
+        choices([
+          ['assign_by_acknowledgement', 'Assign by acknowledgement'],
+          ['auto_assignment', 'Auto assignment'],
+          ['notify_manual_assignment', 'Notify manual assignment'],
+          ['conferencing', 'Conferencing'],
+        ]),
+      ),
+      str('channels', 'Channels', { maxLength: 255 }),
+      bool('ignore_default_reminders', 'Ignore default reminders', false),
+      bool('active', 'Active', true),
+      bool('acknowledged', 'Acknowledged', false),
+      ref('acknowledged_by', 'Acknowledged by', 'sys_user'),
+      dt('acknowledged_at', 'Acknowledged at'),
+      dur('time_to_acknowledge', 'Time to acknowledge'),
+      dt('end_time', 'End time'),
+      choice(
+        'end_reason',
+        'End reason',
+        choices([
+          ['accepted', 'Accepted'],
+          ['exhausted', 'Exhausted'],
+          ['no_on_call', 'No one on call'],
+          ['cancelled_group_change', 'Cancelled: group changed'],
+          ['superseded', 'Superseded'],
+          ['assigned', 'Assigned manually'],
+          ['task_inactive', 'Task inactive'],
+        ]),
+      ),
+      dt('next_action_at', 'Next action at', { indexed: true }),
+    ],
+  },
+  {
+    name: 'on_call_escalation_level',
+    label: 'On-Call Escalation Level',
+    displayField: 'level',
+    columns: [
+      ref('escalation', 'Escalation', 'on_call_escalation', { mandatory: true, cascade: 'delete' }),
+      ref('rota', 'Shift', 'cmn_rota'),
+      ref('roster', 'Roster', 'cmn_rota_roster'),
+      int('level', 'Level'),
+      { name: 'escalatees', label: 'Escalatees', type: 'glide_list', reference: 'sys_user' },
+      str('devices', 'Devices', { maxLength: 4000 }),
+      bool('catch_all', 'Catch all', false),
+      bool('active', 'Active', false),
+      dt('started_at', 'Started at'),
+      int('attempts', 'Reminders', { defaultValue: 0 }),
+      dur('time_between_reminders', 'Time between reminders'),
+      dur('wait_after', 'Wait after last reminder'),
+      int('attempts_made', 'Attempts made', { defaultValue: 0 }),
+      dt('next_attempt_at', 'Next attempt at'),
+      dt('ends_at', 'Ends at'),
+      choice(
+        'outcome',
+        'Outcome',
+        choices([
+          ['pending', 'Pending'],
+          ['accepted', 'Accepted'],
+          ['rejected', 'Rejected'],
+          ['no_response', 'No response'],
+          ['failed', 'Failed'],
+          ['cancelled', 'Cancelled'],
+        ]),
+        { defaultValue: 'pending' },
+      ),
+    ],
+  },
+  {
+    name: 'on_call_escalation_con_attempt',
+    label: 'On-Call Escalation Contact Attempt',
+    displayField: 'attempt',
+    columns: [
+      ref('escalation', 'Escalation', 'on_call_escalation', { cascade: 'delete' }),
+      ref('escalation_level', 'Escalation level', 'on_call_escalation_level', {
+        mandatory: true,
+        cascade: 'delete',
+      }),
+      ref('rota', 'Shift', 'cmn_rota'),
+      int('level', 'Level'),
+      int('attempt', 'Contact attempt'),
+    ],
+  },
+  {
+    name: 'on_call_escalation_comm',
+    label: 'On-Call Escalation Notification',
+    displayField: 'comm_type',
+    columns: [
+      ref('contact_attempt', 'Contact attempt', 'on_call_escalation_con_attempt', { cascade: 'delete' }),
+      ref('escalation', 'Escalation', 'on_call_escalation', { cascade: 'delete' }),
+      ref('escalation_level', 'Escalation level', 'on_call_escalation_level'),
+      choice(
+        'escalatee_type',
+        'Escalatee type',
+        choices([
+          ['user', 'User'],
+          ['device', 'Device'],
+        ]),
+        { defaultValue: 'user' },
+      ),
+      ref('escalatee', 'Escalatee', 'sys_user'),
+      choice('comm_type', 'Communication type', CHANNEL_CHOICES),
+      str('comm_value', 'Communication value', { maxLength: 255 }),
+      choice(
+        'status',
+        'Status',
+        choices([
+          ['sent', 'Sent'],
+          ['delivered', 'Delivered'],
+          ['failed', 'Failed'],
+        ]),
+        { defaultValue: 'sent' },
+      ),
+      str('failure_reason', 'Failure reason', { maxLength: 1000 }),
+      str('notification_id', 'Notification ID', { maxLength: 100 }),
+      choice(
+        'response',
+        'Response',
+        choices([
+          ['accepted', 'Accepted'],
+          ['accepted_other_device', 'Accepted from other device'],
+          ['auto_assigned', 'Auto-assigned'],
+          ['rejected', 'Rejected'],
+          ['rejected_other_device', 'Rejected from other device'],
+          ['invalid_response', 'Invalid response'],
+        ]),
+      ),
+      dt('responded_at', 'Responded at'),
+      bool('catch_all', 'Catch all', false),
+    ],
+  },
+];

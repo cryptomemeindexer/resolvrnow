@@ -7,7 +7,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 
 function findWebDir(): string | null {
   const candidates = [
-    process.env.RESOLVRNOW_WEB_DIR,
+    process.env.RESOLVRNOW_WEB_DIR && resolve(process.env.RESOLVRNOW_WEB_DIR),
     resolve(here, '../../web/dist'),
     resolve(here, '../web/dist'),
     resolve(process.cwd(), 'web/dist'),

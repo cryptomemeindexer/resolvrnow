@@ -63,6 +63,7 @@ export class Context implements RecordHost {
       userName: user.userName,
       myGroups: () => user.groups,
       managerId: () => user.managerId,
+      timeZone: user.timeZone,
     };
   }
 

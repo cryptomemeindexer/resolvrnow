@@ -58,8 +58,15 @@ export class AclService {
     private registry: SchemaRegistry,
   ) {}
 
+  /**
+   * Ids are stable per operation and name, so the database mirror keeps matching the same
+   * definition when modules are added or removed.
+   */
   defineNative(def: AclDef): string {
-    const id = `native:${def.operation}:${def.name}:${this.native.size}`;
+    const base = `native:${def.operation}:${def.name}`;
+    let n = 0;
+    while (this.native.has(`${base}:${n}`)) n++;
+    const id = `${base}:${n}`;
     this.native.set(id, def);
     this.cache = null;
     return id;
@@ -85,7 +92,7 @@ export class AclService {
     const dbNative = new Set<string>();
     if (this.registry.has('sys_security_acl')) {
       const rows = this.db.all<Record<string, unknown>>(
-        `SELECT "sys_id","name","operation","active","condition","script","admin_overrides","native_id" FROM "sys_security_acl" WHERE "active" IS NULL OR "active" = 1`,
+        `SELECT "sys_id","name","operation","active","condition","script","admin_overrides","native_id" FROM "sys_security_acl"`,
       );
       const roleRows = this.registry.has('sys_security_acl_role')
         ? this.db.all<{ acl: string; role: string }>(
@@ -99,17 +106,38 @@ export class AclService {
         rolesByAcl.set(rr.acl, l);
       }
       for (const r of rows) {
+        const active = r.active === null || r.active === undefined || r.active === 1;
         const nativeId = (r.native_id as string) || null;
-        const nat = nativeId ? this.native.get(nativeId) : undefined;
-        if (nativeId) dbNative.add(nativeId);
+        if (nativeId) {
+          // A mirror of a native ACL only contributes its active flag: the definition in code
+          // decides roles, condition and script, so a stale or incomplete mirror (for example a
+          // role that did not exist when it was written) can never widen access. Mirrors of
+          // definitions that no longer exist are ignored.
+          const nat = this.native.get(nativeId);
+          if (!nat) continue;
+          dbNative.add(nativeId);
+          if (!active) continue;
+          push({
+            id: String(r.sys_id),
+            name: nat.name,
+            operation: nat.operation,
+            roles: nat.roles ?? [],
+            condition: nat.condition ?? null,
+            script: nat.script ?? null,
+            scriptSource: null,
+            adminOverrides: nat.adminOverrides ?? true,
+          });
+          continue;
+        }
+        if (!active) continue;
         push({
           id: String(r.sys_id),
           name: String(r.name),
           operation: String(r.operation),
           roles: rolesByAcl.get(String(r.sys_id)) ?? [],
           condition: (r.condition as string) || null,
-          script: nat?.script ?? null,
-          scriptSource: nat ? null : ((r.script as string) || null),
+          script: null,
+          scriptSource: (r.script as string) || null,
           adminOverrides: r.admin_overrides === null || r.admin_overrides === undefined ? true : r.admin_overrides === 1,
         });
       }
@@ -163,16 +191,21 @@ export class AclService {
     return this.decide(names, operation, rec, ctx);
   }
 
-  /** Field level check (table-level access must also pass). */
+  /**
+   * Field level check (table-level access must also pass). On a new record, field-level
+   * create ACLs apply when the field has any; otherwise its write ACLs do, so a field that
+   * users may not change cannot be set on insert either.
+   */
   canField(ctx: Context, table: string, field: string, operation: AclOperation, rec: Rec | null = null): boolean {
     if (ctx.user.isSystem || !ctx.enforceAcl) return true;
     const meta = this.registry.tryTable(table);
     const chain = meta?.ancestors ?? [table];
     const names = [...chain.map((t) => `${t}.${field}`), `*.${field}`, ...chain.map((t) => `${t}.*`), '*.*'];
-    const map = this.load();
-    for (const name of names) {
-      const acls = map.get(`${operation}|${name}`);
-      if (acls?.length) return acls.some((a) => this.pass(a, rec, ctx));
+    const decision = this.decide(names, operation, rec, ctx);
+    if (decision.matched) return decision.allowed;
+    if (operation === 'create') {
+      const write = this.decide(names, 'write', rec, ctx);
+      if (write.matched) return write.allowed;
     }
     // No field ACL: field access follows table access.
     return true;
