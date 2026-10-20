@@ -1,0 +1,46 @@
+{
+  "name": "@resolvrnow/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ResolvrNow platform engine, ITSM modules and REST API server",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "resolvrnow": "dist/cli/index.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed:demo": "tsx src/cli/index.ts demo",
+    "cli": "tsx src/cli/index.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.136.0",
+    "@fastify/cookie": "11.1.3",
+    "@fastify/multipart": "10.1.4",
+    "@fastify/static": "10.1.6",
+    "@jitl/quickjs-wasmfile-release-sync": "0.32.0",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "better-sqlite3": "13.0.3",
+    "fastify": "5.12.7",
+    "nodemailer": "10.1.7",
+    "quickjs-emscripten-core": "0.32.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "22.20.5",
+    "@types/nodemailer": "8.0.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

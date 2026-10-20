@@ -1,0 +1,23 @@
+{
+  "name": "resolvrnow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ResolvrNow: an open-source, clean-room IT Service Management platform with ServiceNow-compatible REST APIs.",
+  "license": "MIT",
+  "workspaces": ["server", "web"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "npm run dev --workspace server",
+    "dev:web": "npm run dev --workspace web",
+    "build": "npm run build --workspace web && npm run build --workspace server",
+    "start": "npm run start --workspace server",
+    "test": "npm run test --workspace server && npm run test --workspace web --if-present",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace web",
+    "lint": "biome check .",
+    "format": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "typescript": "5.9.3"
+  }
+}

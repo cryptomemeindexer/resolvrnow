@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResolvrNow: open-source IT service management</title>
+  <meta name="description" content="ResolvrNow is an open-source IT service management platform: incidents, problems, changes, requests, knowledge, CMDB, SLAs and AI assist, with a REST API that existing integrations already speak." />
+  <meta property="og:title" content="ResolvrNow: open-source IT service management" />
+  <meta property="og:description" content="Incidents, problems, changes, requests, knowledge, CMDB, SLAs and AI on one metadata-driven platform. Self-host in one command." />
+  <meta property="og:image" content="https://resolvrnow.com/assets/og.png" />
+  <meta name="theme-color" content="#0f5f63" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      --brand-50: #eefbf9; --brand-100: #d3f3ef; --brand-300: #74d0c8; --brand-500: #1f9690; --brand-600: #157873; --brand-700: #0f5f63; --brand-800: #0d4b4f; --brand-900: #0a3a3d;
+      --ember: #f5b544; --ember-600: #db9419;
+      --bg: #f7f8fa; --surface: #ffffff; --line: #e3e6eb; --ink: #121826; --muted: #5b6474;
+      --radius: 14px;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d1117; --surface: #141a22; --line: #273141; --ink: #e8ecf2; --muted: #a3adbd; color-scheme: dark; }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    header.top { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(160%) blur(10px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
+    header.top .wrap { display: flex; align-items: center; gap: 18px; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; font-size: 17px; }
+    .logo span b { color: var(--brand-600); }
+    nav.links { margin-left: auto; display: flex; gap: 22px; font-size: 14px; }
+    nav.links a { text-decoration: none; color: var(--muted); }
+    nav.links a:hover { color: var(--ink); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid transparent; transition: transform .12s ease, background .12s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: var(--brand-700); color: #fff; }
+    .btn.primary:hover { background: var(--brand-800); }
+    .btn.ghost { border-color: var(--line); background: var(--surface); }
+    .hero { padding: 84px 0 56px; position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: -40% -10% auto auto; width: 620px; height: 620px; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-500) 26%, transparent), transparent); pointer-events: none; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 5px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); display: inline-block; }
+    h1 { font-size: clamp(36px, 5.6vw, 60px); line-height: 1.04; letter-spacing: -0.03em; margin: 18px 0 18px; max-width: 900px; }
+    h1 em { font-style: normal; color: var(--brand-600); }
+    .lede { font-size: 19px; color: var(--muted); max-width: 720px; margin: 0 0 30px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .install { margin-top: 26px; display: inline-flex; align-items: center; gap: 10px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; background: var(--brand-900); color: #d9f5f1; padding: 12px 16px; border-radius: 10px; max-width: 100%; overflow-x: auto; }
+    .install span { color: var(--brand-300); user-select: none; }
+    .shot { margin-top: 54px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); box-shadow: 0 30px 80px -30px rgba(10, 58, 61, .35); overflow: hidden; }
+    .shot img { display: block; width: 100%; height: auto; }
+    section { padding: 72px 0; }
+    section h2 { font-size: clamp(26px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0 0 12px; }
+    section .sub { color: var(--muted); max-width: 720px; margin: 0 0 36px; font-size: 17px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .card h3 { margin: 10px 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--brand-50); color: var(--brand-700); }
+    @media (prefers-color-scheme: dark) { .ico { background: color-mix(in srgb, var(--brand-500) 18%, transparent); color: var(--brand-300); } }
+    .split { display: grid; gap: 28px; grid-template-columns: 1fr 1fr; align-items: center; }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } nav.links { display: none; } }
+    pre.code { margin: 0; background: #0b1220; color: #dbe7f3; border-radius: var(--radius); padding: 20px; font-size: 13.5px; overflow-x: auto; line-height: 1.6; border: 1px solid #1d2a3d; }
+    pre.code .c { color: #7f8ea3; } pre.code .k { color: var(--brand-300); } pre.code .s { color: var(--ember); }
+    ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    ul.checks li { padding-left: 28px; position: relative; }
+    ul.checks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--brand-600); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.2 3.3 8l1-1 2.2 2.2 5.2-5.2 1 1z' fill='black'/%3E%3C/svg%3E") center/contain no-repeat, radial-gradient(#000, #000); }
+    .band { background: linear-gradient(135deg, var(--brand-800), var(--brand-700)); color: #e9fbf8; border-radius: 22px; padding: 44px; }
+    .band h2 { color: #fff; } .band p { color: #c8eee8; }
+    footer { border-top: 1px solid var(--line); padding: 34px 0 50px; color: var(--muted); font-size: 13.5px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+    .muted { color: var(--muted); }
+    .kicker { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; color: var(--brand-600); }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="logo" href="#">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0f5f63"/><path d="M18 40c0-9 7-16 16-16h12v8H34c-4.4 0-8 3.6-8 8s3.6 8 8 8h12v8H34c-8.8 0-16-7.2-16-16z" fill="#f5b544"/><circle cx="46" cy="20" r="5" fill="#fff"/></svg>
+        <span>Resolvr<b>Now</b></span>
+      </a>
+      <nav class="links">
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="#ai">AI</a>
+        <a href="#self-host">Self-host</a>
+        <a href="https://github.com/cryptomemeindexer/resolvrnow">GitHub</a>
+      </nav>
+      <a class="btn primary" href="https://github.com/cryptomemeindexer/resolvrnow">Get the code</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="wrap">
+        <span class="eyebrow"><i></i> Open source · MIT licensed · Self-hosted</span>
+        <h1>IT service management that <em>resolves</em>, not just records.</h1>
+        <p class="lede">Incidents, problems, changes, requests, knowledge, CMDB, SLAs and AI assist on one metadata-driven platform, with a REST API your existing integrations already speak.</p>
+        <div class="cta">
+          <a class="btn primary" href="#self-host">Run it in one command</a>
+          <a class="btn ghost" href="https://github.com/cryptomemeindexer/resolvrnow">Star on GitHub</a>
+        </div>
+        <div class="install"><span>$</span> docker compose up -d &nbsp;<span># then open http://localhost:8080</span></div>
+        <div class="shot"><img src="assets/workspace.png" alt="ResolvrNow agent workspace showing an incident with its activity stream" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="kicker">Everything a service desk needs</div>
+        <h2>One platform, every ITSM process.</h2>
+        <p class="sub">Each application is a module on the same engine: tables, rules, access controls, workflows and UI share one data model, so records connect instead of being copied between tools.</p>
+        <div class="grid">
+          <div class="card"><div class="ico">⚡</div><h3>Incident management</h3><p>Priority from impact × urgency, assignment, hold reasons, reopen, auto-close, parent/child incidents and major incident handling.</p></div>
+          <div class="card"><div class="ico">🔍</div><h3>Problem management</h3><p>Root cause analysis, known errors, workarounds pushed to linked incidents, and problem tasks.</p></div>
+          <div class="card"><div class="ico">⇄</div><h3>Change management</h3><p>Normal, standard and emergency changes with risk scoring, CAB approvals, conflict detection, blackout windows and a change calendar.</p></div>
+          <div class="card"><div class="ico">🛒</div><h3>Service catalog</h3><p>Catalog items with variables, cart and checkout, requested items, fulfillment tasks, approvals and flows.</p></div>
+          <div class="card"><div class="ico">📘</div><h3>Knowledge</h3><p>Knowledge bases with review and publishing, versions, ratings, feedback and fast full-text search.</p></div>
+          <div class="card"><div class="ico">🗺️</div><h3>CMDB</h3><p>Configuration items with class inheritance, relationships, dependency maps, impact analysis and health scores.</p></div>
+          <div class="card"><div class="ico">⏱️</div><h3>SLAs and schedules</h3><p>Response and resolution targets on business hours, pause and resume conditions, breach warnings and on-call rotations.</p></div>
+          <div class="card"><div class="ico">📊</div><h3>Dashboards</h3><p>Reports, KPI trends (MTTR, backlog, SLA attainment, change success) and dashboards for every team.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="api">
+      <div class="wrap split">
+        <div>
+          <div class="kicker">Drop-in compatible</div>
+          <h2>Speaks the API your scripts already use.</h2>
+          <p class="sub">ResolvrNow implements the widely used Table, Aggregate, Attachment, Import Set, Batch, CMDB, Catalog, Change and Knowledge REST APIs. It supports encoded queries (with dot-walking, OR clauses and date macros), display values and pagination headers, so existing integrations and migration scripts keep working.</p>
+          <ul class="checks">
+            <li><code>sysparm_query</code>, <code>sysparm_fields</code>, <code>sysparm_display_value</code> and friends</li>
+            <li>Basic auth, API tokens and session cookies</li>
+            <li>Built-in importer to copy records from another compatible instance</li>
+          </ul>
+        </div>
+        <pre class="code"><span class="c"># Same request, same response shape</span>
+<span class="k">curl</span> -u agent:•••• \
+  <span class="s">"https://itsm.example.com/api/now/table/incident?\
+sysparm_query=active=true^priority=1^ORDERBYDESCsys_created_on&\
+sysparm_fields=number,short_description,assigned_to&\
+sysparm_display_value=true&sysparm_limit=5"</span>
+
+{ <span class="s">"result"</span>: [
+  { <span class="s">"number"</span>: <span class="s">"INC0010042"</span>,
+    <span class="s">"short_description"</span>: <span class="s">"VPN drops every 10 minutes"</span>,
+    <span class="s">"assigned_to"</span>: { <span class="s">"display_value"</span>: <span class="s">"Marcus Chen"</span>,
+                     <span class="s">"link"</span>: <span class="s">"…/api/now/table/sys_user/…"</span> } }
+] }</pre>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="wrap">
+        <div class="band">
+          <div class="kicker" style="color:#f5b544">AI that works offline, and better online</div>
+          <h2>Predict, summarize, resolve.</h2>
+          <p>Built-in machine learning classifies and routes tickets, finds similar incidents and suggests knowledge, all locally with no external service. Add a Claude API key to get incident summaries, resolution notes, knowledge drafts and grounded answers. An MCP server lets your AI agents work tickets safely, with the same access controls as your people.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="self-host">
+      <div class="wrap split">
+        <div>
+          <div class="kicker">Self-host in minutes</div>
+          <h2>Your data, your infrastructure.</h2>
+          <p class="sub">A single Node.js process with an embedded SQLite database. It runs on a laptop, a small VM or any container platform. Demo data for a fictional company is one flag away.</p>
+          <ul class="checks">
+            <li>One container, one volume, no external dependencies</li>
+            <li>Agent workspace and employee self-service portal included</li>
+            <li>MIT licensed: fork it, extend it, ship it</li>
+          </ul>
+        </div>
+        <pre class="code"><span class="c"># Docker</span>
+<span class="k">git</span> clone https://github.com/cryptomemeindexer/resolvrnow
+<span class="k">cd</span> resolvrnow && <span class="k">docker</span> compose up -d
+
+<span class="c"># or Node.js 22+</span>
+<span class="k">npm</span> ci && <span class="k">npm</span> run build
+RESOLVRNOW_DEMO=true <span class="k">npm</span> start
+<span class="c"># → http://localhost:8080  (demo users: password demo1234)</span></pre>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="kicker">How it was built</div>
+        <h2>Reverse engineered in the open.</h2>
+        <p class="sub">ResolvrNow was built clean-room from public product pages, public documentation and a vendor SDK published under the MIT license, studied with the open-source <a href="https://github.com/morluto/rea">REA</a> toolkit. The full evidence ledger is in the repository.</p>
+        <a class="btn ghost" href="https://github.com/cryptomemeindexer/resolvrnow/tree/main/docs/reverse-engineering">Read the reverse-engineering report</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 ResolvrNow contributors · MIT License</div>
+      <div class="muted">ServiceNow is a trademark of ServiceNow, Inc. ResolvrNow is an independent project, not affiliated with or endorsed by ServiceNow, Inc.</div>
+    </div>
+  </footer>
+</body>
+</html>

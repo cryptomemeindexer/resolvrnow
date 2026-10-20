@@ -1,0 +1,6437 @@
+{
+  "_meta": {
+    "title": "ResolvrNow companion data: Service Catalog, Request Management, Knowledge, Portal, Universal Request, Virtual Agent, Walk-up",
+    "specs": [
+      "docs/spec/service-catalog.md",
+      "docs/spec/knowledge.md",
+      "docs/spec/portal-and-virtual-agent.md"
+    ],
+    "release": "ServiceNow Brazil public docs plus SDK table metadata",
+    "date": "2026-10-21",
+    "conventions": {
+      "choices": "Each choice is {value,label,sequence,dependentValue}. Basis notes live in _meta.choiceBasis.",
+      "tables": "Tables use the SDK JSON shape (label, extends, audit, number, columns) like the sibling data files. 'extendsExisting: true' means merge the columns into the SDK table of the same name (server/src/schema/sdk/sdk-tables.json). 'note' starts with the Documented / Inferred basis.",
+      "constants": "variableTypes (item_option_new.type codes), properties (name -> type, default, area, basis), numbering, events, roles.",
+      "basis": "Documented = stated in public docs; Inferred = filled gap or ResolvrNow decision."
+    },
+    "choiceBasis": {
+      "sc_request.request_state": "Labels Pending Approval / closure outcomes documented; values inferred (default 'requested' from SDK JSON)",
+      "sc_request.stage": "Inferred (SDK default 'requested')",
+      "sc_request.state": "Labels documented (closure roll-up); integers inferred (task convention)",
+      "sc_req_item.state": "Labels documented (Universal Request state mapping); integers inferred",
+      "sc_req_item.stage": "Labels Waiting for Approval, Fulfillment, Delivery, Completed documented; values inferred",
+      "sc_task.state": "Labels documented; integers inferred",
+      "task.approval": "Values documented (Case API approval field); labels inferred except Not Yet Requested",
+      "sysapproval_approver.state": "Inferred (mirrors task.approval)",
+      "sc_cat_item.access_type": "Labels documented; values inferred (SDK default 'restricted')",
+      "sc_cat_item.request_method": "Labels documented; values inferred",
+      "sc_cat_item.fulfillment_automation_level": "Labels documented; values inferred (SDK default 'unspecified')",
+      "sc_cat_item.availability": "Labels documented; values inferred (SDK default 'on_desktop')",
+      "sc_cat_item.recurring_frequency": "Labels Monthly/Annually and keys daily/monthly/yearly documented (API); rest inferred",
+      "sc_cat_item_content.content_type": "Labels documented; values inferred",
+      "item_option_new.type": "Codes 2, 6, 7 documented (API sample); others inferred platform convention",
+      "item_option_new_set.type": "Labels documented; values from SDK JSON default 'one_to_one'",
+      "sc_cart_item.quantity": "Documented (default choices 1-10)",
+      "catalog_ui_policy_action.*": "Labels documented; values inferred",
+      "kb_knowledge.workflow_state": "Labels documented; values draft/review/published documented, others inferred",
+      "kb_knowledge.article_type": "HTML or wiki documented; values inferred (SDK default 'text')",
+      "kb_knowledge.confidence": "Labels documented (KCS); values inferred",
+      "kb_knowledge.governance": "Labels documented (experience / compliance based); values inferred",
+      "kb_feedback_task.state": "Labels documented; integers inferred",
+      "kb_feedback_task.resolution_code": "Labels documented; values inferred",
+      "kb_feedback.reason": "Inferred",
+      "kb_submission.status": "Closed outcomes documented via event names; values inferred",
+      "sys_cs_conversation.state": "Labels documented (usage analytics); values inferred",
+      "interaction.state": "Walk-up labels documented; values inferred",
+      "universal_request.state": "Labels New, In Progress, Closed documented; Awaiting, Canceled and all values inferred",
+      "universal_request.state_reason": "'Confirm response' documented; others inferred",
+      "portal_ticket_config.show_description": "Labels documented (ticket configuration form); values inferred",
+      "portal_ticket_tab.type": "Labels documented (tab configuration); values inferred",
+      "asmt_assessment_instance.state": "Inferred (survey state docs not in corpus)",
+      "asmt_metric.datatype": "Inferred",
+      "m2m_connected_content.content_type": "Inferred (connected content concept documented)",
+      "sn_ex_sp_quick_link.content_type": "Inferred (quick link content types documented as a concept)"
+    }
+  },
+  "choices": {
+    "sc_request.request_state": [
+      {
+        "value": "requested",
+        "label": "Pending Approval",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "in_process",
+        "label": "Approved",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_complete",
+        "label": "Closed Complete",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_incomplete",
+        "label": "Closed Incomplete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_cancelled",
+        "label": "Closed Cancelled",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_rejected",
+        "label": "Closed Rejected",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_skipped",
+        "label": "Closed Skipped",
+        "sequence": 7,
+        "dependentValue": null
+      }
+    ],
+    "sc_request.stage": [
+      {
+        "value": "requested",
+        "label": "Requested",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "waiting_for_approval",
+        "label": "Waiting for Approval",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "fulfillment",
+        "label": "Fulfillment",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_complete",
+        "label": "Closed Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_incomplete",
+        "label": "Closed Incomplete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_cancelled",
+        "label": "Closed Cancelled",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_rejected",
+        "label": "Closed Rejected",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_skipped",
+        "label": "Closed Skipped",
+        "sequence": 8,
+        "dependentValue": null
+      }
+    ],
+    "sc_request.state": [
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Closed Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Closed Incomplete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed Skipped",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "sc_req_item.state": [
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Closed Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Closed Incomplete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed Skipped",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "sc_req_item.stage": [
+      {
+        "value": "waiting_for_approval",
+        "label": "Waiting for Approval",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "request_approved",
+        "label": "Request Approved",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "fulfillment",
+        "label": "Fulfillment",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "delivery",
+        "label": "Delivery",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "complete",
+        "label": "Completed",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "Request Cancelled",
+        "label": "Request Cancelled",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "sc_req_item.recurring_frequency": [
+      {
+        "value": "daily",
+        "label": "Daily",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "weekly",
+        "label": "Weekly",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "weekly2",
+        "label": "Every 2 Weeks",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "monthly",
+        "label": "Monthly",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "monthly2",
+        "label": "Every 2 Months",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "quarterly",
+        "label": "Quarterly",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "semiannual",
+        "label": "Semi-Annually",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "yearly",
+        "label": "Annually",
+        "sequence": 8,
+        "dependentValue": null
+      }
+    ],
+    "sc_task.state": [
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Closed Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Closed Incomplete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed Skipped",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "task.approval": [
+      {
+        "value": "not requested",
+        "label": "Not Yet Requested",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "requested",
+        "label": "Requested",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "approved",
+        "label": "Approved",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "rejected",
+        "label": "Rejected",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "cancelled",
+        "label": "Cancelled",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "not_required",
+        "label": "No Longer Required",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "duplicate",
+        "label": "Duplicate",
+        "sequence": 7,
+        "dependentValue": null
+      }
+    ],
+    "sysapproval_approver.state": [
+      {
+        "value": "not requested",
+        "label": "Not Yet Requested",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "requested",
+        "label": "Requested",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "approved",
+        "label": "Approved",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "rejected",
+        "label": "Rejected",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "cancelled",
+        "label": "Cancelled",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "not_required",
+        "label": "No Longer Required",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "duplicate",
+        "label": "Duplicate",
+        "sequence": 7,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.type": [
+      {
+        "value": "item",
+        "label": "Item",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "bundle",
+        "label": "Bundle",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "package",
+        "label": "Package",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.availability": [
+      {
+        "value": "on_both",
+        "label": "Desktop and Classic Mobile",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "on_desktop",
+        "label": "Desktop Only",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "on_mobile",
+        "label": "Classic Mobile Only",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.access_type": [
+      {
+        "value": "restricted",
+        "label": "Restricted",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "delegated",
+        "label": "Delegated",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.request_method": [
+      {
+        "value": "order",
+        "label": "Order",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "request",
+        "label": "Request",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "submit",
+        "label": "Submit",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.fulfillment_automation_level": [
+      {
+        "value": "unspecified",
+        "label": "Unspecified",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "manual",
+        "label": "Manual",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "semi_automated",
+        "label": "Semi-automated",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "fully_automated",
+        "label": "Fully automated",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.recurring_frequency": [
+      {
+        "value": "daily",
+        "label": "Daily",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "weekly",
+        "label": "Weekly",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "weekly2",
+        "label": "Every 2 Weeks",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "monthly",
+        "label": "Monthly",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "monthly2",
+        "label": "Every 2 Months",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "quarterly",
+        "label": "Quarterly",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "semiannual",
+        "label": "Semi-Annually",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "yearly",
+        "label": "Annually",
+        "sequence": 8,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item.mobile_picture_type": [
+      {
+        "value": "use_desktop_picture",
+        "label": "Desktop",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "use_mobile_picture",
+        "label": "Classic Mobile",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "none",
+        "label": "None",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item_producer.redirect_url": [
+      {
+        "value": "generated_record",
+        "label": "Generated Task Record",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "catalog_home",
+        "label": "Catalog Homepage",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item_content.content_type": [
+      {
+        "value": "kb",
+        "label": "KB Article",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "literal",
+        "label": "Catalog Content",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "external",
+        "label": "External Content",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cat_item_content.target": [
+      {
+        "value": "within",
+        "label": "Within Catalog",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "new_window",
+        "label": "New Window/Tab",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new.type": [
+      {
+        "value": "1",
+        "label": "Yes / No",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Multi Line Text",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Multiple Choice",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Numeric Scale",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "5",
+        "label": "Select Box",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "6",
+        "label": "Single Line Text",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "CheckBox",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "8",
+        "label": "Reference",
+        "sequence": 8,
+        "dependentValue": null
+      },
+      {
+        "value": "9",
+        "label": "Date",
+        "sequence": 9,
+        "dependentValue": null
+      },
+      {
+        "value": "10",
+        "label": "Date/Time",
+        "sequence": 10,
+        "dependentValue": null
+      },
+      {
+        "value": "11",
+        "label": "Label",
+        "sequence": 11,
+        "dependentValue": null
+      },
+      {
+        "value": "12",
+        "label": "Break",
+        "sequence": 12,
+        "dependentValue": null
+      },
+      {
+        "value": "14",
+        "label": "Custom",
+        "sequence": 13,
+        "dependentValue": null
+      },
+      {
+        "value": "15",
+        "label": "UI Page",
+        "sequence": 14,
+        "dependentValue": null
+      },
+      {
+        "value": "16",
+        "label": "Wide Single Line Text",
+        "sequence": 15,
+        "dependentValue": null
+      },
+      {
+        "value": "17",
+        "label": "Custom with Label",
+        "sequence": 16,
+        "dependentValue": null
+      },
+      {
+        "value": "18",
+        "label": "Lookup Select Box",
+        "sequence": 17,
+        "dependentValue": null
+      },
+      {
+        "value": "19",
+        "label": "Container Start",
+        "sequence": 18,
+        "dependentValue": null
+      },
+      {
+        "value": "20",
+        "label": "Container End",
+        "sequence": 19,
+        "dependentValue": null
+      },
+      {
+        "value": "21",
+        "label": "List Collector",
+        "sequence": 20,
+        "dependentValue": null
+      },
+      {
+        "value": "22",
+        "label": "Lookup Multiple Choice",
+        "sequence": 21,
+        "dependentValue": null
+      },
+      {
+        "value": "23",
+        "label": "HTML",
+        "sequence": 22,
+        "dependentValue": null
+      },
+      {
+        "value": "24",
+        "label": "Container Split",
+        "sequence": 23,
+        "dependentValue": null
+      },
+      {
+        "value": "25",
+        "label": "Masked",
+        "sequence": 24,
+        "dependentValue": null
+      },
+      {
+        "value": "26",
+        "label": "Email",
+        "sequence": 25,
+        "dependentValue": null
+      },
+      {
+        "value": "27",
+        "label": "URL",
+        "sequence": 26,
+        "dependentValue": null
+      },
+      {
+        "value": "28",
+        "label": "IP Address",
+        "sequence": 27,
+        "dependentValue": null
+      },
+      {
+        "value": "29",
+        "label": "Duration",
+        "sequence": 28,
+        "dependentValue": null
+      },
+      {
+        "value": "31",
+        "label": "Requested For",
+        "sequence": 29,
+        "dependentValue": null
+      },
+      {
+        "value": "32",
+        "label": "Rich Text Label",
+        "sequence": 30,
+        "dependentValue": null
+      },
+      {
+        "value": "33",
+        "label": "Attachment",
+        "sequence": 31,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new.use_reference_qualifier": [
+      {
+        "value": "simple",
+        "label": "Simple",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "dynamic",
+        "label": "Dynamic",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "advanced",
+        "label": "Advanced",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new.choice_direction": [
+      {
+        "value": "across",
+        "label": "Across",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "down",
+        "label": "Down",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new.lookup_source": [
+      {
+        "value": "table",
+        "label": "Table",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "choices",
+        "label": "Choices",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new.layout": [
+      {
+        "value": "normal",
+        "label": "1 Column Wide",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2across",
+        "label": "2 Columns Wide, alternating sides",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2down",
+        "label": "2 Columns Wide, one side then the other",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new_set.type": [
+      {
+        "value": "one_to_one",
+        "label": "Single Row",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "one_to_many",
+        "label": "Multi Row",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "item_option_new_set.layout": [
+      {
+        "value": "normal",
+        "label": "1 Column Wide",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2across",
+        "label": "2 Columns Wide, alternating sides",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2down",
+        "label": "2 Columns Wide, one side then the other",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sc_cart_item.quantity": [
+      {
+        "value": "1",
+        "label": "1",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "4",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "5",
+        "label": "5",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "6",
+        "label": "6",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "7",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "8",
+        "label": "8",
+        "sequence": 8,
+        "dependentValue": null
+      },
+      {
+        "value": "9",
+        "label": "9",
+        "sequence": 9,
+        "dependentValue": null
+      },
+      {
+        "value": "10",
+        "label": "10",
+        "sequence": 10,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy.applies_to": [
+      {
+        "value": "item",
+        "label": "A Catalog Item",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "set",
+        "label": "A Variable Set",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy_action.mandatory": [
+      {
+        "value": "ignore",
+        "label": "Leave alone",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "true",
+        "label": "True",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "false",
+        "label": "False",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy_action.visible": [
+      {
+        "value": "ignore",
+        "label": "Leave alone",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "true",
+        "label": "True",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "false",
+        "label": "False",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy_action.disabled": [
+      {
+        "value": "ignore",
+        "label": "Leave alone",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "true",
+        "label": "True",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "false",
+        "label": "False",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy_action.value_action": [
+      {
+        "value": "ignore",
+        "label": "Leave alone",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "set_value",
+        "label": "Set value",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "clear_value",
+        "label": "Clear value",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "catalog_ui_policy_action.field_message_type": [
+      {
+        "value": "none",
+        "label": "None",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "info",
+        "label": "Info",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "warning",
+        "label": "Warning",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "error",
+        "label": "Error",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "catalog_script_client.type": [
+      {
+        "value": "onLoad",
+        "label": "onLoad",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "onChange",
+        "label": "onChange",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "onSubmit",
+        "label": "onSubmit",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "catalog_script_client.applies_to": [
+      {
+        "value": "item",
+        "label": "A Catalog Item",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "set",
+        "label": "A Variable Set",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "catalog_script_client.ui_type": [
+      {
+        "value": "0",
+        "label": "Desktop",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Mobile / Service Portal",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "10",
+        "label": "All",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "request_filter.applies_to": [
+      {
+        "value": "desktop",
+        "label": "Desktop",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "portal",
+        "label": "Service Portal",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "both",
+        "label": "Desktop/Service Portal",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "mobile",
+        "label": "Mobile",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "sc_ordered_item_link.target": [
+      {
+        "value": "_blank",
+        "label": "New window",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "_self",
+        "label": "Same window",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "kb_knowledge.workflow_state": [
+      {
+        "value": "draft",
+        "label": "Draft",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "review",
+        "label": "Review",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "scheduled_publish",
+        "label": "Scheduled for publish",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "published",
+        "label": "Published",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "pending_retirement",
+        "label": "Pending retirement",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "retired",
+        "label": "Retired",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "outdated",
+        "label": "Outdated",
+        "sequence": 7,
+        "dependentValue": null
+      }
+    ],
+    "kb_knowledge.article_type": [
+      {
+        "value": "text",
+        "label": "HTML",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "wiki",
+        "label": "Wiki",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "kb_knowledge.confidence": [
+      {
+        "value": "in_progress",
+        "label": "Work in Progress",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "validated",
+        "label": "Validated",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "not_validated",
+        "label": "Not Validated",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "archived",
+        "label": "Archived",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "kb_knowledge.governance": [
+      {
+        "value": "experience",
+        "label": "Experience Based",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "compliance",
+        "label": "Compliance Based",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "kb_knowledge_base.kb_version": [
+      {
+        "value": "2",
+        "label": "Knowledge Management v2",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Knowledge Management v3",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "kb_feedback.useful": [
+      {
+        "value": "yes",
+        "label": "Yes",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "no",
+        "label": "No",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "kb_feedback.reason": [
+      {
+        "value": "inaccurate",
+        "label": "Inaccurate information",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "outdated",
+        "label": "Outdated content",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "incomplete",
+        "label": "Incomplete content",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "inappropriate",
+        "label": "Inappropriate content",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "broken_link",
+        "label": "Broken link or image",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "other",
+        "label": "Other",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "kb_feedback_task.state": [
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Awaiting Information",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "6",
+        "label": "Resolved",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "8",
+        "label": "Cancelled",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "kb_feedback_task.resolution_code": [
+      {
+        "value": "updated_article",
+        "label": "Updated article",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "created_article",
+        "label": "Created article",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "updated_search_config",
+        "label": "Updated search configuration",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "no_action",
+        "label": "No action",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "others",
+        "label": "Others",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "kb_submission.status": [
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_created",
+        "label": "Closed - Article Created",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_duplicate",
+        "label": "Closed - Duplicate",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_invalid",
+        "label": "Closed - Invalid",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "ts_query_kb.sort_order": [
+      {
+        "value": "relevance",
+        "label": "Relevancy",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "views",
+        "label": "Views",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "newest",
+        "label": "Newest",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "alphabetical",
+        "label": "Alphabetical",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "kb_article_template.active": [
+      {
+        "value": "true",
+        "label": "Active",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "false",
+        "label": "Inactive",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "sys_cs_conversation.state": [
+      {
+        "value": "open",
+        "label": "Open",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "completed",
+        "label": "Completed",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "faulted",
+        "label": "Faulted",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "canceled",
+        "label": "Canceled",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "sys_cb_topic.status": [
+      {
+        "value": "draft",
+        "label": "Draft",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "modified",
+        "label": "Modified",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "published",
+        "label": "Published",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sys_cb_topic.model_type": [
+      {
+        "value": "llm",
+        "label": "LLM",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "nlu",
+        "label": "NLU / Keyword",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "interaction.state": [
+      {
+        "value": "new",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "queued",
+        "label": "Queued",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "work_in_progress",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "on_hold",
+        "label": "On Hold",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_complete",
+        "label": "Closed Complete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "closed_abandoned",
+        "label": "Closed Abandoned",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "wu_location_queue.queue_time_display": [
+      {
+        "value": "none",
+        "label": "None",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "check_in_time",
+        "label": "Check-in time",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "time_waited",
+        "label": "Time waited",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "wu_location_queue.appointment_type": [
+      {
+        "value": "in_person",
+        "label": "In-person",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "remote",
+        "label": "Remote",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "both",
+        "label": "Both",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "wu_location_queue.name_configuration": [
+      {
+        "value": "first",
+        "label": "First name",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "first_last",
+        "label": "First and last name",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "first_last_initial",
+        "label": "First name and last initial",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "wu_appointment.appointment_type": [
+      {
+        "value": "in_person",
+        "label": "In-person",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "remote",
+        "label": "Remote",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "universal_request.state": [
+      {
+        "value": "1",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "In Progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Awaiting",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Closed",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Canceled",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "universal_request.state_reason": [
+      {
+        "value": "routing",
+        "label": "Routing",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "confirm_response",
+        "label": "Confirm response",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "user_info",
+        "label": "Awaiting user information",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "transferred",
+        "label": "Transferred",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "m2m_connected_content.content_type": [
+      {
+        "value": "catalog",
+        "label": "Catalog item",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "knowledge",
+        "label": "Knowledge article",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "quick_link",
+        "label": "Quick link",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "sn_ex_sp_quick_link.content_type": [
+      {
+        "value": "url",
+        "label": "External link",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "page",
+        "label": "Portal page",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "catalog",
+        "label": "Catalog item",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "knowledge",
+        "label": "Knowledge article",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "portal_ticket_config.show_description": [
+      {
+        "value": "none",
+        "label": "None",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "always",
+        "label": "Always",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "no_variables",
+        "label": "When no variables",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "portal_ticket_tab.type": [
+      {
+        "value": "none",
+        "label": "None",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "activity",
+        "label": "Activity",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "attachments",
+        "label": "Attachments",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "custom",
+        "label": "Custom",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "variable_editor",
+        "label": "Variable Editor (Read-Only)",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "variable_summarizer",
+        "label": "Variable Summarizer",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "asmt_assessment_instance.state": [
+      {
+        "value": "ready",
+        "label": "Ready to take",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "wip",
+        "label": "In progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "complete",
+        "label": "Complete",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "canceled",
+        "label": "Canceled",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "asmt_metric_type.evaluation_method": [
+      {
+        "value": "survey",
+        "label": "Survey",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "assessment",
+        "label": "Assessment",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "asmt_metric.datatype": [
+      {
+        "value": "scale",
+        "label": "Scale",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "numeric",
+        "label": "Numeric",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "boolean",
+        "label": "Yes / No",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "choice",
+        "label": "Choice",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "string",
+        "label": "String",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "date",
+        "label": "Date",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "sys_embedded_tour_step.placement": [
+      {
+        "value": "top",
+        "label": "Top",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "bottom",
+        "label": "Bottom",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "left",
+        "label": "Left",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "right",
+        "label": "Right",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ]
+  },
+  "tables": {
+    "sc_cat_item": {
+      "label": "Catalog Item (ResolvrNow extension columns)",
+      "extends": "sys_metadata",
+      "audit": false,
+      "extendsExisting": true,
+      "note": "Basis: Inferred (labels of UR fields documented). Merge into the SDK JSON sc_cat_item definition.",
+      "columns": {
+        "ur_enabled": {
+          "type": "boolean",
+          "label": "UR certified/enabled item",
+          "default": false
+        },
+        "ur_requires_review": {
+          "type": "boolean",
+          "label": "Requires Additional Review",
+          "default": false
+        },
+        "u_manager_approval": {
+          "type": "boolean",
+          "label": "Requires manager approval (ResolvrNow default flow)",
+          "default": false
+        }
+      }
+    },
+    "sc_cat_item_content": {
+      "label": "Content Item",
+      "extends": "sc_cat_item",
+      "audit": false,
+      "note": "Basis: Documented (fields), Inferred (column names).",
+      "columns": {
+        "content_type": {
+          "type": "string",
+          "label": "Content type",
+          "maxLength": 40,
+          "choiceMode": "dropdown_without_none",
+          "default": "literal"
+        },
+        "kb_article": {
+          "type": "reference",
+          "label": "KB article",
+          "reference": "kb_knowledge"
+        },
+        "url": {
+          "type": "url",
+          "label": "URL",
+          "maxLength": 1024
+        },
+        "target": {
+          "type": "string",
+          "label": "Target",
+          "maxLength": 40,
+          "choiceMode": "dropdown_without_none",
+          "default": "within"
+        }
+      }
+    },
+    "sc_cat_item_category": {
+      "label": "Catalog Item Category",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "sc_category": {
+          "type": "reference",
+          "label": "Category",
+          "reference": "sc_category",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_cat_item_catalog": {
+      "label": "Catalog Item Catalog",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "sc_catalog": {
+          "type": "reference",
+          "label": "Catalog",
+          "reference": "sc_catalog",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_cat_item_user_criteria_mtom": {
+      "label": "Available For (item)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "user_criteria": {
+          "type": "reference",
+          "label": "User criteria",
+          "reference": "user_criteria",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_cat_item_user_criteria_no_mtom": {
+      "label": "Not Available For (item)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "user_criteria": {
+          "type": "reference",
+          "label": "User criteria",
+          "reference": "user_criteria",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_category_user_criteria_mtom": {
+      "label": "Available For (category)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_category": {
+          "type": "reference",
+          "label": "Category",
+          "reference": "sc_category",
+          "mandatory": true
+        },
+        "user_criteria": {
+          "type": "reference",
+          "label": "User criteria",
+          "reference": "user_criteria",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_category_user_criteria_no_mtom": {
+      "label": "Not Available For (category)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name).",
+      "columns": {
+        "sc_category": {
+          "type": "reference",
+          "label": "Category",
+          "reference": "sc_category",
+          "mandatory": true
+        },
+        "user_criteria": {
+          "type": "reference",
+          "label": "User criteria",
+          "reference": "user_criteria",
+          "mandatory": true
+        }
+      }
+    },
+    "item_option_new": {
+      "label": "Variable",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form labels), Inferred (column names).",
+      "columns": {
+        "cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item"
+        },
+        "variable_set": {
+          "type": "reference",
+          "label": "Variable set",
+          "reference": "item_option_new_set"
+        },
+        "type": {
+          "type": "integer",
+          "label": "Type",
+          "mandatory": true,
+          "choiceMode": "dropdown_without_none",
+          "default": 6
+        },
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "maxLength": 100
+        },
+        "question_text": {
+          "type": "translated_text",
+          "label": "Question",
+          "maxLength": 255
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "mandatory": {
+          "type": "boolean",
+          "label": "Mandatory",
+          "default": false
+        },
+        "read_only": {
+          "type": "boolean",
+          "label": "Read only",
+          "default": false
+        },
+        "hidden": {
+          "type": "boolean",
+          "label": "Hidden",
+          "default": false
+        },
+        "default_value": {
+          "type": "string",
+          "label": "Default value",
+          "maxLength": 8000
+        },
+        "tooltip": {
+          "type": "translated_text",
+          "label": "Tooltip",
+          "maxLength": 255
+        },
+        "example_text": {
+          "type": "translated_text",
+          "label": "Example text",
+          "maxLength": 255
+        },
+        "show_help": {
+          "type": "boolean",
+          "label": "Show help",
+          "default": false
+        },
+        "help_tag": {
+          "type": "translated_text",
+          "label": "Help tag",
+          "maxLength": 100
+        },
+        "help_text": {
+          "type": "translated_text",
+          "label": "Help text",
+          "maxLength": 4000
+        },
+        "instructions": {
+          "type": "html",
+          "label": "Instructions",
+          "maxLength": 8000
+        },
+        "always_expanded": {
+          "type": "boolean",
+          "label": "Always expanded",
+          "default": false
+        },
+        "rich_text": {
+          "type": "html",
+          "label": "Rich text",
+          "maxLength": 8000
+        },
+        "reference": {
+          "type": "table_name",
+          "label": "Reference"
+        },
+        "use_reference_qualifier": {
+          "type": "string",
+          "label": "Use reference qualifier",
+          "maxLength": 40,
+          "default": "simple",
+          "choiceMode": "dropdown_without_none"
+        },
+        "reference_qual_condition": {
+          "type": "conditions",
+          "label": "Reference qualifier condition",
+          "maxLength": 4000
+        },
+        "dynamic_ref_qual": {
+          "type": "reference",
+          "label": "Dynamic ref qual",
+          "reference": "sys_filter_option_dynamic"
+        },
+        "reference_qual": {
+          "type": "string",
+          "label": "Reference qual",
+          "maxLength": 4000
+        },
+        "list_table": {
+          "type": "table_name",
+          "label": "List table"
+        },
+        "lookup_source": {
+          "type": "string",
+          "label": "Lookup source",
+          "maxLength": 40,
+          "default": "table",
+          "choiceMode": "dropdown_without_none"
+        },
+        "lookup_table": {
+          "type": "table_name",
+          "label": "Lookup from table"
+        },
+        "lookup_value": {
+          "type": "string",
+          "label": "Lookup value field",
+          "maxLength": 80
+        },
+        "lookup_label": {
+          "type": "string",
+          "label": "Lookup label field(s)",
+          "maxLength": 255
+        },
+        "lookup_price": {
+          "type": "string",
+          "label": "Lookup price field",
+          "maxLength": 80
+        },
+        "lookup_rec_price": {
+          "type": "string",
+          "label": "Lookup recurring price field",
+          "maxLength": 80
+        },
+        "choice_table": {
+          "type": "table_name",
+          "label": "Choice table"
+        },
+        "choice_field": {
+          "type": "string",
+          "label": "Choice field",
+          "maxLength": 80
+        },
+        "dependent_on": {
+          "type": "reference",
+          "label": "Choices depend on",
+          "reference": "item_option_new"
+        },
+        "include_none": {
+          "type": "boolean",
+          "label": "Include none",
+          "default": false
+        },
+        "do_not_select_first": {
+          "type": "boolean",
+          "label": "Do not select the first choice",
+          "default": false
+        },
+        "choice_direction": {
+          "type": "string",
+          "label": "Choice direction",
+          "maxLength": 40,
+          "default": "down",
+          "choiceMode": "dropdown_without_none"
+        },
+        "unique_values": {
+          "type": "boolean",
+          "label": "Unique values only",
+          "default": false
+        },
+        "layout": {
+          "type": "string",
+          "label": "Layout",
+          "maxLength": 40,
+          "default": "normal",
+          "choiceMode": "dropdown_without_none"
+        },
+        "scale_min": {
+          "type": "integer",
+          "label": "Scale min",
+          "default": 1
+        },
+        "scale_max": {
+          "type": "integer",
+          "label": "Scale max",
+          "default": 5
+        },
+        "price_if_checked": {
+          "type": "price",
+          "label": "Price if checked",
+          "default": "0"
+        },
+        "rec_price_if_checked": {
+          "type": "price",
+          "label": "Recurring price if checked",
+          "default": "0"
+        },
+        "pricing_implications": {
+          "type": "boolean",
+          "label": "Pricing implications",
+          "default": false
+        },
+        "use_confirmation": {
+          "type": "boolean",
+          "label": "Use confirmation",
+          "default": false
+        },
+        "use_encryption": {
+          "type": "boolean",
+          "label": "Use encryption",
+          "default": true
+        },
+        "validate_regex": {
+          "type": "string",
+          "label": "Validation regex",
+          "maxLength": 1000
+        },
+        "attributes": {
+          "type": "string",
+          "label": "Variable attributes",
+          "maxLength": 1000
+        },
+        "global": {
+          "type": "boolean",
+          "label": "Global",
+          "default": false
+        },
+        "map_to_field": {
+          "type": "boolean",
+          "label": "Map to field",
+          "default": false
+        },
+        "field": {
+          "type": "field_name",
+          "label": "Field"
+        },
+        "selection_required": {
+          "type": "boolean",
+          "label": "Selection required",
+          "default": false
+        },
+        "unique": {
+          "type": "boolean",
+          "label": "Unique (MRVS)",
+          "default": false
+        },
+        "hide_on_grid": {
+          "type": "boolean",
+          "label": "Hide on grid (MRVS)",
+          "default": false
+        },
+        "enable_also_request_for": {
+          "type": "boolean",
+          "label": "Enable also request for",
+          "default": false
+        },
+        "also_request_for_roles": {
+          "type": "user_roles",
+          "label": "Roles to use also request for"
+        },
+        "read_roles": {
+          "type": "user_roles",
+          "label": "Read roles"
+        },
+        "write_roles": {
+          "type": "user_roles",
+          "label": "Write roles"
+        },
+        "create_roles": {
+          "type": "user_roles",
+          "label": "Create roles"
+        },
+        "visible_standalone": {
+          "type": "boolean",
+          "label": "Visible elsewhere",
+          "default": true
+        },
+        "visible_bundle": {
+          "type": "boolean",
+          "label": "Visible on bundles",
+          "default": true
+        },
+        "visible_guide": {
+          "type": "boolean",
+          "label": "Visible on guides",
+          "default": true
+        },
+        "visible_summary": {
+          "type": "boolean",
+          "label": "Visible on summaries",
+          "default": true
+        },
+        "disable_initial_slot_fill": {
+          "type": "boolean",
+          "label": "Disable initial slot fill",
+          "default": false
+        },
+        "variable_width": {
+          "type": "integer",
+          "label": "Variable width (percent)",
+          "default": 100
+        }
+      }
+    },
+    "question_choice": {
+      "label": "Question Choice",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented.",
+      "columns": {
+        "question": {
+          "type": "reference",
+          "label": "Question",
+          "reference": "item_option_new",
+          "mandatory": true
+        },
+        "text": {
+          "type": "translated_text",
+          "label": "Text",
+          "maxLength": 255,
+          "mandatory": true
+        },
+        "value": {
+          "type": "string",
+          "label": "Value",
+          "maxLength": 255,
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "price": {
+          "type": "price",
+          "label": "Price",
+          "default": "0"
+        },
+        "recurring_price": {
+          "type": "price",
+          "label": "Recurring price",
+          "default": "0"
+        },
+        "inactive": {
+          "type": "boolean",
+          "label": "Inactive",
+          "default": false
+        }
+      }
+    },
+    "io_set_item": {
+      "label": "Variable Set Item",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Inferred.",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "variable_set": {
+          "type": "reference",
+          "label": "Variable set",
+          "reference": "item_option_new_set",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "catalog_ui_policy": {
+      "label": "Catalog UI Policy",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form), Inferred (column names).",
+      "columns": {
+        "applies_to": {
+          "type": "string",
+          "label": "Applies to",
+          "maxLength": 40,
+          "default": "item",
+          "choiceMode": "dropdown_without_none"
+        },
+        "catalog_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item"
+        },
+        "variable_set": {
+          "type": "reference",
+          "label": "Variable set",
+          "reference": "item_option_new_set"
+        },
+        "short_description": {
+          "type": "string",
+          "label": "Short description",
+          "maxLength": 160
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "catalog_conditions": {
+          "type": "conditions",
+          "label": "Catalog conditions",
+          "maxLength": 4000
+        },
+        "applies_catalog": {
+          "type": "boolean",
+          "label": "Applies on a Catalog Item view",
+          "default": true
+        },
+        "applies_req_item": {
+          "type": "boolean",
+          "label": "Applies on Requested Items",
+          "default": false
+        },
+        "applies_sc_task": {
+          "type": "boolean",
+          "label": "Applies on Catalog Tasks",
+          "default": false
+        },
+        "applies_target_record": {
+          "type": "boolean",
+          "label": "Applies on the Target Record",
+          "default": false
+        },
+        "on_load": {
+          "type": "boolean",
+          "label": "On load",
+          "default": true
+        },
+        "reverse_if_false": {
+          "type": "boolean",
+          "label": "Reverse if false",
+          "default": true
+        },
+        "run_scripts": {
+          "type": "boolean",
+          "label": "Run scripts",
+          "default": false
+        },
+        "script_true": {
+          "type": "script",
+          "label": "Execute if true",
+          "maxLength": 8000
+        },
+        "script_false": {
+          "type": "script",
+          "label": "Execute if false",
+          "maxLength": 8000
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "catalog_ui_policy_action": {
+      "label": "Catalog UI Policy Action",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form), Inferred (column names).",
+      "columns": {
+        "ui_policy": {
+          "type": "reference",
+          "label": "UI policy",
+          "reference": "catalog_ui_policy",
+          "mandatory": true
+        },
+        "catalog_variable": {
+          "type": "string",
+          "label": "Variable name",
+          "maxLength": 255
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "mandatory": {
+          "type": "string",
+          "label": "Mandatory",
+          "maxLength": 40,
+          "default": "ignore",
+          "choiceMode": "dropdown_without_none"
+        },
+        "visible": {
+          "type": "string",
+          "label": "Visible",
+          "maxLength": 40,
+          "default": "ignore",
+          "choiceMode": "dropdown_without_none"
+        },
+        "disabled": {
+          "type": "string",
+          "label": "Read only",
+          "maxLength": 40,
+          "default": "ignore",
+          "choiceMode": "dropdown_without_none"
+        },
+        "value_action": {
+          "type": "string",
+          "label": "Value action",
+          "maxLength": 40,
+          "default": "ignore",
+          "choiceMode": "dropdown_without_none"
+        },
+        "value": {
+          "type": "string",
+          "label": "Value",
+          "maxLength": 4000
+        },
+        "field_message_type": {
+          "type": "string",
+          "label": "Field message type",
+          "maxLength": 40,
+          "default": "none",
+          "choiceMode": "dropdown_without_none"
+        },
+        "field_message": {
+          "type": "translated_text",
+          "label": "Field message",
+          "maxLength": 1000
+        }
+      }
+    },
+    "catalog_script_client": {
+      "label": "Catalog Client Script",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (concept), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "maxLength": 100
+        },
+        "applies_to": {
+          "type": "string",
+          "label": "Applies to",
+          "maxLength": 40,
+          "default": "item",
+          "choiceMode": "dropdown_without_none"
+        },
+        "cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item"
+        },
+        "variable_set": {
+          "type": "reference",
+          "label": "Variable set",
+          "reference": "item_option_new_set"
+        },
+        "type": {
+          "type": "string",
+          "label": "Type",
+          "maxLength": 40,
+          "default": "onLoad",
+          "choiceMode": "dropdown_without_none"
+        },
+        "cat_variable": {
+          "type": "string",
+          "label": "Variable name",
+          "maxLength": 255
+        },
+        "ui_type": {
+          "type": "integer",
+          "label": "UI type",
+          "default": 10,
+          "choiceMode": "dropdown_without_none"
+        },
+        "applies_catalog": {
+          "type": "boolean",
+          "label": "Applies on a Catalog Item view",
+          "default": true
+        },
+        "applies_req_item": {
+          "type": "boolean",
+          "label": "Applies on Requested Items",
+          "default": false
+        },
+        "applies_sc_task": {
+          "type": "boolean",
+          "label": "Applies on Catalog Tasks",
+          "default": false
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "script": {
+          "type": "script",
+          "label": "Script",
+          "maxLength": 8000
+        }
+      }
+    },
+    "sc_cart": {
+      "label": "Cart",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns); names DEFAULT, WISHLIST, DRAFT and TEMP_<uuid>.",
+      "columns": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "maxLength": 100,
+          "default": "DEFAULT"
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user",
+          "mandatory": true
+        },
+        "requested_for": {
+          "type": "reference",
+          "label": "Requested for",
+          "reference": "sys_user"
+        },
+        "delivery_address": {
+          "type": "string",
+          "label": "Delivery address",
+          "maxLength": 4000
+        },
+        "special_instructions": {
+          "type": "string",
+          "label": "Special instructions",
+          "maxLength": 4000
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "sc_cart_item": {
+      "label": "Cart Item",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "cart": {
+          "type": "reference",
+          "label": "Cart",
+          "reference": "sc_cart",
+          "mandatory": true
+        },
+        "cat_item": {
+          "type": "reference",
+          "label": "Item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "quantity": {
+          "type": "integer",
+          "label": "Quantity",
+          "default": 1,
+          "choiceMode": "dropdown_without_none"
+        },
+        "price": {
+          "type": "price",
+          "label": "Price",
+          "default": "0"
+        },
+        "recurring_price": {
+          "type": "price",
+          "label": "Recurring price",
+          "default": "0"
+        },
+        "recurring_frequency": {
+          "type": "choice",
+          "label": "Recurring frequency",
+          "choiceMode": "dropdown_with_none"
+        },
+        "requested_for": {
+          "type": "reference",
+          "label": "Requested for",
+          "reference": "sys_user"
+        },
+        "order_guide": {
+          "type": "reference",
+          "label": "Order guide",
+          "reference": "sc_cat_item_guide"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "hints": {
+          "type": "string",
+          "label": "Hints",
+          "maxLength": 4000
+        }
+      }
+    },
+    "sc_item_option": {
+      "label": "Options",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "item_option_new": {
+          "type": "reference",
+          "label": "Question",
+          "reference": "item_option_new",
+          "mandatory": true
+        },
+        "value": {
+          "type": "string",
+          "label": "Value",
+          "maxLength": 4000
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "sc_item_option_mtom": {
+      "label": "Variable Ownership",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns; cart_item link is a ResolvrNow choice).",
+      "columns": {
+        "request_item": {
+          "type": "reference",
+          "label": "Request item",
+          "reference": "sc_req_item"
+        },
+        "cart_item": {
+          "type": "reference",
+          "label": "Cart item",
+          "reference": "sc_cart_item"
+        },
+        "sc_item_option": {
+          "type": "reference",
+          "label": "Option",
+          "reference": "sc_item_option",
+          "mandatory": true
+        }
+      }
+    },
+    "question_answer": {
+      "label": "Question Answer",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "table_name": {
+          "type": "table_name",
+          "label": "Table name",
+          "mandatory": true
+        },
+        "table_sys_id": {
+          "type": "document_id",
+          "label": "Table sys ID",
+          "mandatory": true
+        },
+        "question": {
+          "type": "reference",
+          "label": "Question",
+          "reference": "item_option_new",
+          "mandatory": true
+        },
+        "value": {
+          "type": "string",
+          "label": "Value",
+          "maxLength": 4000
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "sc_multi_row_question_answer": {
+      "label": "Multi Row Question Answer",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "parent_table_name": {
+          "type": "table_name",
+          "label": "Parent table",
+          "mandatory": true
+        },
+        "parent_id": {
+          "type": "document_id",
+          "label": "Parent",
+          "mandatory": true
+        },
+        "variable_set": {
+          "type": "reference",
+          "label": "Variable set",
+          "reference": "item_option_new_set",
+          "mandatory": true
+        },
+        "item_option_new": {
+          "type": "reference",
+          "label": "Question",
+          "reference": "item_option_new",
+          "mandatory": true
+        },
+        "row_index": {
+          "type": "string",
+          "label": "Row index",
+          "maxLength": 32,
+          "mandatory": true
+        },
+        "value": {
+          "type": "string",
+          "label": "Value",
+          "maxLength": 4000
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "sc_item_produced_record": {
+      "label": "Item Produced Record",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "producer": {
+          "type": "reference",
+          "label": "Record producer",
+          "reference": "sc_cat_item_producer",
+          "mandatory": true
+        },
+        "record_table": {
+          "type": "table_name",
+          "label": "Record table",
+          "mandatory": true
+        },
+        "record_key": {
+          "type": "document_id",
+          "label": "Record",
+          "mandatory": true
+        },
+        "task": {
+          "type": "reference",
+          "label": "Task",
+          "reference": "task"
+        }
+      }
+    },
+    "sc_cat_item_guide_items": {
+      "label": "Order Guide Rule",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (labels), Inferred (table and column names).",
+      "columns": {
+        "guide": {
+          "type": "reference",
+          "label": "Guide",
+          "reference": "sc_cat_item_guide",
+          "mandatory": true
+        },
+        "position": {
+          "type": "integer",
+          "label": "At this position",
+          "default": 100
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "If this condition is true",
+          "maxLength": 4000
+        },
+        "item": {
+          "type": "reference",
+          "label": "Include this item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "ignore_mandatory": {
+          "type": "boolean",
+          "label": "Ignore mandatory evaluation",
+          "default": false
+        },
+        "use_cart_layout": {
+          "type": "boolean",
+          "label": "Use cart layout",
+          "default": true
+        },
+        "show_quantity": {
+          "type": "boolean",
+          "label": "Show quantity",
+          "default": false
+        },
+        "quantity": {
+          "type": "integer",
+          "label": "Quantity",
+          "default": 1
+        }
+      }
+    },
+    "sc_cat_item_app_user": {
+      "label": "Approved By (user)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (related list), Inferred (table).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "approver": {
+          "type": "reference",
+          "label": "Approver",
+          "reference": "sys_user",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_cat_item_app_group": {
+      "label": "Approved By (group)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (related list), Inferred (table).",
+      "columns": {
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        },
+        "approver": {
+          "type": "reference",
+          "label": "Approver group",
+          "reference": "sys_user_group",
+          "mandatory": true
+        }
+      }
+    },
+    "sc_script_order_guide_failure": {
+      "label": "Scriptable Order Guide Failure",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "order_guide": {
+          "type": "reference",
+          "label": "Order guide",
+          "reference": "sc_cat_item_guide"
+        },
+        "payload": {
+          "type": "string",
+          "label": "JSON payload",
+          "maxLength": 65000
+        },
+        "message": {
+          "type": "string",
+          "label": "Message",
+          "maxLength": 4000
+        },
+        "reprocessed": {
+          "type": "boolean",
+          "label": "Reprocessed",
+          "default": false
+        }
+      }
+    },
+    "request_filter": {
+      "label": "My Request Filter",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form; reparented to sys_filter in the platform).",
+      "columns": {
+        "title": {
+          "type": "translated_text",
+          "label": "Title",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "mandatory": true
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "applies_to": {
+          "type": "string",
+          "label": "Applies to",
+          "maxLength": 40,
+          "default": "both",
+          "choiceMode": "dropdown_without_none"
+        },
+        "filter": {
+          "type": "conditions",
+          "label": "Filter",
+          "maxLength": 4000
+        },
+        "portal_page": {
+          "type": "reference",
+          "label": "Portal page",
+          "reference": "sp_page"
+        },
+        "primary_display": {
+          "type": "field_name",
+          "label": "Primary field to display"
+        },
+        "secondary_display": {
+          "type": "field_list",
+          "label": "Secondary fields to display (max 3)"
+        }
+      }
+    },
+    "kb_knowledge": {
+      "label": "Knowledge (ResolvrNow extension columns)",
+      "extends": null,
+      "audit": false,
+      "extendsExisting": true,
+      "note": "Basis: Documented (form fields), Inferred (column names). Merge into the SDK JSON kb_knowledge definition.",
+      "columns": {
+        "language": {
+          "type": "string",
+          "label": "Language",
+          "maxLength": 40,
+          "default": "en"
+        },
+        "parent": {
+          "type": "reference",
+          "label": "Parent (base-language article)",
+          "reference": "kb_knowledge"
+        },
+        "confidence": {
+          "type": "string",
+          "label": "Confidence",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        },
+        "governance": {
+          "type": "string",
+          "label": "Governance",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        }
+      }
+    },
+    "kb_feedback": {
+      "label": "Knowledge Feedback",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table and feedback kinds), Inferred (columns).",
+      "columns": {
+        "article": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user"
+        },
+        "useful": {
+          "type": "string",
+          "label": "Helpful",
+          "maxLength": 10,
+          "choiceMode": "dropdown_with_none"
+        },
+        "rating": {
+          "type": "integer",
+          "label": "Rating (1-5)"
+        },
+        "flagged": {
+          "type": "boolean",
+          "label": "Flagged",
+          "default": false
+        },
+        "reason": {
+          "type": "string",
+          "label": "Reason",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        },
+        "comments": {
+          "type": "string",
+          "label": "Comments",
+          "maxLength": 4000
+        },
+        "parent": {
+          "type": "reference",
+          "label": "Reply to",
+          "reference": "kb_feedback"
+        },
+        "session_id": {
+          "type": "string",
+          "label": "Session ID",
+          "maxLength": 64
+        },
+        "feedback_task": {
+          "type": "reference",
+          "label": "Feedback task",
+          "reference": "kb_feedback_task"
+        }
+      }
+    },
+    "kb_feedback_task": {
+      "label": "Knowledge Feedback Task",
+      "extends": "task",
+      "audit": false,
+      "number": {
+        "prefix": "KBFT",
+        "number": 10000,
+        "digits": 7
+      },
+      "note": "Basis: Documented (table, states, resolution codes), Inferred (columns, prefix).",
+      "columns": {
+        "feedback": {
+          "type": "reference",
+          "label": "Feedback",
+          "reference": "kb_feedback"
+        },
+        "article": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "reason": {
+          "type": "string",
+          "label": "Reason",
+          "maxLength": 40
+        },
+        "resolution_code": {
+          "type": "string",
+          "label": "Resolution code",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        },
+        "submitter_accepted": {
+          "type": "boolean",
+          "label": "Submitter accepted",
+          "default": false
+        }
+      }
+    },
+    "kb_use": {
+      "label": "Knowledge Use",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (View Log fields), Inferred (task column).",
+      "columns": {
+        "article": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user"
+        },
+        "viewed": {
+          "type": "boolean",
+          "label": "Viewed",
+          "default": false
+        },
+        "used": {
+          "type": "boolean",
+          "label": "Used",
+          "default": false
+        },
+        "times_viewed": {
+          "type": "integer",
+          "label": "Times viewed",
+          "default": 0
+        },
+        "search_id": {
+          "type": "reference",
+          "label": "Search",
+          "reference": "ts_query_kb"
+        },
+        "session_id": {
+          "type": "string",
+          "label": "Session ID",
+          "maxLength": 64
+        },
+        "task": {
+          "type": "reference",
+          "label": "Task (when used)",
+          "reference": "task"
+        }
+      }
+    },
+    "ts_query_kb": {
+      "label": "Knowledge Searches",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (Search Log fields).",
+      "columns": {
+        "search_term": {
+          "type": "string",
+          "label": "Search term",
+          "maxLength": 1000
+        },
+        "results": {
+          "type": "integer",
+          "label": "Results",
+          "default": 0
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user"
+        },
+        "sort_order": {
+          "type": "string",
+          "label": "Sort order",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        },
+        "final_search_term": {
+          "type": "boolean",
+          "label": "Final search term",
+          "default": false
+        },
+        "highest_click_rank": {
+          "type": "integer",
+          "label": "Highest click rank"
+        },
+        "session_id": {
+          "type": "string",
+          "label": "Session ID",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "string",
+          "label": "Search source",
+          "maxLength": 100
+        }
+      }
+    },
+    "m2m_kb_task": {
+      "label": "Knowledge Applied to Tasks",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table).",
+      "columns": {
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "task": {
+          "type": "reference",
+          "label": "Task",
+          "reference": "task",
+          "mandatory": true
+        }
+      }
+    },
+    "kb_2_kb": {
+      "label": "Related Articles",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "related_kb_knowledge": {
+          "type": "reference",
+          "label": "Related article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        }
+      }
+    },
+    "kb_2_sc": {
+      "label": "Related Catalog Items",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "sc_cat_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item",
+          "mandatory": true
+        }
+      }
+    },
+    "m2m_kb_ci": {
+      "label": "Knowledge Related to Products",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "cmdb_ci": {
+          "type": "reference",
+          "label": "Product / CI",
+          "reference": "cmdb_ci",
+          "mandatory": true
+        }
+      }
+    },
+    "m2m_kb_feedback_likes": {
+      "label": "Knowledge Comment Likes",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "feedback": {
+          "type": "reference",
+          "label": "Comment",
+          "reference": "kb_feedback",
+          "mandatory": true
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user",
+          "mandatory": true
+        }
+      }
+    },
+    "kb_keyword": {
+      "label": "Knowledge Keyword",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "keyword": {
+          "type": "string",
+          "label": "Keyword",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "kb_knowledge_base": {
+          "type": "reference",
+          "label": "Knowledge base",
+          "reference": "kb_knowledge_base"
+        }
+      }
+    },
+    "kb_knowledge_keyword": {
+      "label": "Knowledge Keyword Mapping",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Article",
+          "reference": "kb_knowledge",
+          "mandatory": true
+        },
+        "kb_keyword": {
+          "type": "reference",
+          "label": "Keyword",
+          "reference": "kb_keyword",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "kb_article_template": {
+      "label": "Article Template",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table, inactive by default), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "child_table": {
+          "type": "table_name",
+          "label": "Template table",
+          "mandatory": true
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": false
+        },
+        "seo_description_field": {
+          "type": "field_name",
+          "label": "SEO description field"
+        }
+      }
+    },
+    "kb_article_template_definition": {
+      "label": "Article Template Definition",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "template": {
+          "type": "reference",
+          "label": "Template",
+          "reference": "kb_article_template",
+          "mandatory": true
+        },
+        "field": {
+          "type": "field_name",
+          "label": "Field",
+          "mandatory": true
+        },
+        "label": {
+          "type": "translated_text",
+          "label": "Label",
+          "maxLength": 100
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "mandatory": {
+          "type": "boolean",
+          "label": "Mandatory",
+          "default": false
+        }
+      }
+    },
+    "m2m_kb_template_kb": {
+      "label": "Knowledge Base Article Templates",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Inferred (backs the Article Templates related list).",
+      "columns": {
+        "kb_knowledge_base": {
+          "type": "reference",
+          "label": "Knowledge base",
+          "reference": "kb_knowledge_base",
+          "mandatory": true
+        },
+        "template": {
+          "type": "reference",
+          "label": "Template",
+          "reference": "kb_article_template",
+          "mandatory": true
+        }
+      }
+    },
+    "kb_template_faq": {
+      "label": "FAQ",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table, labels), Inferred (columns).",
+      "columns": {
+        "kb_question": {
+          "type": "html",
+          "label": "Question",
+          "maxLength": 65000
+        },
+        "kb_answer": {
+          "type": "html",
+          "label": "Answer",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_template_how_to": {
+      "label": "How To",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table, labels), Inferred (columns).",
+      "columns": {
+        "kb_introduction": {
+          "type": "html",
+          "label": "Introduction",
+          "maxLength": 65000
+        },
+        "kb_instructions": {
+          "type": "html",
+          "label": "Instructions",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_template_what_is": {
+      "label": "What Is",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table, labels), Inferred (columns).",
+      "columns": {
+        "kb_introduction": {
+          "type": "html",
+          "label": "Introduction",
+          "maxLength": 65000
+        },
+        "kb_explanation": {
+          "type": "html",
+          "label": "Explanation",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_template_kcs_article": {
+      "label": "KCS Article",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table, labels; kb_issue, kb_cause, kb_resolution names).",
+      "columns": {
+        "kb_issue": {
+          "type": "html",
+          "label": "Issue",
+          "maxLength": 65000
+        },
+        "kb_environment": {
+          "type": "html",
+          "label": "Environment",
+          "maxLength": 65000
+        },
+        "kb_cause": {
+          "type": "html",
+          "label": "Cause",
+          "maxLength": 65000
+        },
+        "kb_resolution": {
+          "type": "html",
+          "label": "Resolution",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_template_known_error_article": {
+      "label": "Known Error article",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table, labels), Inferred (columns).",
+      "columns": {
+        "kb_description": {
+          "type": "html",
+          "label": "Description",
+          "maxLength": 65000
+        },
+        "kb_workaround": {
+          "type": "html",
+          "label": "Workaround",
+          "maxLength": 65000
+        },
+        "kb_cause": {
+          "type": "html",
+          "label": "Cause",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_template_incident_kcs_article": {
+      "label": "Incident KCS Article",
+      "extends": "kb_knowledge",
+      "audit": false,
+      "note": "Basis: Documented (table name), Inferred (columns).",
+      "columns": {
+        "kb_issue": {
+          "type": "html",
+          "label": "Issue",
+          "maxLength": 65000
+        },
+        "kb_environment": {
+          "type": "html",
+          "label": "Environment",
+          "maxLength": 65000
+        },
+        "kb_cause": {
+          "type": "html",
+          "label": "Cause",
+          "maxLength": 65000
+        },
+        "kb_resolution": {
+          "type": "html",
+          "label": "Resolution",
+          "maxLength": 65000
+        }
+      }
+    },
+    "kb_submission": {
+      "label": "Knowledge Submission",
+      "extends": "task",
+      "audit": false,
+      "number": {
+        "prefix": "KBSUB",
+        "number": 10000,
+        "digits": 7
+      },
+      "note": "Basis: Documented (concept and events), Inferred (table name and columns).",
+      "columns": {
+        "kb_knowledge_base": {
+          "type": "reference",
+          "label": "Knowledge base",
+          "reference": "kb_knowledge_base"
+        },
+        "kb_category": {
+          "type": "reference",
+          "label": "Category",
+          "reference": "kb_category"
+        },
+        "text": {
+          "type": "html",
+          "label": "Text",
+          "maxLength": 65000
+        },
+        "parent": {
+          "type": "reference",
+          "label": "Source task",
+          "reference": "task"
+        },
+        "kb_knowledge": {
+          "type": "reference",
+          "label": "Created article",
+          "reference": "kb_knowledge"
+        },
+        "status": {
+          "type": "string",
+          "label": "Status",
+          "maxLength": 40,
+          "default": "1",
+          "choiceMode": "dropdown_without_none"
+        }
+      }
+    },
+    "csm_table_map": {
+      "label": "CSM Table Map",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table and form), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "string",
+          "label": "Mapping name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "source_table": {
+          "type": "table_name",
+          "label": "Source table",
+          "mandatory": true
+        },
+        "target_table": {
+          "type": "table_name",
+          "label": "Target table",
+          "mandatory": true
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Condition",
+          "maxLength": 4000
+        },
+        "advanced": {
+          "type": "boolean",
+          "label": "Advanced field mapping",
+          "default": false
+        },
+        "script": {
+          "type": "script",
+          "label": "Advanced mapping script",
+          "maxLength": 8000
+        }
+      }
+    },
+    "csm_field_map": {
+      "label": "CSM Field Map",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "table_map": {
+          "type": "reference",
+          "label": "Table map",
+          "reference": "csm_table_map",
+          "mandatory": true
+        },
+        "source_field": {
+          "type": "field_name",
+          "label": "Source field",
+          "mandatory": true
+        },
+        "target_field": {
+          "type": "field_name",
+          "label": "Target field",
+          "mandatory": true
+        }
+      }
+    },
+    "sys_cb_topic": {
+      "label": "Topic (design time)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table, properties), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 4000
+        },
+        "model_type": {
+          "type": "string",
+          "label": "Model type",
+          "maxLength": 40,
+          "default": "llm",
+          "choiceMode": "dropdown_without_none"
+        },
+        "topic_type": {
+          "type": "string",
+          "label": "Type",
+          "maxLength": 40,
+          "default": "topic"
+        },
+        "setup_slot": {
+          "type": "string",
+          "label": "Setup slot",
+          "maxLength": 40
+        },
+        "keywords": {
+          "type": "string",
+          "label": "Keywords",
+          "maxLength": 4000
+        },
+        "roles": {
+          "type": "user_roles",
+          "label": "Roles"
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Condition",
+          "maxLength": 4000
+        },
+        "discoverable": {
+          "type": "boolean",
+          "label": "Discoverable",
+          "default": true
+        },
+        "visible": {
+          "type": "boolean",
+          "label": "Visible",
+          "default": true
+        },
+        "promoted": {
+          "type": "boolean",
+          "label": "Promoted",
+          "default": false
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": false
+        },
+        "status": {
+          "type": "string",
+          "label": "Status",
+          "maxLength": 40,
+          "default": "draft",
+          "choiceMode": "dropdown_without_none"
+        },
+        "graph": {
+          "type": "json",
+          "label": "Flow graph",
+          "maxLength": 1000000
+        },
+        "published_graph": {
+          "type": "json",
+          "label": "Published flow graph",
+          "maxLength": 1000000
+        },
+        "published_version": {
+          "type": "integer",
+          "label": "Published version",
+          "default": 0
+        }
+      }
+    },
+    "sys_cb_topic_category": {
+      "label": "Topic Category",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented.",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 1000
+        },
+        "visible_to_end_user": {
+          "type": "boolean",
+          "label": "Visible to end user",
+          "default": true
+        }
+      }
+    },
+    "sys_cs_conversation": {
+      "label": "Conversation",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table, states), Inferred (columns).",
+      "columns": {
+        "consumer": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user"
+        },
+        "state": {
+          "type": "string",
+          "label": "State",
+          "maxLength": 40,
+          "default": "open",
+          "choiceMode": "dropdown_without_none"
+        },
+        "channel": {
+          "type": "string",
+          "label": "Channel",
+          "maxLength": 40,
+          "default": "web"
+        },
+        "language": {
+          "type": "string",
+          "label": "Language",
+          "maxLength": 40
+        },
+        "interaction": {
+          "type": "reference",
+          "label": "Interaction",
+          "reference": "interaction"
+        },
+        "live_agent": {
+          "type": "boolean",
+          "label": "Transferred to live agent",
+          "default": false
+        },
+        "last_activity": {
+          "type": "glide_date_time",
+          "label": "Last activity"
+        }
+      }
+    },
+    "sys_cs_conversation_task": {
+      "label": "Conversation Task",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "conversation": {
+          "type": "reference",
+          "label": "Conversation",
+          "reference": "sys_cs_conversation",
+          "mandatory": true
+        },
+        "topic": {
+          "type": "reference",
+          "label": "Topic",
+          "reference": "sys_cb_topic"
+        },
+        "topic_version": {
+          "type": "integer",
+          "label": "Topic version"
+        },
+        "state": {
+          "type": "string",
+          "label": "State",
+          "maxLength": 40
+        },
+        "variables": {
+          "type": "json",
+          "label": "Variables",
+          "maxLength": 65000
+        }
+      }
+    },
+    "sys_cs_message": {
+      "label": "Conversation Message",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns; uiType vocabulary from the Bot API).",
+      "columns": {
+        "conversation": {
+          "type": "reference",
+          "label": "Conversation",
+          "reference": "sys_cs_conversation",
+          "mandatory": true
+        },
+        "direction": {
+          "type": "string",
+          "label": "Direction",
+          "maxLength": 10
+        },
+        "ui_type": {
+          "type": "string",
+          "label": "UI type",
+          "maxLength": 40
+        },
+        "payload": {
+          "type": "json",
+          "label": "Payload",
+          "maxLength": 65000
+        },
+        "is_agent": {
+          "type": "boolean",
+          "label": "From live agent",
+          "default": false
+        }
+      }
+    },
+    "wu_location_queue": {
+      "label": "Walk-up Location Queue",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form fields, defaults where stated), Inferred (column names; extends awa_queue in the platform).",
+      "columns": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "string",
+          "label": "Description",
+          "maxLength": 4000
+        },
+        "location": {
+          "type": "reference",
+          "label": "Location",
+          "reference": "cmn_location"
+        },
+        "schedule": {
+          "type": "reference",
+          "label": "Schedule",
+          "reference": "cmn_schedule"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "enable_online_checkin": {
+          "type": "boolean",
+          "label": "Enable online check-in",
+          "default": true
+        },
+        "enable_kiosk": {
+          "type": "boolean",
+          "label": "Enable kiosk",
+          "default": false
+        },
+        "show_estimated_wait_time": {
+          "type": "boolean",
+          "label": "Show estimated wait time",
+          "default": true
+        },
+        "position_notification": {
+          "type": "integer",
+          "label": "Position notification",
+          "default": 2
+        },
+        "last_checkin_minutes": {
+          "type": "integer",
+          "label": "Last check-in (minutes before closing)",
+          "default": 15
+        },
+        "hold_time": {
+          "type": "integer",
+          "label": "Hold time (minutes)",
+          "default": 15
+        },
+        "appointment_routing_time": {
+          "type": "integer",
+          "label": "Appointment routing time (minutes)",
+          "default": 5
+        },
+        "max_appointments_per_user": {
+          "type": "integer",
+          "label": "Maximum appointments per user",
+          "default": 1
+        },
+        "appointment_type": {
+          "type": "string",
+          "label": "Appointment type",
+          "maxLength": 40,
+          "default": "in_person"
+        },
+        "queue_time_display": {
+          "type": "string",
+          "label": "Queue time display",
+          "maxLength": 40,
+          "default": "none"
+        },
+        "name_configuration": {
+          "type": "string",
+          "label": "Name configuration",
+          "maxLength": 40,
+          "default": "first"
+        },
+        "enable_away": {
+          "type": "boolean",
+          "label": "Enable away state",
+          "default": false
+        },
+        "away_message": {
+          "type": "translated_text",
+          "label": "Away message",
+          "maxLength": 1000
+        },
+        "closed_message": {
+          "type": "translated_text",
+          "label": "Closed message",
+          "maxLength": 1000
+        },
+        "closed_record_producer": {
+          "type": "reference",
+          "label": "Closed record producer",
+          "reference": "sc_cat_item_producer"
+        },
+        "assignment_group": {
+          "type": "reference",
+          "label": "Assignment group",
+          "reference": "sys_user_group"
+        }
+      }
+    },
+    "wu_reason": {
+      "label": "Walk-up Reason for Visit",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 1000
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "skills": {
+          "type": "glide_list",
+          "label": "Required skills",
+          "reference": "cmn_skill"
+        }
+      }
+    },
+    "wu_m2m_location_queue_reason": {
+      "label": "Walk-up Reason",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "location_queue": {
+          "type": "reference",
+          "label": "Location",
+          "reference": "wu_location_queue",
+          "mandatory": true
+        },
+        "reason": {
+          "type": "reference",
+          "label": "Reason",
+          "reference": "wu_reason",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Priority order",
+          "default": 100
+        }
+      }
+    },
+    "wu_appointment": {
+      "label": "Walk-up Appointment",
+      "extends": "task",
+      "audit": false,
+      "number": {
+        "prefix": "WUAPT",
+        "number": 10000,
+        "digits": 7
+      },
+      "note": "Basis: Documented (table extends task), Inferred (columns, prefix).",
+      "columns": {
+        "location_queue": {
+          "type": "reference",
+          "label": "Location",
+          "reference": "wu_location_queue",
+          "mandatory": true
+        },
+        "reason": {
+          "type": "reference",
+          "label": "Reason",
+          "reference": "wu_reason"
+        },
+        "opened_for": {
+          "type": "reference",
+          "label": "Opened for",
+          "reference": "sys_user",
+          "mandatory": true
+        },
+        "window_start": {
+          "type": "glide_date_time",
+          "label": "Start",
+          "mandatory": true
+        },
+        "window_end": {
+          "type": "glide_date_time",
+          "label": "End",
+          "mandatory": true
+        },
+        "appointment_type": {
+          "type": "string",
+          "label": "Appointment type",
+          "maxLength": 40,
+          "default": "in_person"
+        },
+        "interaction": {
+          "type": "reference",
+          "label": "Interaction",
+          "reference": "interaction"
+        }
+      }
+    },
+    "taxonomy": {
+      "label": "Taxonomy",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (taxonomy concept; topic.taxonomy reference in SDK JSON), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 1000
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "portals": {
+          "type": "glide_list",
+          "label": "Portals",
+          "reference": "sp_portal"
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "m2m_connected_content": {
+      "label": "Connected Content",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (connected and featured content concept), Inferred (table and column names).",
+      "columns": {
+        "topic": {
+          "type": "reference",
+          "label": "Topic",
+          "reference": "topic",
+          "mandatory": true
+        },
+        "content_type": {
+          "type": "string",
+          "label": "Content type",
+          "maxLength": 40,
+          "mandatory": true,
+          "choiceMode": "dropdown_without_none"
+        },
+        "catalog_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item"
+        },
+        "knowledge": {
+          "type": "reference",
+          "label": "Knowledge article",
+          "reference": "kb_knowledge"
+        },
+        "quick_link": {
+          "type": "reference",
+          "label": "Quick link",
+          "reference": "sn_ex_sp_quick_link"
+        },
+        "featured": {
+          "type": "boolean",
+          "label": "Featured",
+          "default": false
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "sn_ex_sp_quick_link": {
+      "label": "Quick Link",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (quick link form, user criteria), Inferred (table and column names).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "short_description": {
+          "type": "translated_text",
+          "label": "Short description",
+          "maxLength": 255
+        },
+        "content_type": {
+          "type": "string",
+          "label": "Content type",
+          "maxLength": 40,
+          "default": "url",
+          "choiceMode": "dropdown_without_none"
+        },
+        "url": {
+          "type": "url",
+          "label": "URL",
+          "maxLength": 1024
+        },
+        "page": {
+          "type": "reference",
+          "label": "Portal page",
+          "reference": "sp_page"
+        },
+        "catalog_item": {
+          "type": "reference",
+          "label": "Catalog item",
+          "reference": "sc_cat_item"
+        },
+        "knowledge": {
+          "type": "reference",
+          "label": "Knowledge article",
+          "reference": "kb_knowledge"
+        },
+        "icon": {
+          "type": "string",
+          "label": "Icon",
+          "maxLength": 100
+        },
+        "show_on_home": {
+          "type": "boolean",
+          "label": "Show on home page",
+          "default": false
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "available_for": {
+          "type": "glide_list",
+          "label": "Available for",
+          "reference": "user_criteria"
+        },
+        "not_available_for": {
+          "type": "glide_list",
+          "label": "Not available for",
+          "reference": "user_criteria"
+        }
+      }
+    },
+    "sp_favorite": {
+      "label": "Portal Favorite",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (favorites feature), Inferred (table).",
+      "columns": {
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user",
+          "mandatory": true
+        },
+        "portal": {
+          "type": "reference",
+          "label": "Portal",
+          "reference": "sp_portal"
+        },
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "mandatory": true
+        },
+        "document": {
+          "type": "document_id",
+          "label": "Record",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "portal_ticket_config": {
+      "label": "Ticket Configuration",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (form fields), Inferred (table name, actions, timeline).",
+      "columns": {
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "mandatory": true
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "state_field": {
+          "type": "field_name",
+          "label": "State field",
+          "default": "state"
+        },
+        "show_description": {
+          "type": "string",
+          "label": "Show description",
+          "maxLength": 40,
+          "default": "no_variables",
+          "choiceMode": "dropdown_without_none"
+        },
+        "info_fields": {
+          "type": "field_list",
+          "label": "Info fields"
+        },
+        "actions": {
+          "type": "string",
+          "label": "Actions (comma list)",
+          "maxLength": 1000
+        },
+        "timeline": {
+          "type": "string",
+          "label": "Timeline template",
+          "maxLength": 40
+        }
+      }
+    },
+    "portal_ticket_tab": {
+      "label": "Ticket Tab Configuration",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (fields and limits: max 5 tabs), Inferred (table name).",
+      "columns": {
+        "config": {
+          "type": "reference",
+          "label": "Ticket configuration",
+          "reference": "portal_ticket_config",
+          "mandatory": true
+        },
+        "type": {
+          "type": "string",
+          "label": "Type",
+          "maxLength": 40,
+          "default": "none",
+          "choiceMode": "dropdown_without_none"
+        },
+        "name": {
+          "type": "translated_text",
+          "label": "Tab name",
+          "maxLength": 100
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "visible": {
+          "type": "conditions",
+          "label": "Visible condition",
+          "maxLength": 4000
+        },
+        "widget": {
+          "type": "string",
+          "label": "Widget",
+          "maxLength": 100
+        }
+      }
+    },
+    "sys_embedded_tour_guide": {
+      "label": "Guided Tour",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name, guided_tour_admin), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "portal": {
+          "type": "reference",
+          "label": "Portal",
+          "reference": "sp_portal"
+        },
+        "page_id": {
+          "type": "string",
+          "label": "Page ID",
+          "maxLength": 40
+        },
+        "roles": {
+          "type": "user_roles",
+          "label": "Roles"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "auto_launch": {
+          "type": "boolean",
+          "label": "Auto launch on first visit",
+          "default": false
+        }
+      }
+    },
+    "sys_embedded_tour_step": {
+      "label": "Guided Tour Step",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Inferred.",
+      "columns": {
+        "guide": {
+          "type": "reference",
+          "label": "Tour",
+          "reference": "sys_embedded_tour_guide",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "target": {
+          "type": "string",
+          "label": "Target selector",
+          "maxLength": 1000
+        },
+        "title": {
+          "type": "translated_text",
+          "label": "Title",
+          "maxLength": 100
+        },
+        "content": {
+          "type": "translated_text",
+          "label": "Content",
+          "maxLength": 4000
+        },
+        "placement": {
+          "type": "string",
+          "label": "Placement",
+          "maxLength": 20,
+          "default": "bottom",
+          "choiceMode": "dropdown_without_none"
+        }
+      }
+    },
+    "universal_request": {
+      "label": "Universal Request",
+      "extends": "task",
+      "audit": true,
+      "number": {
+        "prefix": "UR",
+        "number": 10000,
+        "digits": 7
+      },
+      "note": "Basis: Documented (UR prefix, labels Primary ticket, Needs resolution review, state reason), Inferred (table and column names). State choices: universal_request.state; task.universal_request and task.task_effective_number already exist in the SDK JSON.",
+      "columns": {
+        "opened_for": {
+          "type": "reference",
+          "label": "Opened for",
+          "reference": "sys_user",
+          "mandatory": true
+        },
+        "primary_task": {
+          "type": "reference",
+          "label": "Primary ticket",
+          "reference": "task"
+        },
+        "department": {
+          "type": "reference",
+          "label": "Department",
+          "reference": "sn_uni_req_department"
+        },
+        "service": {
+          "type": "reference",
+          "label": "Service",
+          "reference": "sn_uni_req_service"
+        },
+        "state_reason": {
+          "type": "string",
+          "label": "State reason",
+          "maxLength": 40,
+          "choiceMode": "dropdown_with_none"
+        },
+        "needs_resolution_review": {
+          "type": "boolean",
+          "label": "Needs resolution review",
+          "default": false
+        },
+        "restricted": {
+          "type": "boolean",
+          "label": "Restricted",
+          "default": false
+        },
+        "transfer_reason": {
+          "type": "string",
+          "label": "Transfer reason",
+          "maxLength": 255
+        },
+        "confirm_due": {
+          "type": "glide_date_time",
+          "label": "Confirmation due"
+        }
+      }
+    },
+    "universal_request_state_mapping": {
+      "label": "UR State Mapping",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table name and requested item mapping), Inferred (columns). Seed rows: sc_req_item 1,2,-5 -> 2 (In Progress); sc_req_item 3,4,7 -> 4 (Closed); incident 1,2,3 -> 2; incident 6 -> 3 with confirm_response; incident 7 -> 4; incident 8 -> 7.",
+      "columns": {
+        "primary_table": {
+          "type": "table_name",
+          "label": "Primary ticket table",
+          "mandatory": true
+        },
+        "primary_state": {
+          "type": "string",
+          "label": "Primary ticket state",
+          "maxLength": 40,
+          "mandatory": true
+        },
+        "ur_state": {
+          "type": "integer",
+          "label": "Universal request state",
+          "mandatory": true
+        },
+        "ur_state_reason": {
+          "type": "string",
+          "label": "Universal request state reason",
+          "maxLength": 40
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "sn_uni_req_department": {
+      "label": "UR Department (service set)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (departments / service sets as transfer targets), Inferred (table).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 1000
+        },
+        "assignment_group": {
+          "type": "reference",
+          "label": "Routing group",
+          "reference": "sys_user_group"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "sn_uni_req_service": {
+      "label": "UR Service",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (service configuration registers RITM or producer target tables), Inferred (table).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "department": {
+          "type": "reference",
+          "label": "Department",
+          "reference": "sn_uni_req_department",
+          "mandatory": true
+        },
+        "table_name": {
+          "type": "table_name",
+          "label": "Fulfilment table",
+          "mandatory": true
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "asmt_metric_type": {
+      "label": "Metric Type (survey definition)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "description": {
+          "type": "translated_text",
+          "label": "Description",
+          "maxLength": 1000
+        },
+        "evaluation_method": {
+          "type": "string",
+          "label": "Evaluation method",
+          "maxLength": 40,
+          "default": "survey",
+          "choiceMode": "dropdown_without_none"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "allow_retake": {
+          "type": "boolean",
+          "label": "Allow retake",
+          "default": false
+        },
+        "due_days": {
+          "type": "integer",
+          "label": "Days to complete",
+          "default": 14
+        }
+      }
+    },
+    "asmt_metric_category": {
+      "label": "Metric Category",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "metric_type": {
+          "type": "reference",
+          "label": "Metric type",
+          "reference": "asmt_metric_type",
+          "mandatory": true
+        },
+        "name": {
+          "type": "translated_text",
+          "label": "Name",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "weighting": {
+          "type": "integer",
+          "label": "Weighting",
+          "default": 1
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "asmt_metric": {
+      "label": "Metric (question)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "metric_type": {
+          "type": "reference",
+          "label": "Metric type",
+          "reference": "asmt_metric_type",
+          "mandatory": true
+        },
+        "category": {
+          "type": "reference",
+          "label": "Category",
+          "reference": "asmt_metric_category"
+        },
+        "question": {
+          "type": "translated_text",
+          "label": "Question",
+          "maxLength": 1000,
+          "mandatory": true
+        },
+        "datatype": {
+          "type": "string",
+          "label": "Data type",
+          "maxLength": 40,
+          "default": "scale",
+          "choiceMode": "dropdown_without_none"
+        },
+        "scale_min": {
+          "type": "integer",
+          "label": "Scale min",
+          "default": 1
+        },
+        "scale_max": {
+          "type": "integer",
+          "label": "Scale max",
+          "default": 5
+        },
+        "weight": {
+          "type": "decimal",
+          "label": "Weight",
+          "default": "1"
+        },
+        "mandatory": {
+          "type": "boolean",
+          "label": "Mandatory",
+          "default": false
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "asmt_metric_definition": {
+      "label": "Metric Definition (answer choice)",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table), Inferred (columns).",
+      "columns": {
+        "metric": {
+          "type": "reference",
+          "label": "Metric",
+          "reference": "asmt_metric",
+          "mandatory": true
+        },
+        "display": {
+          "type": "translated_text",
+          "label": "Display",
+          "maxLength": 100,
+          "mandatory": true
+        },
+        "value": {
+          "type": "integer",
+          "label": "Value",
+          "mandatory": true
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "asmt_assessment_instance": {
+      "label": "Assessment Instance",
+      "extends": null,
+      "audit": false,
+      "number": {
+        "prefix": "AINST",
+        "number": 10000,
+        "digits": 7
+      },
+      "note": "Basis: Inferred (not in the doc corpus).",
+      "columns": {
+        "metric_type": {
+          "type": "reference",
+          "label": "Metric type",
+          "reference": "asmt_metric_type",
+          "mandatory": true
+        },
+        "user": {
+          "type": "reference",
+          "label": "Assigned to",
+          "reference": "sys_user",
+          "mandatory": true
+        },
+        "state": {
+          "type": "string",
+          "label": "State",
+          "maxLength": 40,
+          "default": "ready",
+          "choiceMode": "dropdown_without_none"
+        },
+        "due_date": {
+          "type": "glide_date_time",
+          "label": "Due date"
+        },
+        "trigger_table": {
+          "type": "table_name",
+          "label": "Trigger table"
+        },
+        "trigger_id": {
+          "type": "document_id",
+          "label": "Trigger record"
+        },
+        "trigger_condition": {
+          "type": "reference",
+          "label": "Trigger condition",
+          "reference": "asmt_condition"
+        },
+        "taken_on": {
+          "type": "glide_date_time",
+          "label": "Taken on"
+        },
+        "percent_answered": {
+          "type": "integer",
+          "label": "Percent answered",
+          "default": 0
+        }
+      }
+    },
+    "asmt_assessment_instance_question": {
+      "label": "Assessment Instance Question",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Inferred.",
+      "columns": {
+        "instance": {
+          "type": "reference",
+          "label": "Instance",
+          "reference": "asmt_assessment_instance",
+          "mandatory": true
+        },
+        "metric": {
+          "type": "reference",
+          "label": "Metric",
+          "reference": "asmt_metric",
+          "mandatory": true
+        },
+        "value": {
+          "type": "decimal",
+          "label": "Value"
+        },
+        "string_value": {
+          "type": "string",
+          "label": "String value",
+          "maxLength": 4000
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": 100
+        }
+      }
+    },
+    "asmt_metric_result": {
+      "label": "Metric Result",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (table; normalized_value = actual_value * weight), Inferred (other columns).",
+      "columns": {
+        "instance": {
+          "type": "reference",
+          "label": "Instance",
+          "reference": "asmt_assessment_instance",
+          "mandatory": true
+        },
+        "metric": {
+          "type": "reference",
+          "label": "Metric",
+          "reference": "asmt_metric",
+          "mandatory": true
+        },
+        "user": {
+          "type": "reference",
+          "label": "User",
+          "reference": "sys_user"
+        },
+        "actual_value": {
+          "type": "decimal",
+          "label": "Actual value"
+        },
+        "normalized_value": {
+          "type": "decimal",
+          "label": "Normalized value"
+        },
+        "string_value": {
+          "type": "string",
+          "label": "String value",
+          "maxLength": 4000
+        },
+        "source_table": {
+          "type": "table_name",
+          "label": "Source table"
+        },
+        "source_id": {
+          "type": "document_id",
+          "label": "Source record"
+        }
+      }
+    },
+    "asmt_condition": {
+      "label": "Survey Trigger Condition",
+      "extends": null,
+      "audit": false,
+      "note": "Basis: Documented (editable trigger conditions), Inferred (table and columns).",
+      "columns": {
+        "metric_type": {
+          "type": "reference",
+          "label": "Survey",
+          "reference": "asmt_metric_type",
+          "mandatory": true
+        },
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "mandatory": true
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Condition",
+          "maxLength": 4000
+        },
+        "user_field": {
+          "type": "field_name",
+          "label": "User field",
+          "mandatory": true
+        },
+        "probability": {
+          "type": "integer",
+          "label": "Send percentage",
+          "default": 100
+        },
+        "repeat_interval_days": {
+          "type": "integer",
+          "label": "Minimum days between surveys per user",
+          "default": 0
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    }
+  },
+  "constants": {
+    "variableTypes": [
+      {
+        "code": 1,
+        "name": "Yes / No",
+        "friendlyType": "yes_no",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 2,
+        "name": "Multi Line Text",
+        "friendlyType": "multi_line_text",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Documented"
+      },
+      {
+        "code": 3,
+        "name": "Multiple Choice",
+        "friendlyType": "multiple_choice",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 4,
+        "name": "Numeric Scale",
+        "friendlyType": "numeric_scale",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 5,
+        "name": "Select Box",
+        "friendlyType": "select_box",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 6,
+        "name": "Single Line Text",
+        "friendlyType": "single_line_text",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Documented"
+      },
+      {
+        "code": 7,
+        "name": "CheckBox",
+        "friendlyType": "check_box",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Documented"
+      },
+      {
+        "code": 8,
+        "name": "Reference",
+        "friendlyType": "reference",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 9,
+        "name": "Date",
+        "friendlyType": "date",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 10,
+        "name": "Date/Time",
+        "friendlyType": "date_time",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 11,
+        "name": "Label",
+        "friendlyType": "label",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 12,
+        "name": "Break",
+        "friendlyType": "break",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 14,
+        "name": "Custom",
+        "friendlyType": "custom",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 15,
+        "name": "UI Page",
+        "friendlyType": "ui_page",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 16,
+        "name": "Wide Single Line Text",
+        "friendlyType": "wide_single_line_text",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 17,
+        "name": "Custom with Label",
+        "friendlyType": "custom_with_label",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 18,
+        "name": "Lookup Select Box",
+        "friendlyType": "lookup_select_box",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 19,
+        "name": "Container Start",
+        "friendlyType": "container_start",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 20,
+        "name": "Container End",
+        "friendlyType": "container_end",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 21,
+        "name": "List Collector",
+        "friendlyType": "list_collector",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 22,
+        "name": "Lookup Multiple Choice",
+        "friendlyType": "lookup_multiple_choice",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 23,
+        "name": "HTML",
+        "friendlyType": "html",
+        "collectsData": true,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 24,
+        "name": "Container Split",
+        "friendlyType": "container_split",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 25,
+        "name": "Masked",
+        "friendlyType": "masked",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 26,
+        "name": "Email",
+        "friendlyType": "email",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 27,
+        "name": "URL",
+        "friendlyType": "url",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 28,
+        "name": "IP Address",
+        "friendlyType": "ip_address",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 29,
+        "name": "Duration",
+        "friendlyType": "duration",
+        "collectsData": true,
+        "allowedInMrvs": true,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 31,
+        "name": "Requested For",
+        "friendlyType": "requested_for",
+        "collectsData": true,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 32,
+        "name": "Rich Text Label",
+        "friendlyType": "rich_text_label",
+        "collectsData": false,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      },
+      {
+        "code": 33,
+        "name": "Attachment",
+        "friendlyType": "attachment",
+        "collectsData": true,
+        "allowedInMrvs": false,
+        "_basis": "Inferred"
+      }
+    ],
+    "properties": {
+      "glide.sc.checkout.twostep": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.checkout.twostep.back": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.sp.twostep": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.enable_order_now": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.use_user_criteria": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.producer.redirect_url": {
+        "type": "string",
+        "default": "generated_record",
+        "area": "catalog",
+        "_basis": "Documented (name, choices), Inferred (default)"
+      },
+      "glide.sc.item.cannot_add_to_request": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_producer,sc_cat_item_wizard",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.item.cannot_try_it": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_producer,sc_cat_item_wizard,sc_cat_item_service",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.item.not_normal_cart_item": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_producer,sc_cat_item_wizard",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.item.cannot_show_search": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_producer,sc_cat_item_wizard",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.item.cannot_show_price": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_producer",
+        "area": "catalog",
+        "_basis": "Documented (behaviour), Inferred (exact default)"
+      },
+      "glide.sc.item.order_guide_exclusion": {
+        "type": "string",
+        "default": "sc_cat_item_guide,sc_cat_item_content",
+        "area": "catalog",
+        "_basis": "Documented (example values)"
+      },
+      "glide.sc.allow.quantity": {
+        "type": "string",
+        "default": "",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.restrict.quantity.changes": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.price.display": {
+        "type": "string",
+        "default": "nonzero",
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (value vocabulary: always, nonzero, never)"
+      },
+      "glide.sc.req_for.roles": {
+        "type": "string",
+        "default": "",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.req_for.roles.default": {
+        "type": "string",
+        "default": "allow",
+        "area": "catalog",
+        "_basis": "Documented (allow / deny), Inferred (default)"
+      },
+      "glide.sc.allow.clone.roles": {
+        "type": "string",
+        "default": "",
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.remove_inactive_cat_items_from_cart": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.auto.cart.address.reset": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.prioritise.user.location": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.use_cart_layouts": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.round.delivery.times": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.search.disabled_cats": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.search.allow_empty_search": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.search.suggestions": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.guide.tab.validate": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.ui_policy.variable_set_run_first": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.audit.variables": {
+        "type": "boolean",
+        "default": false,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.max_items": {
+        "type": "integer",
+        "default": 5,
+        "area": "catalog",
+        "_basis": "Documented"
+      },
+      "glide.sc.variable.snapshot": {
+        "type": "boolean",
+        "default": true,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "sc_orphan_item_option_delete_limit": {
+        "type": "integer",
+        "default": 1000,
+        "area": "catalog",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "resolvr.currency": {
+        "type": "string",
+        "default": "USD",
+        "area": "catalog",
+        "_basis": "Inferred (ResolvrNow)"
+      },
+      "resolvr.sc.request_approval_threshold": {
+        "type": "decimal",
+        "default": -1,
+        "area": "catalog",
+        "_basis": "Inferred (ResolvrNow; -1 disables request-level approval)"
+      },
+      "glide.knowman.versioning.enabled": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.versioning.enable_minor_edits": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.versioning.minor_edit_fields": {
+        "type": "string",
+        "default": "valid_to",
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.view_age.days": {
+        "type": "integer",
+        "default": 30,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.block_access_with_no_user_criteria": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.apply_article_read_criteria": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.search.apply_role_based_security": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name, not present by default), Inferred (effective default)"
+      },
+      "glide.knowman.search.apply_acls": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.search.operator": {
+        "type": "string",
+        "default": "and_then_or",
+        "area": "knowledge",
+        "_basis": "Documented (OR / AND then OR), Inferred (default)"
+      },
+      "glide.knowman.order.search": {
+        "type": "string",
+        "default": "relevancy",
+        "area": "knowledge",
+        "_basis": "Documented (choices), Inferred (default)"
+      },
+      "glide.knowman.enable_approval_notification": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.enable_article_replacement_on_retire": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.feedback.enable_actionable_feedback_for_flag": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.feedback.enable_actionable_feedback_for_helpful": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.feedback.enable_actionable_feedback_for_rating": {
+        "type": "integer",
+        "default": null,
+        "area": "knowledge",
+        "_basis": "Documented (none = off)"
+      },
+      "glide.knowman.feedback.enable_explicit_feedback": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.max_comments_per_user_daily": {
+        "type": "integer",
+        "default": null,
+        "area": "knowledge",
+        "_basis": "Documented (blank = unlimited)"
+      },
+      "glide.knowman.show_rating_options": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.show_yn_rating": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.show_star_rating": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.show_flag": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.show_user_feedback": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.use_live_feed": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.submission.workflow": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.task_kb": {
+        "type": "string",
+        "default": "",
+        "area": "knowledge",
+        "_basis": "Documented (sys_id of base)"
+      },
+      "glide.knowman.attach.fields": {
+        "type": "string",
+        "default": "comments",
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.recent_tasks.display": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.recent_tasks": {
+        "type": "integer",
+        "default": 5,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.enable_multi_language_search": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.ownership_group.enabled": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.knowman.ownership_group.allow_self_approval": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented (behaviour), Inferred (default)"
+      },
+      "glide.knowman.enable_km_subscription": {
+        "type": "boolean",
+        "default": true,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.enable_km_subscription.roles": {
+        "type": "string",
+        "default": "knowledge",
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.enable_km_subscription.workflow_state": {
+        "type": "string",
+        "default": "draft,review,published",
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.aqi_pass_score": {
+        "type": "integer",
+        "default": 70,
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "glide.knowman.aqi.article_workflow_states": {
+        "type": "string",
+        "default": "draft,review,published",
+        "area": "knowledge",
+        "_basis": "Documented"
+      },
+      "enable_kcs_incident": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Documented (created by admin, set true to enable)"
+      },
+      "resolvr.km_api.require_auth": {
+        "type": "boolean",
+        "default": false,
+        "area": "knowledge",
+        "_basis": "Inferred (ResolvrNow)"
+      },
+      "com.glide.cs.live_agent_queue": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented"
+      },
+      "com.glide.cs.general.live_agent_handoff_message": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented (name)"
+      },
+      "com.glide.cs.general.live_agent_handoff_error_message": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented (name)"
+      },
+      "com.glide.cs.general.support_hours": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented (name)"
+      },
+      "com.glide.cs.general.support_phone": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented (name)"
+      },
+      "com.glide.cs.general.support_email": {
+        "type": "string",
+        "default": "",
+        "area": "virtual_agent",
+        "_basis": "Documented (name)"
+      },
+      "com.glide.cs.suggest.minimum_characters": {
+        "type": "integer",
+        "default": 3,
+        "area": "virtual_agent",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "com.glide.cs.idle_actionable_notification_timer": {
+        "type": "integer",
+        "default": 8,
+        "area": "virtual_agent",
+        "_basis": "Documented (hours, max 72)"
+      },
+      "com.glide.cs.per_notification_user_limit": {
+        "type": "integer",
+        "default": 100000,
+        "area": "virtual_agent",
+        "_basis": "Documented"
+      },
+      "com.glide.cs.daily_notification_limit": {
+        "type": "integer",
+        "default": 100000,
+        "area": "virtual_agent",
+        "_basis": "Documented"
+      },
+      "sn_itsm_va.fallback_search_option": {
+        "type": "string",
+        "default": "contextual_search",
+        "area": "virtual_agent",
+        "_basis": "Documented (name), Inferred (values ai_search / contextual_search)"
+      },
+      "com.snc.create_universal_request_with_incident": {
+        "type": "boolean",
+        "default": true,
+        "area": "virtual_agent",
+        "_basis": "Documented"
+      },
+      "resolvr.va.discovery_confidence_threshold": {
+        "type": "decimal",
+        "default": 0.6,
+        "area": "virtual_agent",
+        "_basis": "Inferred (ResolvrNow; platform value undocumented)"
+      },
+      "resolvr.va.conversation_idle_timeout_minutes": {
+        "type": "integer",
+        "default": 120,
+        "area": "virtual_agent",
+        "_basis": "Documented (2 h idle closes enhanced chats)"
+      },
+      "glide.sp.portals.language_selector_enabled": {
+        "type": "string",
+        "default": "",
+        "area": "portal",
+        "_basis": "Documented (comma list of portal sys_ids)"
+      },
+      "glide.service_portal.stream_entry_limit": {
+        "type": "integer",
+        "default": 100,
+        "area": "portal",
+        "_basis": "Documented"
+      },
+      "glide.service_portal.default_404_page": {
+        "type": "string",
+        "default": "404",
+        "area": "portal",
+        "_basis": "Documented"
+      },
+      "glide.service_portal.enable_human_readable_urls": {
+        "type": "boolean",
+        "default": true,
+        "area": "portal",
+        "_basis": "Documented"
+      },
+      "glide.service_portal.user_criteria_enabled": {
+        "type": "boolean",
+        "default": true,
+        "area": "portal",
+        "_basis": "Documented"
+      },
+      "glide.sc.enable_url_prefill": {
+        "type": "boolean",
+        "default": true,
+        "area": "portal",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.approval.hover": {
+        "type": "boolean",
+        "default": true,
+        "area": "portal",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "glide.sc.checkout.task.display": {
+        "type": "boolean",
+        "default": false,
+        "area": "portal",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "sn_uni_req.com.snc.ur.request_integration": {
+        "type": "boolean",
+        "default": true,
+        "area": "universal_request",
+        "_basis": "Documented (must be true), Inferred (default)"
+      },
+      "sn_uni_req.transfer_type": {
+        "type": "string",
+        "default": "direct",
+        "area": "universal_request",
+        "_basis": "Documented (name), Inferred (value)"
+      },
+      "sn_uni_req.enable_ur_all_cat_items": {
+        "type": "boolean",
+        "default": false,
+        "area": "universal_request",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "sn_uni_req.enable_ur_all_rec_prod_items": {
+        "type": "boolean",
+        "default": false,
+        "area": "universal_request",
+        "_basis": "Documented (name), Inferred (default)"
+      },
+      "sn_inc_uni_req.incident.universal_request.copy_fields": {
+        "type": "string",
+        "default": "caller_id=opened_for",
+        "area": "universal_request",
+        "_basis": "Documented (example value)"
+      },
+      "resolvr.ur.confirm_auto_close_days": {
+        "type": "integer",
+        "default": 5,
+        "area": "universal_request",
+        "_basis": "Inferred (ResolvrNow)"
+      }
+    },
+    "numbering": {
+      "sc_request": {
+        "prefix": "REQ",
+        "number": 10000,
+        "_basis": "Documented (SDK JSON)"
+      },
+      "sc_req_item": {
+        "prefix": "RITM",
+        "number": 10000,
+        "_basis": "Inferred (absent from SDK JSON)"
+      },
+      "sc_task": {
+        "prefix": "SCTASK",
+        "number": 10000,
+        "_basis": "Documented (SDK JSON)"
+      },
+      "kb_knowledge": {
+        "prefix": "KB",
+        "number": 10000,
+        "_basis": "Documented (SDK JSON)"
+      },
+      "kb_feedback_task": {
+        "prefix": "KBFT",
+        "number": 10000,
+        "_basis": "Inferred"
+      },
+      "kb_submission": {
+        "prefix": "KBSUB",
+        "number": 10000,
+        "_basis": "Inferred"
+      },
+      "wu_appointment": {
+        "prefix": "WUAPT",
+        "number": 10000,
+        "_basis": "Inferred"
+      },
+      "universal_request": {
+        "prefix": "UR",
+        "number": 10000,
+        "_basis": "Documented (prefix)"
+      },
+      "asmt_assessment_instance": {
+        "prefix": "AINST",
+        "number": 10000,
+        "_basis": "Inferred"
+      }
+    },
+    "events": [
+      {
+        "name": "sc_request.requested_for",
+        "table": "sc_request",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_request.approved",
+        "table": "sc_request",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_request.assigned",
+        "table": "sc_request",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_request.updated",
+        "table": "sc_request",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_req_item.assigned",
+        "table": "sc_req_item",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_req_item.delivery",
+        "table": "sc_req_item",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_req_item.commented",
+        "table": "sc_req_item",
+        "_basis": "Inferred"
+      },
+      {
+        "name": "sc_task.assigned.to.user",
+        "table": "sc_task",
+        "_basis": "Documented"
+      },
+      {
+        "name": "sc_task.assigned.to.group",
+        "table": "sc_task",
+        "_basis": "Documented"
+      },
+      {
+        "name": "request.approval.inserted",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "request.approval.cancelled",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "request.approval.rejected",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "approval.inserted",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "approval.rejected",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "approval.rejected.by.other",
+        "table": "sysapproval_approver",
+        "_basis": "Documented"
+      },
+      {
+        "name": "kb.submission.closed_created",
+        "table": "kb_submission",
+        "_basis": "Documented"
+      },
+      {
+        "name": "kb.submission.closed_duplicate",
+        "table": "kb_submission",
+        "_basis": "Documented"
+      },
+      {
+        "name": "kb.submission.closed_invalid",
+        "table": "kb_submission",
+        "_basis": "Documented"
+      },
+      {
+        "name": "kb.article.approved",
+        "table": "kb_knowledge",
+        "_basis": "Inferred"
+      },
+      {
+        "name": "kb.article.rejected",
+        "table": "kb_knowledge",
+        "_basis": "Inferred"
+      },
+      {
+        "name": "kb.article.expiry",
+        "table": "kb_knowledge",
+        "_basis": "Inferred (monthly expiry reminder is documented)"
+      },
+      {
+        "name": "kb_feedback_task.commented",
+        "table": "kb_feedback_task",
+        "_basis": "Inferred"
+      },
+      {
+        "name": "kb_feedback_task.resolved",
+        "table": "kb_feedback_task",
+        "_basis": "Inferred"
+      }
+    ],
+    "roles": [
+      {
+        "name": "catalog_admin",
+        "contains": [
+          "user_criteria_admin",
+          "catalog_builder_editor",
+          "catalog_template_editor",
+          "catalog",
+          "catalog_lookup_admin"
+        ],
+        "_basis": "Documented (aligned with platform-core.md)"
+      },
+      {
+        "name": "catalog_manager",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "catalog_editor",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "catalog",
+        "contains": [],
+        "_basis": "Documented (fulfillment groups)"
+      },
+      {
+        "name": "catalog_view_masked",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "itil",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "approver_user",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "sn_request_read",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "sn_request_write",
+        "contains": [
+          "sn_request_read"
+        ],
+        "_basis": "Documented (subset)"
+      },
+      {
+        "name": "sn_request_comment_write",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "sn_service_desk_agent",
+        "contains": [
+          "sn_request_write"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge_manager",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented (roles page)"
+      },
+      {
+        "name": "knowledge_admin",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge_coach",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge_domain_expert",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge_group_member",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "knowledge_group_manager",
+        "contains": [
+          "knowledge_group_member"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "kcs_candidate",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "kcs_contributor",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "kcs_publisher",
+        "contains": [
+          "knowledge"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "virtual_agent_admin",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "sn_walkup.walkup_login",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "sn_walkup.walkup_technician",
+        "contains": [
+          "interaction_agent",
+          "awa_agent"
+        ],
+        "_basis": "Documented (subset)"
+      },
+      {
+        "name": "sn_walkup.walkup_manager",
+        "contains": [
+          "sn_walkup.walkup_technician"
+        ],
+        "_basis": "Documented (subset)"
+      },
+      {
+        "name": "sn_walkup.walkup_admin",
+        "contains": [
+          "sn_walkup.walkup_manager"
+        ],
+        "_basis": "Documented (subset)"
+      },
+      {
+        "name": "sn_uni_req.routing_agent",
+        "contains": [],
+        "_basis": "Documented (routing_agent), Inferred (scoped name)"
+      },
+      {
+        "name": "sn_uni_req.sensitive_agent",
+        "contains": [],
+        "_basis": "Documented (sensitive agent role), Inferred (name)"
+      },
+      {
+        "name": "sn_uni_req.admin",
+        "contains": [
+          "sn_uni_req.routing_agent"
+        ],
+        "_basis": "Inferred"
+      },
+      {
+        "name": "survey_admin",
+        "contains": [
+          "assessment_admin"
+        ],
+        "_basis": "Documented"
+      },
+      {
+        "name": "survey_reader",
+        "contains": [],
+        "_basis": "Documented (contained in itil)"
+      },
+      {
+        "name": "guided_tour_admin",
+        "contains": [],
+        "_basis": "Documented"
+      },
+      {
+        "name": "taxonomy_admin",
+        "contains": [],
+        "_basis": "Documented (contained in sp_admin and admin)"
+      }
+    ]
+  }
+}

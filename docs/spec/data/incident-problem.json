@@ -1,0 +1,4324 @@
+{
+  "_meta": {
+    "specs": [
+      "docs/spec/incident.md",
+      "docs/spec/problem.md"
+    ],
+    "release": "ServiceNow Brazil public docs plus SDK table metadata",
+    "date": "2026-10-21",
+    "notes": [
+      "Choice labels are documented; numeric or string values not shown in the docs are inferred (see the Basis columns in the markdown specs).",
+      "Choices with inactive=true are legacy values kept for imports and REST writes.",
+      "Tables with extendsExisting=true exist in the SDK schema: fields lists only columns missing from the SDK, overrides lists dictionary overrides. Other tables are new; overrides there are dictionary overrides of inherited task columns.",
+      "Shared tables owned by sibling specs are not redefined here: task_ci, task_cmdb_ci_service, task_service_offering (cmdb.md), dl_u_priority (platform-core.md), kb_template_known_error_article, kb_template_incident_kcs_article, m2m_kb_task (knowledge.md).",
+      "Priority 3/3 = 5 follows the platform data lookup and problem pages; the incident priority page sample shows 4.",
+      "incident_task has no own numbering and inherits task (TASK prefix)."
+    ]
+  },
+  "choices": {
+    "incident.state": [
+      {
+        "value": "1",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "In Progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "On Hold",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "6",
+        "label": "Resolved",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "8",
+        "label": "Canceled",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "incident.incident_state": [
+      {
+        "value": "1",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "In Progress",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "On Hold",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "6",
+        "label": "Resolved",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "8",
+        "label": "Canceled",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "incident.hold_reason": [
+      {
+        "value": "1",
+        "label": "Awaiting Caller",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "5",
+        "label": "Awaiting Change",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Awaiting Problem",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Awaiting Vendor",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "incident.close_code": [
+      {
+        "value": "Duplicate",
+        "label": "Duplicate",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "Known error",
+        "label": "Known error",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "No resolution provided",
+        "label": "No resolution provided",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "Resolved by caller",
+        "label": "Resolved by caller",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "Resolved by change",
+        "label": "Resolved by change",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "Resolved by problem",
+        "label": "Resolved by problem",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "Resolved by request",
+        "label": "Resolved by request",
+        "sequence": 7,
+        "dependentValue": null
+      },
+      {
+        "value": "Solution provided",
+        "label": "Solution provided",
+        "sequence": 8,
+        "dependentValue": null
+      },
+      {
+        "value": "Workaround provided",
+        "label": "Workaround provided",
+        "sequence": 9,
+        "dependentValue": null
+      },
+      {
+        "value": "User error",
+        "label": "User error",
+        "sequence": 10,
+        "dependentValue": null
+      },
+      {
+        "value": "Resolved - No response from caller",
+        "label": "Resolved - No response from caller",
+        "sequence": 11,
+        "dependentValue": null
+      },
+      {
+        "value": "Solved (Work Around)",
+        "label": "Solved (Work Around)",
+        "sequence": 12,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Solved (Permanently)",
+        "label": "Solved (Permanently)",
+        "sequence": 13,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Solved Remotely (Work Around)",
+        "label": "Solved Remotely (Work Around)",
+        "sequence": 14,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Solved Remotely (Permanently)",
+        "label": "Solved Remotely (Permanently)",
+        "sequence": 15,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Not Solved (Not Reproducible)",
+        "label": "Not Solved (Not Reproducible)",
+        "sequence": 16,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Not Solved (Too Costly)",
+        "label": "Not Solved (Too Costly)",
+        "sequence": 17,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "Closed/Resolved by Caller",
+        "label": "Closed/Resolved by Caller",
+        "sequence": 18,
+        "dependentValue": null,
+        "inactive": true
+      }
+    ],
+    "incident.category": [
+      {
+        "value": "inquiry",
+        "label": "Inquiry / Help",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "software",
+        "label": "Software",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "hardware",
+        "label": "Hardware",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "network",
+        "label": "Network",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "database",
+        "label": "Database",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "incident.subcategory": [
+      {
+        "value": "antivirus",
+        "label": "Antivirus",
+        "sequence": 1,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 2,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "internal application",
+        "label": "Internal Application",
+        "sequence": 3,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 4,
+        "dependentValue": "software"
+      },
+      {
+        "value": "os",
+        "label": "Operating System",
+        "sequence": 5,
+        "dependentValue": "software"
+      },
+      {
+        "value": "cpu",
+        "label": "CPU",
+        "sequence": 6,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "disk",
+        "label": "Disk",
+        "sequence": 7,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "keyboard",
+        "label": "Keyboard",
+        "sequence": 8,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "memory",
+        "label": "Memory",
+        "sequence": 9,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "monitor",
+        "label": "Monitor",
+        "sequence": 10,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "mouse",
+        "label": "Mouse",
+        "sequence": 11,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "dhcp",
+        "label": "DHCP",
+        "sequence": 12,
+        "dependentValue": "network"
+      },
+      {
+        "value": "dns",
+        "label": "DNS",
+        "sequence": 13,
+        "dependentValue": "network"
+      },
+      {
+        "value": "ip address",
+        "label": "IP Address",
+        "sequence": 14,
+        "dependentValue": "network"
+      },
+      {
+        "value": "vpn",
+        "label": "VPN",
+        "sequence": 15,
+        "dependentValue": "network"
+      },
+      {
+        "value": "wireless",
+        "label": "Wireless",
+        "sequence": 16,
+        "dependentValue": "network"
+      },
+      {
+        "value": "db2",
+        "label": "DB2",
+        "sequence": 17,
+        "dependentValue": "database"
+      },
+      {
+        "value": "sql server",
+        "label": "MS SQL Server",
+        "sequence": 18,
+        "dependentValue": "database"
+      },
+      {
+        "value": "oracle",
+        "label": "Oracle",
+        "sequence": 19,
+        "dependentValue": "database"
+      }
+    ],
+    "task.impact": [
+      {
+        "value": "1",
+        "label": "1 - High",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - Medium",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Low",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "task.urgency": [
+      {
+        "value": "1",
+        "label": "1 - High",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - Medium",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Low",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "task.priority": [
+      {
+        "value": "1",
+        "label": "1 - Critical",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - High",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Moderate",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "4 - Low",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "5",
+        "label": "5 - Planning",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "task.escalation": [
+      {
+        "value": "0",
+        "label": "Normal",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Moderate",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "High",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Overdue",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "incident.severity": [
+      {
+        "value": "1",
+        "label": "1 - High",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - Medium",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Low",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "incident.contact_type": [
+      {
+        "value": "chat",
+        "label": "Chat",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "phone",
+        "label": "Phone",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "monitoring",
+        "label": "Monitoring",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "self-service",
+        "label": "Self-service",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "virtual_agent",
+        "label": "Virtual agent",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "walk-in",
+        "label": "Walk-in",
+        "sequence": 7,
+        "dependentValue": null
+      }
+    ],
+    "incident.notify": [
+      {
+        "value": "1",
+        "label": "Do Not Notify",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Send Email",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "incident.major_incident_state": [
+      {
+        "value": "proposed",
+        "label": "Proposed",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "accepted",
+        "label": "Accepted",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "rejected",
+        "label": "Rejected",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "canceled",
+        "label": "Canceled",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "incident_task.state": [
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Closed Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "Closed Incomplete",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Closed Skipped",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "problem.state": [
+      {
+        "value": "101",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "102",
+        "label": "Assess",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "103",
+        "label": "Root Cause Analysis",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "104",
+        "label": "Fix in Progress",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "106",
+        "label": "Resolved",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "107",
+        "label": "Closed",
+        "sequence": 6,
+        "dependentValue": null
+      }
+    ],
+    "problem.problem_state": [
+      {
+        "value": "101",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "102",
+        "label": "Assess",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "103",
+        "label": "Root Cause Analysis",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "104",
+        "label": "Fix in Progress",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "106",
+        "label": "Resolved",
+        "sequence": 5,
+        "dependentValue": null
+      },
+      {
+        "value": "107",
+        "label": "Closed",
+        "sequence": 6,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 7,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "2",
+        "label": "Known Error",
+        "sequence": 8,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "3",
+        "label": "Pending Change",
+        "sequence": 9,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "4",
+        "label": "Closed/Resolved",
+        "sequence": 10,
+        "dependentValue": null,
+        "inactive": true
+      }
+    ],
+    "problem.resolution_code": [
+      {
+        "value": "fix_applied",
+        "label": "Fix Applied",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "risk_accepted",
+        "label": "Risk Accepted",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "duplicate",
+        "label": "Duplicate",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "canceled",
+        "label": "Canceled",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "problem.category": [
+      {
+        "value": "inquiry",
+        "label": "Inquiry / Help",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "software",
+        "label": "Software",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "hardware",
+        "label": "Hardware",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "network",
+        "label": "Network",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "database",
+        "label": "Database",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "problem.subcategory": [
+      {
+        "value": "antivirus",
+        "label": "Antivirus",
+        "sequence": 1,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 2,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "internal application",
+        "label": "Internal Application",
+        "sequence": 3,
+        "dependentValue": "inquiry"
+      },
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 4,
+        "dependentValue": "software"
+      },
+      {
+        "value": "os",
+        "label": "Operating System",
+        "sequence": 5,
+        "dependentValue": "software"
+      },
+      {
+        "value": "cpu",
+        "label": "CPU",
+        "sequence": 6,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "disk",
+        "label": "Disk",
+        "sequence": 7,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "keyboard",
+        "label": "Keyboard",
+        "sequence": 8,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "memory",
+        "label": "Memory",
+        "sequence": 9,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "monitor",
+        "label": "Monitor",
+        "sequence": 10,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "mouse",
+        "label": "Mouse",
+        "sequence": 11,
+        "dependentValue": "hardware"
+      },
+      {
+        "value": "dhcp",
+        "label": "DHCP",
+        "sequence": 12,
+        "dependentValue": "network"
+      },
+      {
+        "value": "dns",
+        "label": "DNS",
+        "sequence": 13,
+        "dependentValue": "network"
+      },
+      {
+        "value": "ip address",
+        "label": "IP Address",
+        "sequence": 14,
+        "dependentValue": "network"
+      },
+      {
+        "value": "vpn",
+        "label": "VPN",
+        "sequence": 15,
+        "dependentValue": "network"
+      },
+      {
+        "value": "wireless",
+        "label": "Wireless",
+        "sequence": 16,
+        "dependentValue": "network"
+      },
+      {
+        "value": "db2",
+        "label": "DB2",
+        "sequence": 17,
+        "dependentValue": "database"
+      },
+      {
+        "value": "sql server",
+        "label": "MS SQL Server",
+        "sequence": 18,
+        "dependentValue": "database"
+      },
+      {
+        "value": "oracle",
+        "label": "Oracle",
+        "sequence": 19,
+        "dependentValue": "database"
+      }
+    ],
+    "problem_task.state": [
+      {
+        "value": "151",
+        "label": "New",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "152",
+        "label": "Assess",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "154",
+        "label": "Work in Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "157",
+        "label": "Closed",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 5,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 6,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "2",
+        "label": "Work in Progress",
+        "sequence": 7,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "3",
+        "label": "Closed Complete",
+        "sequence": 8,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "4",
+        "label": "Closed Incomplete",
+        "sequence": 9,
+        "dependentValue": null,
+        "inactive": true
+      },
+      {
+        "value": "7",
+        "label": "Closed Skipped",
+        "sequence": 10,
+        "dependentValue": null,
+        "inactive": true
+      }
+    ],
+    "problem_task.problem_task_type": [
+      {
+        "value": "rca",
+        "label": "Root Cause Analysis",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "general",
+        "label": "General",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "problem_task.close_code": [
+      {
+        "value": "complete",
+        "label": "Complete",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "canceled",
+        "label": "Canceled",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "problem_task.cause_code": [
+      {
+        "value": "environmental_disaster",
+        "label": "Environmental disaster",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "hardware_issue",
+        "label": "Hardware issue",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "people_process_documentation",
+        "label": "People/Process/Documentation",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "software_issue",
+        "label": "Software issue",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "other",
+        "label": "Other",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "prb_task_model.problem_task_type": [
+      {
+        "value": "rca",
+        "label": "Root Cause Analysis",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "general",
+        "label": "General",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "model",
+        "label": "Model",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "prb_model_transition_condition.requires": [
+      {
+        "value": "predefined",
+        "label": "Predefined condition",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "condition",
+        "label": "Transition Condition",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "script",
+        "label": "Transition Script",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "major_incident_trigger_rule.action": [
+      {
+        "value": "propose",
+        "label": "Propose Major Incident",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "promote",
+        "label": "Promote Major Incident",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "incident_alert.state": [
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Closed",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Canceled",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "incident_alert.type": [
+      {
+        "value": "adhoc",
+        "label": "Ad hoc",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "end_user",
+        "label": "End User",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "stakeholder",
+        "label": "Stakeholder",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "technical",
+        "label": "Technical",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "incident_alert_task.state": [
+      {
+        "value": "-5",
+        "label": "Pending",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "1",
+        "label": "Open",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "In Progress",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "Complete",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "7",
+        "label": "Skipped",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ],
+    "cmdb_ci_outage.type": [
+      {
+        "value": "outage",
+        "label": "Outage",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "degradation",
+        "label": "Degradation",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "planned",
+        "label": "Planned",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "comm_task.channel": [
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "sms",
+        "label": "SMS",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "conference",
+        "label": "Conference",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "slack",
+        "label": "Slack",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "comm_task_definition.channel": [
+      {
+        "value": "email",
+        "label": "Email",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "sms",
+        "label": "SMS",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "conference",
+        "label": "Conference",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "slack",
+        "label": "Slack",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "comm_task.communication_frequency": [
+      {
+        "value": "once",
+        "label": "Once",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "recurring",
+        "label": "Recurring",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "comm_task_definition.communication_frequency": [
+      {
+        "value": "once",
+        "label": "Once",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "recurring",
+        "label": "Recurring",
+        "sequence": 2,
+        "dependentValue": null
+      }
+    ],
+    "comm_plan_definition.type": [
+      {
+        "value": "adhoc",
+        "label": "Ad hoc",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "end_user",
+        "label": "End User",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "stakeholder",
+        "label": "Stakeholder",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "technical",
+        "label": "Technical",
+        "sequence": 4,
+        "dependentValue": null
+      }
+    ],
+    "dl_problem_priority.impact": [
+      {
+        "value": "1",
+        "label": "1 - High",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - Medium",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Low",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "dl_problem_priority.urgency": [
+      {
+        "value": "1",
+        "label": "1 - High",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - Medium",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Low",
+        "sequence": 3,
+        "dependentValue": null
+      }
+    ],
+    "dl_problem_priority.priority": [
+      {
+        "value": "1",
+        "label": "1 - Critical",
+        "sequence": 1,
+        "dependentValue": null
+      },
+      {
+        "value": "2",
+        "label": "2 - High",
+        "sequence": 2,
+        "dependentValue": null
+      },
+      {
+        "value": "3",
+        "label": "3 - Moderate",
+        "sequence": 3,
+        "dependentValue": null
+      },
+      {
+        "value": "4",
+        "label": "4 - Low",
+        "sequence": 4,
+        "dependentValue": null
+      },
+      {
+        "value": "5",
+        "label": "5 - Planning",
+        "sequence": 5,
+        "dependentValue": null
+      }
+    ]
+  },
+  "tables": {
+    "incident": {
+      "label": "Incident",
+      "extends": "task",
+      "number": {
+        "prefix": "INC",
+        "number": 10000,
+        "digits": 7
+      },
+      "extendsExisting": true,
+      "note": "Exists in the SDK schema. Only columns missing from the SDK (fields) and dictionary overrides are listed.",
+      "overrides": {
+        "contact_type": {
+          "label": "Channel"
+        },
+        "close_notes": {
+          "label": "Resolution notes"
+        }
+      },
+      "fields": {
+        "major_incident_state": {
+          "type": "string",
+          "label": "Major incident state",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40
+        },
+        "proposed_by": {
+          "type": "reference",
+          "label": "Proposed by",
+          "reference": "sys_user",
+          "readOnly": true
+        },
+        "proposed_on": {
+          "type": "glide_date_time",
+          "label": "Proposed",
+          "readOnly": true
+        },
+        "promoted_by": {
+          "type": "reference",
+          "label": "Promoted by",
+          "reference": "sys_user",
+          "readOnly": true
+        },
+        "promoted_on": {
+          "type": "glide_date_time",
+          "label": "Promoted",
+          "readOnly": true
+        },
+        "actions_taken": {
+          "type": "journal_input",
+          "label": "Actions taken",
+          "maxLength": 4000
+        },
+        "overview": {
+          "type": "html",
+          "label": "Overview"
+        },
+        "lessons_learned": {
+          "type": "html",
+          "label": "Findings"
+        },
+        "timeline": {
+          "type": "html",
+          "label": "Timeline"
+        },
+        "trigger_rule": {
+          "type": "reference",
+          "label": "Trigger rule",
+          "reference": "major_incident_trigger_rule",
+          "readOnly": true
+        }
+      }
+    },
+    "problem": {
+      "label": "Problem",
+      "extends": "task",
+      "number": {
+        "prefix": "PRB",
+        "number": 40000,
+        "digits": 7
+      },
+      "extendsExisting": true,
+      "note": "Exists in the SDK schema. No new columns; dictionary overrides only.",
+      "overrides": {
+        "short_description": {
+          "label": "Problem statement"
+        },
+        "close_notes": {
+          "label": "Resolution notes"
+        },
+        "state": {
+          "default": "101",
+          "readOnly": true
+        },
+        "problem_state": {
+          "default": "101"
+        }
+      },
+      "fields": {}
+    },
+    "incident_task": {
+      "label": "Incident Task",
+      "extends": "task",
+      "note": "No own numbering: inherits task (TASK prefix).",
+      "overrides": {
+        "state": {
+          "default": "1"
+        }
+      },
+      "fields": {
+        "incident": {
+          "type": "reference",
+          "label": "Incident",
+          "reference": "incident",
+          "mandatory": true
+        }
+      }
+    },
+    "problem_task": {
+      "label": "Problem Task",
+      "extends": "task",
+      "number": {
+        "prefix": "PTASK",
+        "number": 10000,
+        "digits": 7
+      },
+      "overrides": {
+        "state": {
+          "default": "151",
+          "readOnly": true
+        },
+        "closed_by": {
+          "label": "Completed by"
+        },
+        "closed_at": {
+          "label": "Completed"
+        }
+      },
+      "fields": {
+        "problem": {
+          "type": "reference",
+          "label": "Source problem",
+          "reference": "problem",
+          "mandatory": true
+        },
+        "problem_task_type": {
+          "type": "string",
+          "label": "Type",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40,
+          "default": "general",
+          "readOnly": true
+        },
+        "cause_code": {
+          "type": "string",
+          "label": "Cause code",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40
+        },
+        "workaround": {
+          "type": "html",
+          "label": "Workaround"
+        },
+        "fix_notes": {
+          "type": "html",
+          "label": "Proposed fix notes"
+        },
+        "close_code": {
+          "type": "string",
+          "label": "Close code",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40,
+          "readOnly": true
+        },
+        "prb_task_model": {
+          "type": "reference",
+          "label": "Model",
+          "reference": "prb_task_model"
+        },
+        "reopen_count": {
+          "type": "integer",
+          "label": "Reopen count",
+          "default": "0",
+          "readOnly": true
+        }
+      }
+    },
+    "major_incident_trigger_rule": {
+      "label": "Major Incident Trigger Rule",
+      "extends": "sys_metadata",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "unique": true,
+          "maxLength": 100
+        },
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "default": "incident"
+        },
+        "order": {
+          "type": "integer",
+          "label": "Execution Order",
+          "default": "100"
+        },
+        "action": {
+          "type": "string",
+          "label": "Action to take",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "propose"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": false
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Conditions",
+          "dependent": "table"
+        }
+      }
+    },
+    "comm_plan_definition": {
+      "label": "Communication Plan Definition",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "maxLength": 100
+        },
+        "table": {
+          "type": "table_name",
+          "label": "Table",
+          "default": "incident"
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Conditions",
+          "dependent": "table"
+        },
+        "type": {
+          "type": "string",
+          "label": "Type",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": "100"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "comm_task_definition": {
+      "label": "Communication Task Definition",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "maxLength": 100
+        },
+        "comm_plan_definition": {
+          "type": "reference",
+          "label": "Communication plan definition",
+          "reference": "comm_plan_definition",
+          "mandatory": true
+        },
+        "channel": {
+          "type": "string",
+          "label": "Channel",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "email"
+        },
+        "communication_frequency": {
+          "type": "string",
+          "label": "Communication frequency",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "once"
+        },
+        "due_in": {
+          "type": "glide_duration",
+          "label": "Due in"
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": "100"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "comm_plan": {
+      "label": "Communication Plan",
+      "extends": "task",
+      "fields": {
+        "comm_plan_definition": {
+          "type": "reference",
+          "label": "Communication plan definition",
+          "reference": "comm_plan_definition"
+        }
+      }
+    },
+    "comm_task": {
+      "label": "Communication Task",
+      "extends": "task",
+      "fields": {
+        "comm_plan": {
+          "type": "reference",
+          "label": "Communication plan",
+          "reference": "comm_plan"
+        },
+        "comm_task_definition": {
+          "type": "reference",
+          "label": "Communication task definition",
+          "reference": "comm_task_definition",
+          "readOnly": true
+        },
+        "channel": {
+          "type": "string",
+          "label": "Channel",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "email"
+        },
+        "communication_frequency": {
+          "type": "string",
+          "label": "Communication frequency",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "once"
+        },
+        "due_in": {
+          "type": "glide_duration",
+          "label": "Due in"
+        },
+        "last_communication_sent": {
+          "type": "glide_date_time",
+          "label": "Last communication sent",
+          "readOnly": true
+        },
+        "times_performed": {
+          "type": "integer",
+          "label": "Times performed",
+          "default": "0",
+          "readOnly": true
+        }
+      }
+    },
+    "incident_alert": {
+      "label": "Incident Communication Plan",
+      "extends": "comm_plan",
+      "number": {
+        "prefix": "ICP",
+        "number": 10000,
+        "digits": 7
+      },
+      "overrides": {
+        "state": {
+          "default": "1"
+        }
+      },
+      "fields": {
+        "source_incident": {
+          "type": "reference",
+          "label": "Source incident",
+          "reference": "incident"
+        },
+        "type": {
+          "type": "string",
+          "label": "Type",
+          "choiceMode": "dropdown_with_none",
+          "maxLength": 40,
+          "default": "adhoc"
+        },
+        "background": {
+          "type": "html",
+          "label": "Background"
+        },
+        "actions_taken": {
+          "type": "journal_input",
+          "label": "Actions taken",
+          "maxLength": 4000
+        }
+      }
+    },
+    "incident_alert_task": {
+      "label": "Incident Communication Task",
+      "extends": "comm_task",
+      "number": {
+        "prefix": "ICT",
+        "number": 10000,
+        "digits": 7
+      },
+      "overrides": {
+        "state": {
+          "default": "-5"
+        }
+      },
+      "fields": {
+        "incident_alert": {
+          "type": "reference",
+          "label": "Incident Communication Plan",
+          "reference": "incident_alert",
+          "readOnly": true
+        },
+        "source_incident": {
+          "type": "reference",
+          "label": "Source incident",
+          "reference": "incident",
+          "readOnly": true
+        }
+      }
+    },
+    "task_outage": {
+      "label": "Task Outage",
+      "fields": {
+        "task": {
+          "type": "reference",
+          "label": "Task",
+          "reference": "task",
+          "mandatory": true,
+          "cascade": "delete"
+        },
+        "outage": {
+          "type": "reference",
+          "label": "Outage",
+          "reference": "cmdb_ci_outage",
+          "mandatory": true,
+          "cascade": "delete"
+        }
+      }
+    },
+    "cmdb_ci_outage": {
+      "label": "Outage",
+      "number": {
+        "prefix": "OUT",
+        "number": 10000,
+        "digits": 7
+      },
+      "fields": {
+        "number": {
+          "type": "string",
+          "label": "Number",
+          "readOnly": true,
+          "maxLength": 40
+        },
+        "cmdb_ci": {
+          "type": "reference",
+          "label": "Configuration item",
+          "reference": "cmdb_ci",
+          "mandatory": true
+        },
+        "type": {
+          "type": "string",
+          "label": "Type",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "outage"
+        },
+        "begin": {
+          "type": "glide_date_time",
+          "label": "Begin"
+        },
+        "end": {
+          "type": "glide_date_time",
+          "label": "End"
+        },
+        "duration": {
+          "type": "glide_duration",
+          "label": "Duration",
+          "readOnly": true
+        },
+        "task_number": {
+          "type": "reference",
+          "label": "Task number",
+          "reference": "task"
+        },
+        "short_description": {
+          "type": "string",
+          "label": "Short description",
+          "maxLength": 160
+        }
+      }
+    },
+    "dl_problem_priority": {
+      "label": "Problem Priority Data Lookup",
+      "extends": "dl_matcher",
+      "fields": {
+        "impact": {
+          "type": "integer",
+          "label": "Impact",
+          "choiceMode": "dropdown_without_none"
+        },
+        "urgency": {
+          "type": "integer",
+          "label": "Urgency",
+          "choiceMode": "dropdown_without_none"
+        },
+        "priority": {
+          "type": "integer",
+          "label": "Priority",
+          "choiceMode": "dropdown_without_none"
+        },
+        "order": {
+          "type": "integer",
+          "label": "Order",
+          "default": "100"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "prb_model": {
+      "label": "Problem Model",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "unique": true,
+          "maxLength": 100
+        },
+        "default_model": {
+          "type": "boolean",
+          "label": "Default problem model",
+          "default": false
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "description": {
+          "type": "string",
+          "label": "Description",
+          "maxLength": 4000
+        },
+        "advanced_security": {
+          "type": "boolean",
+          "label": "Advanced Security",
+          "default": false
+        },
+        "read_roles": {
+          "type": "user_roles",
+          "label": "Read Roles"
+        },
+        "write_roles": {
+          "type": "user_roles",
+          "label": "Write Roles"
+        }
+      }
+    },
+    "prb_task_model": {
+      "label": "Problem Task Model",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "unique": true,
+          "maxLength": 100
+        },
+        "problem_task_type": {
+          "type": "string",
+          "label": "Problem task type",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "model"
+        },
+        "default_model": {
+          "type": "boolean",
+          "label": "Default problem task model",
+          "default": false
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        },
+        "description": {
+          "type": "string",
+          "label": "Description",
+          "maxLength": 4000
+        },
+        "advanced_security": {
+          "type": "boolean",
+          "label": "Advanced Security",
+          "default": false
+        },
+        "read_roles": {
+          "type": "user_roles",
+          "label": "Read Roles"
+        },
+        "write_roles": {
+          "type": "user_roles",
+          "label": "Write Roles"
+        }
+      }
+    },
+    "prb_model_state": {
+      "label": "Model State",
+      "fields": {
+        "model_table": {
+          "type": "table_name",
+          "label": "Model table",
+          "mandatory": true
+        },
+        "model": {
+          "type": "document_id",
+          "label": "Model",
+          "dependent": "model_table",
+          "mandatory": true
+        },
+        "state": {
+          "type": "integer",
+          "label": "State",
+          "mandatory": true
+        },
+        "initial_state": {
+          "type": "boolean",
+          "label": "Initial state",
+          "default": false
+        }
+      }
+    },
+    "prb_model_transition": {
+      "label": "Model State Transition",
+      "fields": {
+        "from_state": {
+          "type": "reference",
+          "label": "From",
+          "reference": "prb_model_state",
+          "mandatory": true
+        },
+        "to_state": {
+          "type": "reference",
+          "label": "To",
+          "reference": "prb_model_state",
+          "mandatory": true
+        },
+        "automatic": {
+          "type": "boolean",
+          "label": "Automatic transition",
+          "default": false
+        }
+      }
+    },
+    "prb_model_transition_condition": {
+      "label": "Model State Transition Condition",
+      "fields": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "mandatory": true,
+          "maxLength": 100
+        },
+        "transition": {
+          "type": "reference",
+          "label": "State Transition",
+          "reference": "prb_model_transition",
+          "mandatory": true
+        },
+        "description": {
+          "type": "string",
+          "label": "Description",
+          "maxLength": 4000
+        },
+        "requires": {
+          "type": "string",
+          "label": "Requires",
+          "choiceMode": "dropdown_without_none",
+          "maxLength": 40,
+          "default": "condition"
+        },
+        "condition": {
+          "type": "conditions",
+          "label": "Condition"
+        },
+        "script": {
+          "type": "script",
+          "label": "Condition (Script)"
+        },
+        "active": {
+          "type": "boolean",
+          "label": "Active",
+          "default": true
+        }
+      }
+    },
+    "resolvr_incident_strike": {
+      "label": "Incident Caller Strike",
+      "fields": {
+        "incident": {
+          "type": "reference",
+          "label": "Incident",
+          "reference": "incident",
+          "mandatory": true,
+          "cascade": "delete"
+        },
+        "attempts": {
+          "type": "integer",
+          "label": "Attempts",
+          "default": "0"
+        },
+        "next_due": {
+          "type": "glide_date_time",
+          "label": "Next due"
+        }
+      }
+    }
+  },
+  "constants": {
+    "priorityMatrix": [
+      {
+        "impact": 1,
+        "urgency": 1,
+        "priority": 1
+      },
+      {
+        "impact": 1,
+        "urgency": 2,
+        "priority": 2
+      },
+      {
+        "impact": 1,
+        "urgency": 3,
+        "priority": 3
+      },
+      {
+        "impact": 2,
+        "urgency": 1,
+        "priority": 2
+      },
+      {
+        "impact": 2,
+        "urgency": 2,
+        "priority": 3
+      },
+      {
+        "impact": 2,
+        "urgency": 3,
+        "priority": 4
+      },
+      {
+        "impact": 3,
+        "urgency": 1,
+        "priority": 3
+      },
+      {
+        "impact": 3,
+        "urgency": 2,
+        "priority": 4
+      },
+      {
+        "impact": 3,
+        "urgency": 3,
+        "priority": 5
+      }
+    ],
+    "problemPriorityMatrix": [
+      {
+        "impact": 1,
+        "urgency": 1,
+        "priority": 1
+      },
+      {
+        "impact": 1,
+        "urgency": 2,
+        "priority": 2
+      },
+      {
+        "impact": 1,
+        "urgency": 3,
+        "priority": 3
+      },
+      {
+        "impact": 2,
+        "urgency": 1,
+        "priority": 2
+      },
+      {
+        "impact": 2,
+        "urgency": 2,
+        "priority": 3
+      },
+      {
+        "impact": 2,
+        "urgency": 3,
+        "priority": 4
+      },
+      {
+        "impact": 3,
+        "urgency": 1,
+        "priority": 3
+      },
+      {
+        "impact": 3,
+        "urgency": 2,
+        "priority": 4
+      },
+      {
+        "impact": 3,
+        "urgency": 3,
+        "priority": 5
+      }
+    ],
+    "properties": {
+      "glide.ui.autoclose.time": {
+        "type": "integer",
+        "default": 7,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Days after which resolved incidents close; 0 disables"
+      },
+      "com.snc.incident.autoclose.basedon.resolved_at": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Auto-close on resolved_at instead of sys_updated_on"
+      },
+      "com.snc.incident.incident_task.closure": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident.task",
+        "basis": "documented",
+        "purpose": "Close open incident tasks when the incident closes or is canceled"
+      },
+      "com.snc.incident.strike.count": {
+        "type": "integer",
+        "default": 3,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Caller reminders before auto-resolve; 0 disables"
+      },
+      "com.snc.incident.strike.wait_period": {
+        "type": "integer",
+        "default": 1,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Business days between caller reminders"
+      },
+      "com.snc.incident.incident_alert.closure": {
+        "type": "boolean",
+        "default": false,
+        "module": "icm",
+        "basis": "documented",
+        "purpose": "Close or cancel open communication plans with the incident"
+      },
+      "com.snc.iam.incident_alert_task.closure": {
+        "type": "boolean",
+        "default": false,
+        "module": "icm",
+        "basis": "documented",
+        "purpose": "Close open communication tasks with the plan"
+      },
+      "com.snc.incident.clone_fields_on_reopen": {
+        "type": "string",
+        "default": "",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Fields cloned when a closed incident is reopened by email; empty disables"
+      },
+      "com.snc.incident.copy.enable": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Copy Incident action"
+      },
+      "com.snc.incident.create.child.enable": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Create Child Incident action"
+      },
+      "com.snc.incident.copy.attach": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Copy attachments on copy/child"
+      },
+      "com.snc.incident.copy.attributes": {
+        "type": "string",
+        "default": "category,subcategory,business_service,cmdb_ci,impact,urgency,assignment_group,short_description,description,caused_by,location,company,problem_id,rfc,parent_incident",
+        "module": "incident",
+        "basis": "documented list, inferred column names",
+        "purpose": "Fields copied on copy/child"
+      },
+      "com.snc.incident.copy.related_lists": {
+        "type": "string",
+        "default": "task_ci,task_cmdb_ci_service,task_service_offering",
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Related lists copied on copy/child"
+      },
+      "com.snc.incident.copy.rl.task_ci.attributes": {
+        "type": "string",
+        "default": "ci_item",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Affected CI columns copied"
+      },
+      "com.snc.incident.copy.rl.task_cmdb_ci_services.attributes": {
+        "type": "string",
+        "default": "cmdb_ci_service,manually_added",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Impacted service columns copied"
+      },
+      "com.snc.incident.ci_assignment_group.field_name": {
+        "type": "string",
+        "default": "support_group",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "CI column used to populate assignment_group"
+      },
+      "com.snc.incident.service_offering_assignment_group.field_name": {
+        "type": "string",
+        "default": "support_group",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Service offering column used to populate assignment_group"
+      },
+      "com.snc.incident.communicate_prb_workaround_to_inc_worknotes": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Shared problem fix/workaround goes to incident work notes instead of comments"
+      },
+      "com.snc.incident.create_from_interaction.save": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Incident created from an interaction is saved immediately"
+      },
+      "com.snc.incident.create_from_interaction.copy_attachments": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "documented",
+        "purpose": "Copy interaction attachments to the incident"
+      },
+      "glide.ui.incident_activity.fields": {
+        "type": "string",
+        "default": "",
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Fields shown in the incident activity formatter"
+      },
+      "glide.knowman.submission.workflow": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident.kcs",
+        "basis": "documented name, inferred default",
+        "purpose": "Knowledge from incidents becomes a submission"
+      },
+      "sn_major_inc_mgmt.com.snc.incident.mim.major_incident_creation": {
+        "type": "choice",
+        "default": "promote",
+        "module": "incident.mim",
+        "basis": "documented name, inferred values and default",
+        "purpose": "promote = candidate becomes the MI; create_new = new MI with candidate as child"
+      },
+      "sn_major_inc_mgmt.major_incident_management_group": {
+        "type": "string",
+        "default": "",
+        "module": "incident.mim",
+        "basis": "documented name, inferred default",
+        "purpose": "sys_id of the group that receives major incidents (seed group Major Incident Management)"
+      },
+      "sn_major_inc_mgmt.com.snc.major_incident.create.copy.attributes": {
+        "type": "string",
+        "default": "short_description,description,category,subcategory,impact,urgency,cmdb_ci,business_service",
+        "module": "incident.mim",
+        "basis": "documented name, inferred default",
+        "purpose": "Fields copied into a new MI"
+      },
+      "sn_major_inc_mgmt.com.snc.incident.mim.compose_email_on_iatasks": {
+        "type": "string",
+        "default": "email",
+        "module": "incident.mim",
+        "basis": "documented name, inferred default",
+        "purpose": "Communication task types offering Compose Email"
+      },
+      "sn_major_inc_mgmt.pir_export_pdf_ui_page": {
+        "type": "string",
+        "default": "",
+        "module": "incident.mim",
+        "basis": "documented",
+        "purpose": "Custom PIR export page"
+      },
+      "sn_comm_management.default_email_recipient_field": {
+        "type": "choice",
+        "default": "bcc",
+        "module": "icm",
+        "basis": "documented",
+        "purpose": "Recipient field for communication emails"
+      },
+      "sn_comm_management.email_client_recipient_items_enabled": {
+        "type": "boolean",
+        "default": false,
+        "module": "icm",
+        "basis": "documented name, inferred default",
+        "purpose": "Recipient lists on communication emails"
+      },
+      "sow_email_notification_redirect": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident",
+        "basis": "documented name, inferred default",
+        "purpose": "Email links open the agent workspace"
+      },
+      "sow_email_notification_redirect.incident": {
+        "type": "boolean",
+        "default": null,
+        "module": "incident",
+        "basis": "documented (optional override)",
+        "purpose": "Per-table override for incident; unset means inherit"
+      },
+      "sn_major_inc_mgmt.sow_email_notification_redirect.mim": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident.mim",
+        "basis": "documented name, inferred default",
+        "purpose": "Email links for MIs open the workspace"
+      },
+      "com.snc.problem.create_from_incident.attributes": {
+        "type": "string",
+        "default": "number,description,short_description,cmdb_ci,impact,urgency,priority,company,sys_domain,business_service,category,subcategory",
+        "module": "problem",
+        "basis": "documented",
+        "purpose": "Incident fields copied to a new problem"
+      },
+      "com.snc.problem.create_from_incident.copy_attachments": {
+        "type": "boolean",
+        "default": false,
+        "module": "problem",
+        "basis": "documented name, inferred default",
+        "purpose": "Copy attachments and KB links to a problem created from an incident"
+      },
+      "com.snc.problem.create_from_interaction.save": {
+        "type": "boolean",
+        "default": true,
+        "module": "problem",
+        "basis": "documented",
+        "purpose": "Problem created from an interaction is saved immediately"
+      },
+      "glide.problem.interaction.allow_create": {
+        "type": "boolean",
+        "default": false,
+        "module": "problem",
+        "basis": "documented",
+        "purpose": "Allow problem creation from interactions"
+      },
+      "com.snc.problem.ci_assignment_group.field_name": {
+        "type": "string",
+        "default": "support_group",
+        "module": "problem",
+        "basis": "documented name, inferred default",
+        "purpose": "CI column used to populate assignment_group"
+      },
+      "com.snc.problem.service_offering_assignment_group.field_name": {
+        "type": "string",
+        "default": "support_group",
+        "module": "problem",
+        "basis": "documented name, inferred default",
+        "purpose": "Service offering column used to populate assignment_group"
+      },
+      "problem.acceptrisk.move_to_closed": {
+        "type": "boolean",
+        "default": true,
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Accept Risk moves the problem to Closed instead of Resolved"
+      },
+      "problem.closed.can_create_tasks": {
+        "type": "boolean",
+        "default": false,
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Allow problem tasks on closed problems"
+      },
+      "problem.closed.role.reanalyze_from_canceled": {
+        "type": "choice",
+        "default": "problem_manager",
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Role allowed to re-analyze canceled problems"
+      },
+      "problem.closed.role.reanalyze_from_closed_riskaccepted": {
+        "type": "choice",
+        "default": "problem_manager",
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Role allowed to re-analyze risk-accepted problems"
+      },
+      "problem.closed.role.reanalyze_from_completed": {
+        "type": "choice",
+        "default": "problem_manager",
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Role allowed to re-analyze fix-applied problems"
+      },
+      "problem.closed.cancel_open_tasks": {
+        "type": "boolean",
+        "default": true,
+        "module": "problem.states",
+        "basis": "documented",
+        "purpose": "Cancel open problem tasks when the problem closes"
+      },
+      "problem_task.closed.role.reaassess_from_closed": {
+        "type": "choice",
+        "default": "problem_coordinator",
+        "module": "problem.states",
+        "basis": "documented (spelling as documented)",
+        "purpose": "Role allowed to re-assess closed problem tasks"
+      },
+      "problem_task.closed.can_reassess_on_closed_problem": {
+        "type": "boolean",
+        "default": false,
+        "module": "problem.states",
+        "basis": "documented (false new, true upgrade)",
+        "purpose": "Re-assess tasks whose problem is closed"
+      },
+      "problem.fix.records": {
+        "type": "string",
+        "default": "change_request.parent,rm_defect.parent,rm_release.parent,rm_enhancement.parent,sn_cim_register.source_id",
+        "module": "problem.bp",
+        "basis": "documented",
+        "purpose": "Related records tracked as fixes"
+      },
+      "problem.duplicate.records_to_move": {
+        "type": "string",
+        "default": "incident.problem_id,sn_customerservice_case.problem,problem_task.problem",
+        "module": "problem.bp",
+        "basis": "documented",
+        "purpose": "Records moved when a problem is marked duplicate"
+      },
+      "problem.role.relate_closed_incidents": {
+        "type": "choice",
+        "default": "problem_coordinator",
+        "module": "problem.bp",
+        "basis": "documented (new: coordinators, upgrade: nobody)",
+        "purpose": "Who can relate closed incidents to a problem"
+      },
+      "com.snc.problem_management.models.enabled": {
+        "type": "boolean",
+        "default": true,
+        "module": "problem.models",
+        "basis": "documented",
+        "purpose": "Use problem models"
+      },
+      "resolvr.incident.assign_moves_to_in_progress": {
+        "type": "boolean",
+        "default": true,
+        "module": "incident",
+        "basis": "inferred (ResolvrNow)",
+        "purpose": "Setting assigned_to on a New incident moves it to In Progress"
+      },
+      "resolvr.incident.business_schedule": {
+        "type": "string",
+        "default": "",
+        "module": "incident",
+        "basis": "inferred (ResolvrNow)",
+        "purpose": "cmn_schedule used for business_stc and strike waits; empty = calendar time"
+      },
+      "resolvr.incident.autoclose.business_days": {
+        "type": "boolean",
+        "default": false,
+        "module": "incident",
+        "basis": "inferred (ResolvrNow)",
+        "purpose": "Count the auto-close delay in business days"
+      },
+      "resolvr.incident.autoclose.run_as": {
+        "type": "string",
+        "default": "system",
+        "module": "incident",
+        "basis": "inferred (ResolvrNow)",
+        "purpose": "User recorded as updater/closer by the auto-close job"
+      }
+    },
+    "stateTransitions": {
+      "incident.state": [
+        {
+          "id": "T1",
+          "from": [
+            null
+          ],
+          "to": 1,
+          "trigger": "insert",
+          "roles": [
+            "*"
+          ],
+          "basis": "documented",
+          "sets": {
+            "incident_state": 1
+          }
+        },
+        {
+          "id": "T2",
+          "from": [
+            1
+          ],
+          "to": 2,
+          "trigger": "state change, or assigned_to set while New (resolvr.incident.assign_moves_to_in_progress)",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "T3",
+          "from": [
+            1,
+            2
+          ],
+          "to": 3,
+          "trigger": "state change",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin"
+          ],
+          "basis": "documented reasons; inferred mandatory",
+          "requires": [
+            "hold_reason",
+            "comments when hold_reason = 1"
+          ]
+        },
+        {
+          "id": "T4",
+          "from": [
+            3
+          ],
+          "to": 2,
+          "trigger": "agent state change or caller comment",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin",
+            "caller"
+          ],
+          "basis": "documented",
+          "sets": {
+            "hold_reason": null
+          }
+        },
+        {
+          "id": "T5",
+          "from": [
+            3
+          ],
+          "to": 6,
+          "trigger": "linked problem resolved/closed with fix_applied while hold_reason = 3",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented",
+          "sets": {
+            "close_code": "Resolved by problem"
+          }
+        },
+        {
+          "id": "T6",
+          "from": [
+            3
+          ],
+          "to": 6,
+          "trigger": "strike cycle exhausted while hold_reason = 1",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented",
+          "sets": {
+            "close_code": "Resolved - No response from caller"
+          }
+        },
+        {
+          "id": "T7",
+          "from": [
+            1,
+            2,
+            3
+          ],
+          "to": 6,
+          "trigger": "Resolve",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin",
+            "list_updater",
+            "caller (not on MI)"
+          ],
+          "basis": "documented",
+          "requires": [
+            "close_code",
+            "close_notes",
+            "KE article when close_code = Known error"
+          ],
+          "sets": {
+            "resolved_by": "user",
+            "resolved_at": "now"
+          }
+        },
+        {
+          "id": "T8",
+          "from": [
+            6
+          ],
+          "to": 2,
+          "trigger": "Reopen",
+          "roles": [
+            "caller",
+            "opened_by",
+            "sn_incident_write",
+            "itil"
+          ],
+          "basis": "documented counters; inferred clearing",
+          "sets": {
+            "reopen_count": "+1",
+            "reopened_by": "user",
+            "reopened_time": "now",
+            "resolved_by": null,
+            "resolved_at": null,
+            "close_code": null,
+            "close_notes": null
+          }
+        },
+        {
+          "id": "T9",
+          "from": [
+            6
+          ],
+          "to": 7,
+          "trigger": "Close Incident or auto-close job",
+          "roles": [
+            "caller",
+            "itil_admin",
+            "admin",
+            "major_incident_manager (MI)"
+          ],
+          "basis": "documented",
+          "requires": [
+            "close_code",
+            "close_notes"
+          ],
+          "sets": {
+            "closed_by": "user",
+            "closed_at": "now",
+            "active": false
+          }
+        },
+        {
+          "id": "T10",
+          "from": [
+            1,
+            2,
+            3
+          ],
+          "to": 7,
+          "trigger": "list Update Selected or API",
+          "roles": [
+            "itil",
+            "list_updater",
+            "sn_incident_write",
+            "admin"
+          ],
+          "basis": "documented",
+          "requires": [
+            "close_code",
+            "close_notes"
+          ],
+          "sets": {
+            "closed_by": "user",
+            "closed_at": "now",
+            "active": false
+          }
+        },
+        {
+          "id": "T11",
+          "from": [
+            1,
+            2,
+            3
+          ],
+          "to": 8,
+          "trigger": "state change to Canceled",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin"
+          ],
+          "basis": "documented meaning; inferred roles",
+          "sets": {
+            "closed_by": "user",
+            "closed_at": "now",
+            "active": false
+          }
+        },
+        {
+          "id": "T12",
+          "from": [
+            7,
+            8
+          ],
+          "to": "*",
+          "trigger": "any",
+          "roles": [],
+          "basis": "documented for 7; inferred for 8; always rejected"
+        }
+      ],
+      "incident.major_incident_state": [
+        {
+          "id": "M1",
+          "from": [
+            null,
+            "rejected",
+            "canceled"
+          ],
+          "to": "proposed",
+          "trigger": "Propose Major Incident, trigger rule (propose), Create Major Incident Candidate",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin",
+            "system"
+          ],
+          "basis": "documented",
+          "requires": [
+            "work_notes",
+            "business_impact",
+            "state not in 6,7,8"
+          ],
+          "sets": {
+            "proposed_by": "user",
+            "proposed_on": "now"
+          }
+        },
+        {
+          "id": "M2",
+          "from": [
+            null,
+            "proposed",
+            "rejected"
+          ],
+          "to": "accepted",
+          "trigger": "Promote to Major Incident, trigger rule (promote), Create Major Incident",
+          "roles": [
+            "major_incident_manager"
+          ],
+          "basis": "documented",
+          "requires": [
+            "work_notes",
+            "business_impact",
+            "state not in 6,7,8"
+          ],
+          "sets": {
+            "promoted_by": "user",
+            "promoted_on": "now"
+          }
+        },
+        {
+          "id": "M3",
+          "from": [
+            "proposed"
+          ],
+          "to": "rejected",
+          "trigger": "Reject Major Incident Candidate",
+          "roles": [
+            "major_incident_manager"
+          ],
+          "basis": "documented",
+          "requires": [
+            "reason"
+          ]
+        },
+        {
+          "id": "M4",
+          "from": [
+            "accepted"
+          ],
+          "to": "canceled",
+          "trigger": "Demote Major Incident",
+          "roles": [
+            "major_incident_manager"
+          ],
+          "basis": "documented",
+          "requires": [
+            "reason"
+          ]
+        },
+        {
+          "id": "M5",
+          "from": [
+            "proposed",
+            "accepted"
+          ],
+          "to": "canceled",
+          "trigger": "incident state changes to 8",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented"
+        }
+      ],
+      "incident_task.state": [
+        {
+          "id": "IT1",
+          "from": [
+            null
+          ],
+          "to": 1,
+          "trigger": "insert",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "IT2",
+          "from": [
+            -5,
+            1
+          ],
+          "to": 2,
+          "trigger": "state change",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin",
+            "sn_incident_task_assigned_user"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "IT3",
+          "from": [
+            -5,
+            1,
+            2
+          ],
+          "to": 3,
+          "trigger": "state change",
+          "roles": [
+            "itil",
+            "sn_incident_write",
+            "admin",
+            "sn_incident_task_assigned_user"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "IT4",
+          "from": [
+            -5,
+            1,
+            2
+          ],
+          "to": 4,
+          "trigger": "parent incident closed (com.snc.incident.incident_task.closure)",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "IT5",
+          "from": [
+            -5,
+            1,
+            2
+          ],
+          "to": 7,
+          "trigger": "parent incident canceled (com.snc.incident.incident_task.closure)",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented"
+        }
+      ],
+      "problem.state": [
+        {
+          "id": "P1",
+          "from": [
+            null
+          ],
+          "to": 101,
+          "trigger": "insert; 102 when Assess dialog fields are filled",
+          "roles": [
+            "itil",
+            "sn_problem_write",
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "P2",
+          "from": [
+            101
+          ],
+          "to": 102,
+          "trigger": "Assess",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented action; inferred fields",
+          "requires": [
+            "assignment_group",
+            "assigned_to"
+          ]
+        },
+        {
+          "id": "P3",
+          "from": [
+            102
+          ],
+          "to": 103,
+          "trigger": "Confirm",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented",
+          "sets": {
+            "confirmed_by": "user",
+            "confirmed_at": "now"
+          }
+        },
+        {
+          "id": "P4",
+          "from": [
+            102,
+            103
+          ],
+          "to": 107,
+          "trigger": "Mark Duplicate",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented",
+          "requires": [
+            "duplicate_of"
+          ],
+          "sets": {
+            "resolution_code": "duplicate"
+          }
+        },
+        {
+          "id": "P5",
+          "from": [
+            101,
+            102,
+            103
+          ],
+          "to": 107,
+          "trigger": "Cancel",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented for 102, 103",
+          "sets": {
+            "resolution_code": "canceled"
+          }
+        },
+        {
+          "id": "P6",
+          "from": [
+            103
+          ],
+          "to": 104,
+          "trigger": "Fix",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented action; inferred requirements",
+          "requires": [
+            "cause_notes",
+            "fix_notes"
+          ],
+          "sets": {
+            "fix_by": "user",
+            "fix_at": "now"
+          }
+        },
+        {
+          "id": "P7",
+          "from": [
+            103,
+            104
+          ],
+          "to": "107 if problem.acceptrisk.move_to_closed else 106",
+          "trigger": "Accept Risk",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented",
+          "requires": [
+            "cause_notes",
+            "close_notes"
+          ],
+          "sets": {
+            "resolution_code": "risk_accepted"
+          }
+        },
+        {
+          "id": "P8",
+          "from": [
+            104
+          ],
+          "to": 103,
+          "trigger": "Re-analyze",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "inferred",
+          "sets": {
+            "resolution_code": null
+          }
+        },
+        {
+          "id": "P9",
+          "from": [
+            104
+          ],
+          "to": 106,
+          "trigger": "Resolve",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented",
+          "requires": [
+            "fix_notes"
+          ],
+          "sets": {
+            "resolution_code": "fix_applied",
+            "resolved_by": "user",
+            "resolved_at": "now"
+          }
+        },
+        {
+          "id": "P10",
+          "from": [
+            106
+          ],
+          "to": 107,
+          "trigger": "Complete",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator"
+          ],
+          "basis": "documented",
+          "sets": {
+            "closed_by": "user",
+            "closed_at": "now",
+            "active": false
+          }
+        },
+        {
+          "id": "P11",
+          "from": [
+            106,
+            107
+          ],
+          "to": 103,
+          "trigger": "Re-analyze (role per problem.closed.role.* property; not for duplicates)",
+          "roles": [
+            "property-driven"
+          ],
+          "basis": "documented",
+          "sets": {
+            "reopen_count": "+1",
+            "reopened_by": "user",
+            "reopened_at": "now",
+            "resolution_code": null
+          }
+        }
+      ],
+      "problem_task.state": [
+        {
+          "id": "K1",
+          "from": [
+            null
+          ],
+          "to": 151,
+          "trigger": "insert; 152 when PTASK Assess dialog fields are filled",
+          "roles": [
+            "itil",
+            "sn_problem_write",
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "K2",
+          "from": [
+            151
+          ],
+          "to": 152,
+          "trigger": "Assess",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented action; inferred fields",
+          "requires": [
+            "assignment_group",
+            "assigned_to"
+          ]
+        },
+        {
+          "id": "K3",
+          "from": [
+            152
+          ],
+          "to": 154,
+          "trigger": "Start Work",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "K4",
+          "from": [
+            154
+          ],
+          "to": 152,
+          "trigger": "Re-assess",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "K5",
+          "from": [
+            151,
+            152,
+            154
+          ],
+          "to": 157,
+          "trigger": "Cancel",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented for 152",
+          "requires": [
+            "close_notes (reason)"
+          ],
+          "sets": {
+            "close_code": "canceled"
+          }
+        },
+        {
+          "id": "K6",
+          "from": [
+            154
+          ],
+          "to": 157,
+          "trigger": "Complete",
+          "roles": [
+            "admin",
+            "problem_admin",
+            "problem_manager",
+            "problem_coordinator",
+            "problem_task_analyst"
+          ],
+          "basis": "documented action; inferred requirements",
+          "requires": [
+            "rca: cause_code, fix_notes",
+            "general: close_notes"
+          ],
+          "sets": {
+            "close_code": "complete"
+          }
+        },
+        {
+          "id": "K7",
+          "from": [
+            157
+          ],
+          "to": 152,
+          "trigger": "Re-assess closed task",
+          "roles": [
+            "role in problem_task.closed.role.reaassess_from_closed"
+          ],
+          "basis": "documented",
+          "sets": {
+            "close_code": null,
+            "reopen_count": "+1"
+          }
+        },
+        {
+          "id": "K8",
+          "from": [
+            151,
+            152,
+            154
+          ],
+          "to": 157,
+          "trigger": "parent problem closed (problem.closed.cancel_open_tasks)",
+          "roles": [
+            "system"
+          ],
+          "basis": "documented",
+          "sets": {
+            "close_code": "canceled"
+          }
+        }
+      ],
+      "incident_alert.state": [
+        {
+          "id": "C1",
+          "from": [
+            null
+          ],
+          "to": 1,
+          "trigger": "insert",
+          "roles": [
+            "major_incident_manager",
+            "ia_admin",
+            "admin",
+            "communication_manager"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "C2",
+          "from": [
+            1
+          ],
+          "to": 3,
+          "trigger": "close, or incident closed (com.snc.incident.incident_alert.closure)",
+          "roles": [
+            "ia_admin",
+            "admin",
+            "assigned itil user",
+            "system"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "C3",
+          "from": [
+            1
+          ],
+          "to": 7,
+          "trigger": "cancel, or incident canceled (com.snc.incident.incident_alert.closure)",
+          "roles": [
+            "ia_admin",
+            "admin",
+            "assigned itil user",
+            "system"
+          ],
+          "basis": "documented"
+        }
+      ],
+      "incident_alert_task.state": [
+        {
+          "id": "CT1",
+          "from": [
+            -5
+          ],
+          "to": 1,
+          "trigger": "plan opened or due time reached",
+          "roles": [
+            "system"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "CT2",
+          "from": [
+            1
+          ],
+          "to": 2,
+          "trigger": "work started",
+          "roles": [
+            "assignee"
+          ],
+          "basis": "inferred"
+        },
+        {
+          "id": "CT3",
+          "from": [
+            1,
+            2
+          ],
+          "to": 3,
+          "trigger": "one-time communication sent, or Close Task after at least one send",
+          "roles": [
+            "assignee",
+            "major_incident_manager"
+          ],
+          "basis": "documented"
+        },
+        {
+          "id": "CT4",
+          "from": [
+            -5,
+            1,
+            2
+          ],
+          "to": 7,
+          "trigger": "Close Task with no send, or plan closed/canceled (com.snc.iam.incident_alert_task.closure)",
+          "roles": [
+            "assignee",
+            "major_incident_manager",
+            "system"
+          ],
+          "basis": "documented"
+        }
+      ]
+    },
+    "parentChildSync": [
+      {
+        "parentTo": 2,
+        "children": "active children in 1 or 3",
+        "childResult": {
+          "state": 2,
+          "hold_reason": null
+        },
+        "basis": "documented"
+      },
+      {
+        "parentTo": 3,
+        "parentHoldReason": [
+          3,
+          4,
+          5
+        ],
+        "children": "active children in 1, 2, 3",
+        "childResult": {
+          "state": 3,
+          "hold_reason": "same as parent"
+        },
+        "basis": "documented"
+      },
+      {
+        "parentTo": 3,
+        "parentHoldReason": [
+          1
+        ],
+        "children": "none",
+        "childResult": null,
+        "basis": "documented"
+      },
+      {
+        "parentTo": 6,
+        "children": "active children in 1, 2, 3",
+        "childResult": {
+          "state": 6,
+          "close_code": "copied",
+          "close_notes": "copied",
+          "journal": "parent resolution notes"
+        },
+        "basis": "documented (resolve, notes); inferred (fields)"
+      },
+      {
+        "parentTo": 7,
+        "children": "none",
+        "childResult": null,
+        "basis": "documented"
+      },
+      {
+        "parentTo": 8,
+        "children": "none",
+        "childResult": null,
+        "basis": "documented"
+      },
+      {
+        "parentReopenedBy": "agent",
+        "children": "children in 6",
+        "childResult": {
+          "state": 2,
+          "reopen_count": "+1"
+        },
+        "basis": "documented"
+      },
+      {
+        "parentReopenedBy": "ESS caller",
+        "children": "none",
+        "childResult": null,
+        "basis": "documented"
+      }
+    ],
+    "closeCodeSets": {
+      "selfService": [
+        "Closed/Resolved by Caller",
+        "Resolved by caller"
+      ],
+      "notSolved": [
+        "Not Solved (Not Reproducible)",
+        "Not Solved (Too Costly)",
+        "No resolution provided"
+      ],
+      "requiresKnownErrorArticle": [
+        "Known error"
+      ]
+    },
+    "incidentAdminEditableWhenClosed": [
+      "subcategory",
+      "business_service",
+      "service_offering",
+      "description",
+      "contact_type",
+      "watch_list",
+      "work_notes_list",
+      "parent_incident",
+      "problem_id",
+      "rfc",
+      "caused_by",
+      "resolved_by",
+      "resolved_at",
+      "reassignment_count"
+    ],
+    "incidentChangeCopyFields": [
+      "short_description",
+      "description",
+      "cmdb_ci",
+      "priority",
+      "company"
+    ],
+    "legacyStateMigration": {
+      "problem.state": {
+        "1": 101,
+        "2": {
+          "state": 107,
+          "resolution_code": "risk_accepted"
+        },
+        "3": 104,
+        "4": {
+          "state": 107,
+          "resolution_code": "fix_applied"
+        }
+      },
+      "problem_task.state": {
+        "-5": 151,
+        "1": 151,
+        "2": 154,
+        "3": {
+          "state": 157,
+          "close_code": "complete"
+        },
+        "4": {
+          "state": 157,
+          "close_code": "canceled"
+        },
+        "7": {
+          "state": 157,
+          "close_code": "canceled"
+        }
+      }
+    },
+    "events": [
+      {
+        "name": "incident.inserted",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.updated",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.assigned",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.assigned.to.group",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.commented",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.worknoted",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.priority.1",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.severity.1",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.escalated",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.resolved",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.closed",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.canceled",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.reopened",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.caller.responded",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.strike.reminder",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.strike.resolved",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.mim.proposed",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.mim.accepted",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.mim.rejected",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.mim.demoted",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "incident.mim.reassigned",
+        "table": "incident",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.inserted",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.updated",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.assigned",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.assigned.to.group",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.worknoted",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.state.changed",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.workaround.communicated",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.fix.communicated",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem.fix_records.completed",
+        "table": "problem",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem_task.assigned",
+        "table": "problem_task",
+        "basis": "inferred"
+      },
+      {
+        "name": "problem_task.all_closed",
+        "table": "problem",
+        "basis": "inferred"
+      }
+    ],
+    "roles": [
+      {
+        "name": "itil",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "itil_admin",
+        "contains": [
+          "itil"
+        ],
+        "basis": "documented name, inferred contains"
+      },
+      {
+        "name": "list_updater",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_incident_read",
+        "contains": [
+          "dependency_views",
+          "agent_workspace_user",
+          "view_changer",
+          "cmdb_read",
+          "cmdb_query_builder_read"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_incident_write",
+        "contains": [
+          "sn_incident_read",
+          "template_editor"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_service_desk_agent",
+        "contains": [
+          "sn_incident_write",
+          "sn_problem_write",
+          "sn_change_write",
+          "sn_request_write",
+          "tracked_file_reader"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "incident_manager",
+        "contains": [
+          "ia_admin",
+          "sn_comm_management.comm_plan_admin",
+          "sn_incident_write"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_incident_admin",
+        "contains": [
+          "incident_manager",
+          "sn_sow_inc.sn_incident_sow_admin",
+          "sn_bm_client_benchmark_data_viewer"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_incident_task_assigned_user",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "major_incident_manager",
+        "aliases": [
+          "mim_manager"
+        ],
+        "contains": [
+          "sn_comm_management.comm_plan_viewer",
+          "sn_comm_management.comm_plan_manager",
+          "ia_admin",
+          "sn_incident_write",
+          "sn_problem_write",
+          "sn_change_write",
+          "sn_request_write"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_mim_admin",
+        "contains": [
+          "major_incident_manager",
+          "sn_iam_admin",
+          "sn_sow_mim.sn_mim_sow_admin"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "communication_manager",
+        "contains": [
+          "sn_comm_management.comm_plan_viewer",
+          "ia_admin",
+          "sn_incident_write",
+          "sn_problem_write",
+          "sn_change_write",
+          "sn_request_write"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "ia_admin",
+        "contains": [
+          "contact_admin",
+          "sn_comm_management.comm_plan_manager",
+          "notify_view"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_iam_admin",
+        "contains": [
+          "ia_admin"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "contact_user",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "contact_admin",
+        "contains": [
+          "contact_user"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_contact_admin",
+        "contains": [
+          "contact_admin"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_tcm_admin",
+        "contains": [
+          "sn_comm_management.comm_plan_admin",
+          "sn_comm_management.comm_plan_mgr"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_comm_management.comm_plan_viewer",
+        "contains": [
+          "notify_view",
+          "contact_user"
+        ],
+        "basis": "documented (partial list)"
+      },
+      {
+        "name": "sn_task_outage_admin",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "business_stakeholder",
+        "contains": [
+          "sn_incident_read",
+          "sn_problem_read",
+          "sn_change_read",
+          "sn_request_read",
+          "approver_user",
+          "sn_incident_comments_write",
+          "sn_request_comments_write"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "problem_task_analyst",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "problem_coordinator",
+        "contains": [
+          "problem_task_analyst",
+          "itil"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "problem_manager",
+        "contains": [
+          "problem_coordinator"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "problem_admin",
+        "contains": [
+          "problem_manager"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_problem_read",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_problem_write",
+        "contains": [
+          "sn_problem_read",
+          "template_editor"
+        ],
+        "basis": "documented"
+      },
+      {
+        "name": "problem_model_script_admin",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_sd.success_dashboard_admin",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_sd.success_dashboard_read",
+        "contains": [],
+        "basis": "documented"
+      },
+      {
+        "name": "sn_sd.success_dashboard_details_read",
+        "contains": [],
+        "basis": "documented"
+      }
+    ],
+    "kpis": [
+      {
+        "id": "inc_mttr",
+        "name": "Mean time to resolve",
+        "table": "incident",
+        "formula": "avg(closed_at - opened_at) over incidents closed on D",
+        "unit": "hours",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_avg_resolution_days",
+        "name": "Average resolution time of resolved incidents",
+        "table": "incident",
+        "formula": "sum(hours(resolved_at - opened_at)) / (count(resolved on D) * 24)",
+        "unit": "days",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_avg_close_days",
+        "name": "Average close time of incidents",
+        "table": "incident",
+        "formula": "sum(hours(closed_at - opened_at)) / (count(closed on D) * 24)",
+        "unit": "days",
+        "basis": "documented (typo in source corrected)"
+      },
+      {
+        "id": "inc_first_assignment_pct",
+        "name": "% first assignment resolution",
+        "table": "incident",
+        "formula": "count(resolved on D and reassignment_count = 0) / count(resolved on D) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_fcr_pct",
+        "name": "First contact resolution (ResolvrNow)",
+        "table": "incident",
+        "formula": "count(resolved on D and reassignment_count = 0 and resolved_by = opened_by) / count(resolved on D) * 100",
+        "unit": "%",
+        "basis": "inferred"
+      },
+      {
+        "id": "inc_same_day_pct",
+        "name": "% resolved same day opened",
+        "table": "incident",
+        "formula": "count(resolved and date(resolved_at) = date(opened_at)) / count(resolved) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_reopen_pct",
+        "name": "% reopened",
+        "table": "incident",
+        "formula": "count(reopened_time in period) / count(resolved_at in period) * 100",
+        "unit": "%",
+        "basis": "documented definition, inferred sets"
+      },
+      {
+        "id": "inc_breached_pct",
+        "name": "% breached SLAs",
+        "table": "incident",
+        "formula": "count(closed on D with any task_sla.has_breached) / count(closed on D) * 100",
+        "unit": "%",
+        "basis": "documented definition, inferred join"
+      },
+      {
+        "id": "inc_backlog",
+        "name": "Number of open incidents",
+        "table": "incident",
+        "formula": "count(resolved_at is empty) at end of D",
+        "unit": "count",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_backlog_growth",
+        "name": "Incident backlog growth",
+        "table": "incident",
+        "formula": "count(opened on D) - count(resolved on D)",
+        "unit": "count",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_avg_age_open_days",
+        "name": "Average age of open incidents",
+        "table": "incident",
+        "formula": "sum(hours(now - opened_at) over open) / (count(open) * 24)",
+        "unit": "days",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_new_critical_pct",
+        "name": "% of new critical incidents",
+        "table": "incident",
+        "formula": "count(opened on D and priority = 1) / count(opened on D) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_reassigned_open_pct",
+        "name": "% of open incidents reassigned at least once",
+        "table": "incident",
+        "formula": "count(open and reassignment_count > 0) / count(open) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_closed_self_service_pct",
+        "name": "% of incidents closed by self-service",
+        "table": "incident",
+        "formula": "count(closed and close_code in closeCodeSets.selfService) / count(closed) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "inc_not_solved_pct",
+        "name": "% of incidents not solved",
+        "table": "incident",
+        "formula": "count(closed and close_code in closeCodeSets.notSolved) / count(closed) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "itsm_self_solved_pct",
+        "name": "Self-solved percentage",
+        "table": "*",
+        "formula": "(self_solved_va + self_solved_kb + self_solved_qna + self_solved_proactive + automated_resolutions) / (total_ticket_resolutions + self_solved_va + self_solved_kb + self_solved_qna + self_solved_proactive + password_reset_self_service) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "itsm_call_deflection_pct",
+        "name": "Call deflection",
+        "table": "*",
+        "formula": "(catalog_submissions + va_submissions + self_solved_va + self_solved_kb) / (total_tickets_submitted + self_solved_va + self_solved_kb) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "mi_time_to_identify",
+        "name": "Mean time to identify (major incidents)",
+        "table": "incident",
+        "formula": "avg(first proposal or promotion time - min(first alert created, opened_at)) over MIs accepted on D",
+        "unit": "hours",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_backlog",
+        "name": "Number of open problems",
+        "table": "problem",
+        "formula": "count(opened_at <= D and closed_at is empty)",
+        "unit": "count",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_backlog_growth",
+        "name": "Problem backlog growth",
+        "table": "problem",
+        "formula": "count(opened on D) - count(closed on D)",
+        "unit": "count",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_avg_age_open_days",
+        "name": "Average age of open problems",
+        "table": "problem",
+        "formula": "sum(hours(now - opened_at) over open) / count(open) / 24",
+        "unit": "days",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_avg_close_days",
+        "name": "Average close time of problems",
+        "table": "problem",
+        "formula": "sum(hours(closed_at - opened_at) over closed on D) / count(closed on D) / 24",
+        "unit": "days",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_known_error_pct",
+        "name": "% of open problems classified as known error",
+        "table": "problem",
+        "formula": "count(open and known_error = true) / count(open) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_with_incident_pct",
+        "name": "% of open problems with at least one incident",
+        "table": "problem",
+        "formula": "count(open and related_incidents > 0) / count(open) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_first_assignment_pct",
+        "name": "% of problems closed on first assignment",
+        "table": "problem",
+        "formula": "count(closed and reassignment_count = 0) / count(closed) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_no_close_notes_pct",
+        "name": "% of closed problems without any close notes",
+        "table": "problem",
+        "formula": "count(closed and close_notes is empty) / count(closed) * 100",
+        "unit": "%",
+        "basis": "documented"
+      },
+      {
+        "id": "prb_new_critical_pct",
+        "name": "% of new critical problems",
+        "table": "problem",
+        "formula": "count(opened on D and priority = 1) / count(opened on D) * 100",
+        "unit": "%",
+        "basis": "documented"
+      }
+    ],
+    "kpiAggregation": {
+      "daily": true,
+      "periods": [
+        "month",
+        "quarter",
+        "year"
+      ],
+      "counts": "sum of daily values",
+      "percentages": "mean of daily values"
+    },
+    "seed": {
+      "problemModels": [
+        {
+          "name": "General",
+          "table": "prb_model",
+          "default_model": true,
+          "states": [
+            101,
+            102,
+            103,
+            104,
+            106,
+            107
+          ],
+          "initial": 101
+        }
+      ],
+      "problemTaskModels": [
+        {
+          "name": "Root cause analysis",
+          "problem_task_type": "rca",
+          "states": [
+            151,
+            152,
+            154,
+            157
+          ],
+          "initial": 151
+        },
+        {
+          "name": "General",
+          "problem_task_type": "general",
+          "default_model": true,
+          "states": [
+            151,
+            152,
+            154,
+            157
+          ],
+          "initial": 151
+        }
+      ],
+      "groups": [
+        {
+          "name": "Major Incident Management",
+          "property": "sn_major_inc_mgmt.major_incident_management_group"
+        }
+      ],
+      "knowledgeBases": [
+        {
+          "name": "Known Error",
+          "owner": "knowledge.md"
+        }
+      ],
+      "icmResponsibilities": {
+        "default": [
+          "Duty Manager",
+          "Incident Manager",
+          "Duty Director"
+        ],
+        "other": [
+          "Business Director",
+          "Communication Manager",
+          "Crisis Action Manager",
+          "Crisis Action Team Member",
+          "Development personnel",
+          "Operations support personnel",
+          "Service Owner",
+          "Technical Support"
+        ]
+      },
+      "icmNotifications": [
+        "New IA Raised",
+        "IA Actions Taken",
+        "IA Cancelled",
+        "IA Resolved Or Closed"
+      ],
+      "majorIncidentTriggerRules": [
+        {
+          "name": "Critical business service",
+          "order": 100,
+          "action": "propose",
+          "active": false,
+          "condition": "business_service.busines_criticalityIN1 - most critical,2 - somewhat critical"
+        },
+        {
+          "name": "Many child incidents",
+          "order": 200,
+          "action": "propose",
+          "active": false,
+          "condition": "child_incidents>20"
+        },
+        {
+          "name": "Priority 1 incident",
+          "order": 300,
+          "action": "propose",
+          "active": false,
+          "condition": "priority=1"
+        }
+      ]
+    }
+  }
+}

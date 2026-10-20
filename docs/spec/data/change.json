@@ -1,0 +1,5793 @@
+{
+ "choices": {
+  "change_request.state": [
+   {
+    "value": "-5",
+    "label": "New",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "-4",
+    "label": "Assess",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "-3",
+    "label": "Authorize",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "-2",
+    "label": "Scheduled",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "-1",
+    "label": "Implement",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "0",
+    "label": "Review",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Closed",
+    "sequence": 7,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Canceled",
+    "sequence": 8,
+    "dependentValue": null
+   }
+  ],
+  "change_request.type": [
+   {
+    "value": "standard",
+    "label": "Standard",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "normal",
+    "label": "Normal",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "emergency",
+    "label": "Emergency",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_request.risk": [
+   {
+    "value": "1",
+    "label": "Very High",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "High",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Moderate",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Low",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_request.impact": [
+   {
+    "value": "1",
+    "label": "1 - High",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "2 - Medium",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "3 - Low",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_request.urgency": [
+   {
+    "value": "1",
+    "label": "1 - High",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "2 - Medium",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "3 - Low",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_request.priority": [
+   {
+    "value": "1",
+    "label": "1 - Critical",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "2 - High",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "3 - Moderate",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "4 - Low",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "5",
+    "label": "5 - Planning",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "change_request.close_code": [
+   {
+    "value": "successful",
+    "label": "Successful",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "successful_issues",
+    "label": "Successful with issues",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "unsuccessful",
+    "label": "Unsuccessful",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_request.phase": [
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "plan",
+    "label": "Plan",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "build",
+    "label": "Build",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "accept",
+    "label": "Accept",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_request.phase_state": [
+   {
+    "value": "open",
+    "label": "Open",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "work in progress",
+    "label": "Work in Progress",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "on hold",
+    "label": "On Hold",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "complete",
+    "label": "Complete",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 6,
+    "dependentValue": null
+   }
+  ],
+  "change_request.conflict_status": [
+   {
+    "value": "Not Run",
+    "label": "Not Run",
+    "sequence": -1,
+    "dependentValue": null
+   },
+   {
+    "value": "Conflict",
+    "label": "Conflict",
+    "sequence": 0,
+    "dependentValue": null
+   },
+   {
+    "value": "No Conflict",
+    "label": "No Conflict",
+    "sequence": 1,
+    "dependentValue": null
+   }
+  ],
+  "change_request.review_status": [
+   {
+    "value": "1",
+    "label": "Pending",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Successful",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Successful with issues",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Unsuccessful",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_request.scope": [
+   {
+    "value": "1",
+    "label": "Massive",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Large",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Medium",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Small",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "5",
+    "label": "Tiny",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "change_request.reason": [
+   {
+    "value": "Business requirements",
+    "label": "Business requirements",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "Hardware upgrade",
+    "label": "Hardware upgrade",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "Legislation",
+    "label": "Legislation",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "Location change",
+    "label": "Location change",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "Network requirements",
+    "label": "Network requirements",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "New or removed CI",
+    "label": "New or removed CI",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "Other",
+    "label": "Other",
+    "sequence": 7,
+    "dependentValue": null
+   },
+   {
+    "value": "Problem resolved",
+    "label": "Problem resolved",
+    "sequence": 8,
+    "dependentValue": null
+   },
+   {
+    "value": "Product or service changed",
+    "label": "Product or service changed",
+    "sequence": 9,
+    "dependentValue": null
+   },
+   {
+    "value": "Software upgrade",
+    "label": "Software upgrade",
+    "sequence": 10,
+    "dependentValue": null
+   },
+   {
+    "value": "User requested",
+    "label": "User requested",
+    "sequence": 11,
+    "dependentValue": null
+   }
+  ],
+  "change_request.category": [
+   {
+    "value": "Hardware",
+    "label": "Hardware",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "Software",
+    "label": "Software",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "Service",
+    "label": "Service",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "System Software",
+    "label": "System Software",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "Applications Software",
+    "label": "Applications Software",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "Network",
+    "label": "Network",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "Telecom",
+    "label": "Telecom",
+    "sequence": 7,
+    "dependentValue": null
+   },
+   {
+    "value": "Documentation",
+    "label": "Documentation",
+    "sequence": 8,
+    "dependentValue": null
+   },
+   {
+    "value": "DevOps",
+    "label": "DevOps",
+    "sequence": 9,
+    "dependentValue": null
+   },
+   {
+    "value": "Other",
+    "label": "Other",
+    "sequence": 10,
+    "dependentValue": null
+   }
+  ],
+  "change_request.approval": [
+   {
+    "value": "not requested",
+    "label": "Not Yet Requested",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "not_required",
+    "label": "No Longer Required",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "change_request.upon_approval": [
+   {
+    "value": "proceed",
+    "label": "Proceed to Next Task",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "do_nothing",
+    "label": "Wait for a User to Take Action",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "change_request.upon_reject": [
+   {
+    "value": "cancel",
+    "label": "Cancel all future Tasks",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "goto",
+    "label": "Go to a previous Task",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "change_request.action_status": [
+   {
+    "value": "1",
+    "label": "Blocked internally",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Blocked by customer",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Blocked internally and by customer",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Needs attention",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_request.child_changes_creation_status": [
+   {
+    "value": "in_progress",
+    "label": "In Progress",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "completed",
+    "label": "Completed",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "completed_with_errors",
+    "label": "Completed with errors",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_task.state": [
+   {
+    "value": "-5",
+    "label": "Pending",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "1",
+    "label": "Open",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "In Progress",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Closed",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Canceled",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "change_task.change_task_type": [
+   {
+    "value": "planning",
+    "label": "Planning",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "implementation",
+    "label": "Implementation",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "testing",
+    "label": "Testing",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "review",
+    "label": "Review",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_task.close_code": [
+   {
+    "value": "successful",
+    "label": "Successful",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "successful_issues",
+    "label": "Successful with issues",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "unsuccessful",
+    "label": "Unsuccessful",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "change_task.created_from": [
+   {
+    "value": "manual",
+    "label": "Manual",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "workflow",
+    "label": "Workflow",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "chg_model.itil_change_process": [
+   {
+    "value": "standard",
+    "label": "Standard",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "normal",
+    "label": "Normal",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "emergency",
+    "label": "Emergency",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "chg_model.template_proposer": [
+   {
+    "value": "modify",
+    "label": "Anyone who can modify this model",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "read",
+    "label": "Anyone who can read this model",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "sttrm_condition_type.condition_type": [
+   {
+    "value": "mandatory_fields",
+    "label": "Mandatory Fields",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "condition",
+    "label": "Condition",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "script",
+    "label": "Script",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "chg_template.state": [
+   {
+    "value": "draft",
+    "label": "Draft",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "proposed",
+    "label": "Proposed",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "published",
+    "label": "Published",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "pending_retirement",
+    "label": "Pending Retirement",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "retired",
+    "label": "Retired",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "std_change_proposal.state": [
+   {
+    "value": "1",
+    "label": "New",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "In Progress",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Closed Complete",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Closed Incomplete",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "std_change_proposal.type": [
+   {
+    "value": "1",
+    "label": "New",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Modify",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Retire",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "conflict.type": [
+   {
+    "value": "ci_already_scheduled",
+    "label": "CI Already Scheduled",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "parent_ci_already_scheduled",
+    "label": "Parent CI Already Scheduled",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "child_ci_already_scheduled",
+    "label": "Child CI Already Scheduled",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "not_in_maintenance_window",
+    "label": "Not In Maintenance Window",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "parent_not_in_maintenance_window",
+    "label": "Parent Not In Maintenance Window",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "child_not_in_maintenance_window",
+    "label": "Child Not In Maintenance Window",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "blackout",
+    "label": "Blackout",
+    "sequence": 7,
+    "dependentValue": null
+   },
+   {
+    "value": "assigned_to_already_scheduled",
+    "label": "Assigned To Already Scheduled",
+    "sequence": 8,
+    "dependentValue": null
+   },
+   {
+    "value": "inside_change_lockdown",
+    "label": "Inside Change Lockdown",
+    "sequence": 9,
+    "dependentValue": null
+   }
+  ],
+  "cmn_schedule_condition.source": [
+   {
+    "value": "service",
+    "label": "Service",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "change_request",
+    "label": "Change Request",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "ci_class",
+    "label": "CI Class",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "cmn_schedule_maintenance.category": [
+   {
+    "value": "preventive",
+    "label": "Preventive",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "patching",
+    "label": "Patching",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "general",
+    "label": "General",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "cmn_schedule_blackout.category": [
+   {
+    "value": "hard_freeze",
+    "label": "Hard Freeze",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "soft_freeze",
+    "label": "Soft Freeze",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "cmn_schedule_information.category": [
+   {
+    "value": "holiday",
+    "label": "Holiday",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "global_event",
+    "label": "Global event",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "organisational_event",
+    "label": "Organisational event",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "chg_lockdown.state": [
+   {
+    "value": "draft",
+    "label": "Draft",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "awaiting_approval",
+    "label": "Awaiting Approval",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "enforced",
+    "label": "Enforced",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "cancelled",
+    "label": "Cancelled",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "change_risk_asmt.state": [
+   {
+    "value": "draft",
+    "label": "Draft",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "published",
+    "label": "Published",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "sn_chg_probability_risk_lookup.success_probability": [
+   {
+    "value": "high",
+    "label": "High",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "medium",
+    "label": "Medium",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "low",
+    "label": "Low",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "chg_policy_approval.execution": [
+   {
+    "value": "first_match",
+    "label": "First decision that matches",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "all_matches",
+    "label": "Run all decisions that match",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "chg_approval_definition.approval_action": [
+   {
+    "value": "approve",
+    "label": "Approve",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "reject",
+    "label": "Reject",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "user",
+    "label": "Add a user approval",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "group",
+    "label": "Add a group approval",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "chg_approval_definition.approver_source": [
+   {
+    "value": "definition",
+    "label": "Approval Definition",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "change_request",
+    "label": "Change Request",
+    "sequence": 2,
+    "dependentValue": null
+   }
+  ],
+  "chg_approval_definition.wait_for": [
+   {
+    "value": "first_response",
+    "label": "First response",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "all_responses",
+    "label": "All responses",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "percentage",
+    "label": "Percentage of users",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "chg_policy_input.type": [
+   {
+    "value": "choice",
+    "label": "Choice",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "date",
+    "label": "Date",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "date_time",
+    "label": "Date/Time",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "decimal",
+    "label": "Decimal",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "due_date",
+    "label": "Due Date",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "integer",
+    "label": "Integer",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "long",
+    "label": "Long",
+    "sequence": 7,
+    "dependentValue": null
+   },
+   {
+    "value": "reference",
+    "label": "Reference",
+    "sequence": 8,
+    "dependentValue": null
+   },
+   {
+    "value": "string",
+    "label": "String",
+    "sequence": 9,
+    "dependentValue": null
+   },
+   {
+    "value": "string_full_utf8",
+    "label": "String (Full UTF-8)",
+    "sequence": 10,
+    "dependentValue": null
+   },
+   {
+    "value": "boolean",
+    "label": "True/False",
+    "sequence": 11,
+    "dependentValue": null
+   }
+  ],
+  "cab_meeting.state": [
+   {
+    "value": "pending",
+    "label": "Pending",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "in_progress",
+    "label": "In Progress",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "complete",
+    "label": "Complete",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "canceled",
+    "label": "Canceled",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "cab_agenda_item.state": [
+   {
+    "value": "pending",
+    "label": "Pending",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "in_progress",
+    "label": "In Progress",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "complete",
+    "label": "Complete",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "skipped",
+    "label": "Skipped",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "cab_agenda_item.decision": [
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "no_decision",
+    "label": "No decision",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "cab_attendee.response": [
+   {
+    "value": "accept",
+    "label": "Accept",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "tentative",
+    "label": "Tentative",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "decline",
+    "label": "Decline",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "no_response",
+    "label": "No response",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "cab_attendee.attendee_type": [
+   {
+    "value": "manager",
+    "label": "CAB manager",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "delegate",
+    "label": "Delegate",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "board_member",
+    "label": "Board member",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "requester",
+    "label": "Change requester",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "chg_mgt_worker.state": [
+   {
+    "value": "1",
+    "label": "Waiting",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "In-Progress",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Complete",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Error",
+    "sequence": 4,
+    "dependentValue": null
+   }
+  ],
+  "chg_mgt_worker.type": [
+   {
+    "value": "schedule",
+    "label": "Schedule",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "affected",
+    "label": "Affected CIs",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "impacted",
+    "label": "Impacted services",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "offering",
+    "label": "Service offerings",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "conflict",
+    "label": "Conflict detection",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "child_changes",
+    "label": "Child change requests creation",
+    "sequence": 6,
+    "dependentValue": null
+   }
+  ],
+  "chg_soc_definition.share_with": [
+   {
+    "value": "none",
+    "label": "None",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "everyone",
+    "label": "Everyone",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "specific",
+    "label": "Specific users, groups and roles",
+    "sequence": 3,
+    "dependentValue": null
+   }
+  ],
+  "rm_release.state": [
+   {
+    "value": "-5",
+    "label": "Draft",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "1",
+    "label": "Scoping",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Work in Progress",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "10",
+    "label": "Testing",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Deploying",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Completed",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "7",
+    "label": "Canceled",
+    "sequence": 7,
+    "dependentValue": null
+   }
+  ],
+  "rm_release_phase.state": [
+   {
+    "value": "-5",
+    "label": "Draft",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "1",
+    "label": "Scoping",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Work in Progress",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "10",
+    "label": "Testing",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Deploying",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Completed",
+    "sequence": 6,
+    "dependentValue": null
+   },
+   {
+    "value": "7",
+    "label": "Canceled",
+    "sequence": 7,
+    "dependentValue": null
+   }
+  ],
+  "rm_release.release_type": [
+   {
+    "value": "major",
+    "label": "Major",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "minor",
+    "label": "Minor",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "upgrade",
+    "label": "Upgrade",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "patch",
+    "label": "Patch",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "other",
+    "label": "Other",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ],
+  "rm_task.state": [
+   {
+    "value": "-5",
+    "label": "Pending",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "1",
+    "label": "Open",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "2",
+    "label": "Work in Progress",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "3",
+    "label": "Closed Complete",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "4",
+    "label": "Closed Incomplete",
+    "sequence": 5,
+    "dependentValue": null
+   },
+   {
+    "value": "7",
+    "label": "Closed Skipped",
+    "sequence": 6,
+    "dependentValue": null
+   }
+  ],
+  "sn_devops_callback.state": [
+   {
+    "value": "waiting",
+    "label": "Waiting for approval",
+    "sequence": 1,
+    "dependentValue": null
+   },
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 2,
+    "dependentValue": null
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 3,
+    "dependentValue": null
+   },
+   {
+    "value": "canceled",
+    "label": "Canceled by user",
+    "sequence": 4,
+    "dependentValue": null
+   },
+   {
+    "value": "completed",
+    "label": "Completed",
+    "sequence": 5,
+    "dependentValue": null
+   }
+  ]
+ },
+ "tables": {
+  "change_request": {
+   "extendsExisting": true,
+   "note": "Exists in the SDK schema. Only columns missing from the SDK and dictionary overrides are listed here.",
+   "overrides": {
+    "state": {
+     "default": "-5"
+    },
+    "approval": {
+     "default": "not requested"
+    },
+    "risk": {
+     "default": ""
+    },
+    "impact": {
+     "default": "3"
+    },
+    "urgency": {
+     "default": "3"
+    },
+    "priority": {
+     "default": "4"
+    },
+    "category": {
+     "default": "Other"
+    },
+    "phase": {
+     "default": "requested"
+    },
+    "phase_state": {
+     "default": "open"
+    },
+    "scope": {
+     "default": "3"
+    },
+    "conflict_status": {
+     "default": "Not Run"
+    },
+    "type": {
+     "readOnly": true
+    }
+   },
+   "columns": {
+    "is_bulk": {
+     "label": "Mass update CI class",
+     "type": "boolean",
+     "default": false
+    },
+    "proposed_change": {
+     "label": "Proposed change",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "ci_class": {
+     "label": "CI class",
+     "type": "table_name",
+     "default": "cmdb_ci"
+    },
+    "risk_value": {
+     "label": "Risk value",
+     "type": "string",
+     "maxLength": 40,
+     "readOnly": true,
+     "hint": "Present in API payloads; semantics undocumented"
+    },
+    "skills": {
+     "label": "Skills",
+     "type": "string",
+     "maxLength": 4000,
+     "hint": "Comma separated cmn_skill sys_ids; cmn_skill not modeled in ResolvrNow v1"
+    },
+    "needs_attention": {
+     "label": "Needs attention",
+     "type": "boolean",
+     "default": false
+    },
+    "action_status": {
+     "label": "Action status",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none"
+    },
+    "task_for": {
+     "label": "Task for",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "sn_esign_document": {
+     "label": "E-signed document",
+     "type": "reference",
+     "reference": "sys_attachment",
+     "readOnly": true
+    },
+    "sn_esign_esignature_configuration": {
+     "label": "E-signature template",
+     "type": "string",
+     "maxLength": 32,
+     "hint": "sn_esign_configuration sys_id; e-signature out of scope v1"
+    },
+    "child_changes_creation_status": {
+     "label": "Child changes creation status",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "readOnly": true
+    },
+    "primary_change": {
+     "label": "Primary change",
+     "type": "reference",
+     "reference": "change_request",
+     "readOnly": true
+    }
+   }
+  },
+  "change_task": {
+   "label": "Change Task",
+   "extends": "task",
+   "number": {
+    "prefix": "CTASK",
+    "number": 10000,
+    "digits": 7
+   },
+   "overrides": {
+    "state": {
+     "default": "1"
+    }
+   },
+   "columns": {
+    "change_request": {
+     "label": "Change Request",
+     "type": "reference",
+     "reference": "change_request",
+     "mandatory": true,
+     "hint": "Mirrored into task.parent"
+    },
+    "change_task_type": {
+     "label": "Change task type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "planning"
+    },
+    "planned_start_date": {
+     "label": "Planned start date",
+     "type": "glide_date_time"
+    },
+    "planned_end_date": {
+     "label": "Planned end date",
+     "type": "glide_date_time"
+    },
+    "on_hold": {
+     "label": "On hold",
+     "type": "boolean",
+     "default": false
+    },
+    "on_hold_reason": {
+     "label": "On hold reason",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "created_from": {
+     "label": "Created from",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "readOnly": true,
+     "default": "manual"
+    },
+    "close_code": {
+     "label": "Close code",
+     "type": "string",
+     "choiceMode": "dropdown_with_none"
+    }
+   }
+  },
+  "chg_model": {
+   "label": "Change Model",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200,
+     "mandatory": true
+    },
+    "sys_name": {
+     "label": "System name",
+     "type": "string",
+     "maxLength": 200,
+     "readOnly": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "default_change_model": {
+     "label": "Default change model",
+     "type": "boolean",
+     "default": false
+    },
+    "available_in_ui": {
+     "label": "Available in Create New",
+     "type": "boolean",
+     "default": true
+    },
+    "color": {
+     "label": "Color",
+     "type": "string",
+     "maxLength": 40,
+     "default": "#cbcbcb"
+    },
+    "apply_record_preset": {
+     "label": "Apply record preset",
+     "type": "boolean",
+     "default": false
+    },
+    "record_preset": {
+     "label": "Record preset",
+     "type": "string",
+     "maxLength": 4000,
+     "hint": "Encoded field=value^...^EQ"
+    },
+    "table_name": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    },
+    "state_field": {
+     "label": "State field",
+     "type": "field_name",
+     "default": "state"
+    },
+    "itil_change_process": {
+     "label": "ITIL change process",
+     "type": "string",
+     "choiceMode": "dropdown_with_none"
+    },
+    "implementation_states": {
+     "label": "Implementation states",
+     "type": "string",
+     "maxLength": 400,
+     "hint": "Comma separated state values"
+    },
+    "advanced_security": {
+     "label": "Advanced security",
+     "type": "boolean",
+     "default": false
+    },
+    "available_for": {
+     "label": "Available for",
+     "type": "glide_list",
+     "reference": "user_criteria"
+    },
+    "not_available_for": {
+     "label": "Not available for",
+     "type": "glide_list",
+     "reference": "user_criteria"
+    },
+    "can_write": {
+     "label": "Can write",
+     "type": "glide_list",
+     "reference": "user_criteria"
+    },
+    "read_roles": {
+     "label": "Read roles",
+     "type": "user_roles"
+    },
+    "write_roles": {
+     "label": "Write roles",
+     "type": "user_roles"
+    },
+    "template_proposer": {
+     "label": "Who can propose templates",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "modify"
+    },
+    "template_approval_users": {
+     "label": "Template approval users",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "template_approval_groups": {
+     "label": "Template approval groups",
+     "type": "glide_list",
+     "reference": "sys_user_group"
+    }
+   }
+  },
+  "sttrm_state": {
+   "label": "Model State",
+   "columns": {
+    "model": {
+     "label": "Model",
+     "type": "reference",
+     "reference": "chg_model",
+     "mandatory": true
+    },
+    "state": {
+     "label": "State",
+     "type": "integer",
+     "mandatory": true,
+     "hint": "Value of change_request.state"
+    },
+    "label": {
+     "label": "Label",
+     "type": "string",
+     "maxLength": 100
+    },
+    "initial_state": {
+     "label": "Initial state",
+     "type": "boolean",
+     "default": false
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  },
+  "sttrm_state_transition": {
+   "label": "Model State Transition",
+   "columns": {
+    "model": {
+     "label": "Model",
+     "type": "reference",
+     "reference": "chg_model",
+     "mandatory": true
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200
+    },
+    "from_state": {
+     "label": "From",
+     "type": "reference",
+     "reference": "sttrm_state",
+     "mandatory": true
+    },
+    "to_state": {
+     "label": "To",
+     "type": "reference",
+     "reference": "sttrm_state",
+     "mandatory": true
+    },
+    "automatic_transition": {
+     "label": "Automatic transition",
+     "type": "boolean",
+     "default": false
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    }
+   }
+  },
+  "sttrm_condition_type": {
+   "label": "Model Condition Type",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "condition_type": {
+     "label": "Condition type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "condition"
+    },
+    "table_name": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "script": {
+     "label": "Condition script",
+     "type": "script",
+     "hint": "Write requires change_model_script_admin"
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  },
+  "sttrm_transition_condition": {
+   "label": "Model State Transition Condition",
+   "columns": {
+    "state_transition": {
+     "label": "State transition",
+     "type": "reference",
+     "reference": "sttrm_state_transition",
+     "mandatory": true
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "requires": {
+     "label": "Requires",
+     "type": "reference",
+     "reference": "sttrm_condition_type",
+     "mandatory": true
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "script": {
+     "label": "Condition script",
+     "type": "script",
+     "hint": "Write requires change_model_script_admin"
+    },
+    "fields": {
+     "label": "Mandatory fields",
+     "type": "field_list"
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "policy_managed": {
+     "label": "State Field Policy Managed",
+     "type": "boolean",
+     "default": false,
+     "readOnly": true
+    }
+   }
+  },
+  "sttrm_state_field_policy": {
+   "label": "State Field Policy",
+   "columns": {
+    "model_state": {
+     "label": "Model state",
+     "type": "reference",
+     "reference": "sttrm_state",
+     "mandatory": true
+    },
+    "field": {
+     "label": "Field",
+     "type": "field_name",
+     "mandatory": true
+    },
+    "mandatory": {
+     "label": "Mandatory",
+     "type": "boolean",
+     "default": false
+    },
+    "read_only": {
+     "label": "Read only",
+     "type": "boolean",
+     "default": false
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  },
+  "sttrm_attribute": {
+   "label": "Change Model Attribute",
+   "columns": {
+    "label": {
+     "label": "Label",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true,
+     "unique": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "table_name": {
+     "label": "Table name",
+     "type": "table_name",
+     "default": "change_request"
+    }
+   }
+  },
+  "sttrm_state_attribute": {
+   "label": "Model State Attribute",
+   "columns": {
+    "model_state": {
+     "label": "Model state",
+     "type": "reference",
+     "reference": "sttrm_state",
+     "mandatory": true
+    },
+    "attribute": {
+     "label": "Attribute",
+     "type": "reference",
+     "reference": "sttrm_attribute",
+     "mandatory": true
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  },
+  "chg_template": {
+   "label": "Change Template",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200,
+     "mandatory": true
+    },
+    "short_description": {
+     "label": "Short description",
+     "type": "string",
+     "maxLength": 160
+    },
+    "chg_model": {
+     "label": "Change model",
+     "type": "reference",
+     "reference": "chg_model",
+     "mandatory": true
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "readOnly": true,
+     "default": "draft"
+    },
+    "template": {
+     "label": "Template values",
+     "type": "string",
+     "maxLength": 4000,
+     "hint": "Encoded field=value^... applied at creation"
+    },
+    "previous_template": {
+     "label": "Previous template",
+     "type": "reference",
+     "reference": "chg_template",
+     "readOnly": true
+    },
+    "version": {
+     "label": "Version",
+     "type": "integer",
+     "default": 1,
+     "readOnly": true
+    },
+    "categories": {
+     "label": "Categories",
+     "type": "glide_list",
+     "reference": "chg_template_category"
+    }
+   }
+  },
+  "chg_template_field_policy": {
+   "label": "Template Field Policy",
+   "columns": {
+    "template": {
+     "label": "Template",
+     "type": "reference",
+     "reference": "chg_template",
+     "mandatory": true
+    },
+    "field": {
+     "label": "Field",
+     "type": "field_name",
+     "mandatory": true
+    },
+    "mandatory": {
+     "label": "Mandatory",
+     "type": "boolean",
+     "default": false
+    },
+    "read_only": {
+     "label": "Read only",
+     "type": "boolean",
+     "default": false
+    }
+   }
+  },
+  "chg_template_category": {
+   "label": "Change Template Category",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "parent": {
+     "label": "Parent",
+     "type": "reference",
+     "reference": "chg_template_category"
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    }
+   }
+  },
+  "chg_template_task": {
+   "label": "Change Task Template",
+   "columns": {
+    "template": {
+     "label": "Template",
+     "type": "reference",
+     "reference": "chg_template",
+     "mandatory": true
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200
+    },
+    "short_description": {
+     "label": "Short description",
+     "type": "string",
+     "maxLength": 160
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "template_values": {
+     "label": "Change task values",
+     "type": "string",
+     "maxLength": 4000
+    }
+   }
+  },
+  "std_change_properties": {
+   "label": "Standard Change Properties",
+   "columns": {
+    "catalog": {
+     "label": "Catalog",
+     "type": "reference",
+     "reference": "sc_catalog"
+    },
+    "category": {
+     "label": "Category",
+     "type": "reference",
+     "reference": "sc_category"
+    },
+    "two_step": {
+     "label": "Two step",
+     "type": "boolean",
+     "default": true
+    },
+    "mandatory_cr_fields": {
+     "label": "Mandatory change request values",
+     "type": "field_list"
+    },
+    "default_cr_values": {
+     "label": "Default change request values",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "restricted_cr_fields": {
+     "label": "Restricted change request values",
+     "type": "field_list"
+    },
+    "readonly_cr_fields": {
+     "label": "Read-only fields",
+     "type": "field_list"
+    },
+    "cr_fields_to_copy": {
+     "label": "Fields to copy",
+     "type": "field_list"
+    },
+    "mandatory_task_fields": {
+     "label": "Mandatory change task fields",
+     "type": "field_list"
+    },
+    "default_task_values": {
+     "label": "Default change task values",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "restricted_task_fields": {
+     "label": "Restricted change task fields",
+     "type": "field_list"
+    },
+    "readonly_task_fields": {
+     "label": "Read-only change task fields",
+     "type": "field_list"
+    },
+    "task_fields_to_copy": {
+     "label": "Change task fields to copy",
+     "type": "field_list"
+    }
+   }
+  },
+  "std_change_proposal": {
+   "label": "Standard Change Proposal",
+   "extends": "task",
+   "number": {
+    "prefix": "STDCHG",
+    "number": 1000,
+    "digits": 7
+   },
+   "overrides": {
+    "state": {
+     "default": "1"
+    }
+   },
+   "columns": {
+    "type": {
+     "label": "Proposal type",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "default": "1"
+    },
+    "category": {
+     "label": "Category",
+     "type": "reference",
+     "reference": "sc_category"
+    },
+    "requested_by": {
+     "label": "Requester",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "template_value": {
+     "label": "Change request values",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "sample_change_requests": {
+     "label": "Sample change requests",
+     "type": "glide_list",
+     "reference": "change_request"
+    },
+    "std_change_producer": {
+     "label": "Standard change template",
+     "type": "reference",
+     "reference": "std_change_record_producer",
+     "hint": "Target template for modify and retire proposals"
+    },
+    "business_justification": {
+     "label": "Business justification",
+     "type": "string",
+     "maxLength": 4000
+    }
+   }
+  },
+  "std_change_record_producer": {
+   "label": "Standard Change Template",
+   "extends": "sc_cat_item_producer",
+   "columns": {
+    "template": {
+     "label": "Change request values",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "current_version": {
+     "label": "Current version",
+     "type": "reference",
+     "reference": "std_change_producer_version",
+     "readOnly": true
+    },
+    "retired": {
+     "label": "Retired",
+     "type": "boolean",
+     "default": false,
+     "readOnly": true
+    }
+   }
+  },
+  "std_change_producer_version": {
+   "label": "Standard Change Template Version",
+   "columns": {
+    "std_change_producer": {
+     "label": "Standard change template",
+     "type": "reference",
+     "reference": "std_change_record_producer",
+     "mandatory": true
+    },
+    "std_change_proposal": {
+     "label": "Standard change proposal",
+     "type": "reference",
+     "reference": "std_change_proposal"
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200
+    },
+    "version": {
+     "label": "Version",
+     "type": "integer",
+     "default": 1
+    },
+    "successful_count": {
+     "label": "Successful changes",
+     "type": "integer",
+     "default": 0,
+     "readOnly": true
+    },
+    "unsuccessful_count": {
+     "label": "Unsuccessful changes",
+     "type": "integer",
+     "default": 0,
+     "readOnly": true
+    },
+    "successful_pct": {
+     "label": "Successful percentage",
+     "type": "decimal",
+     "readOnly": true
+    },
+    "unsuccessful_pct": {
+     "label": "Unsuccessful percentage",
+     "type": "decimal",
+     "readOnly": true
+    }
+   }
+  },
+  "std_change_template": {
+   "label": "Standard Change Template Values",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200
+    },
+    "table": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    },
+    "template": {
+     "label": "Template values",
+     "type": "string",
+     "maxLength": 4000
+    }
+   }
+  },
+  "std_change_task_template": {
+   "label": "Standard Change Task Template",
+   "columns": {
+    "std_change_proposal": {
+     "label": "Standard change proposal",
+     "type": "reference",
+     "reference": "std_change_proposal"
+    },
+    "std_change_producer_version": {
+     "label": "Template version",
+     "type": "reference",
+     "reference": "std_change_producer_version"
+    },
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 200,
+     "mandatory": true
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "short_description": {
+     "label": "Short description",
+     "type": "string",
+     "maxLength": 160
+    },
+    "task_values": {
+     "label": "Change task values",
+     "type": "string",
+     "maxLength": 4000
+    }
+   }
+  },
+  "conflict": {
+   "label": "Conflict",
+   "columns": {
+    "change": {
+     "label": "Change",
+     "type": "reference",
+     "reference": "change_request",
+     "mandatory": true
+    },
+    "conflicting_change": {
+     "label": "Conflicting change",
+     "type": "reference",
+     "reference": "change_request"
+    },
+    "configuration_item": {
+     "label": "Affected CI",
+     "type": "reference",
+     "reference": "cmdb_ci"
+    },
+    "related_configuration_item": {
+     "label": "Related CI",
+     "type": "reference",
+     "reference": "cmdb_ci",
+     "hint": "Parent or child CI causing the conflict"
+    },
+    "schedule": {
+     "label": "Schedule",
+     "type": "reference",
+     "reference": "cmn_schedule"
+    },
+    "type": {
+     "label": "Type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    },
+    "category": {
+     "label": "Schedule category",
+     "type": "string",
+     "maxLength": 40
+    },
+    "last_checked": {
+     "label": "Last checked",
+     "type": "glide_date_time"
+    }
+   }
+  },
+  "cmn_schedule_condition": {
+   "label": "Condition Schedule",
+   "extends": "cmn_schedule",
+   "columns": {
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "time_zone": {
+     "label": "Time zone",
+     "type": "string",
+     "maxLength": 40,
+     "hint": "Empty means Floating; skip if inherited"
+    },
+    "source": {
+     "label": "Source",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "ci_class"
+    },
+    "applies_to": {
+     "label": "Applies to",
+     "type": "table_name",
+     "default": "cmdb_ci"
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "category": {
+     "label": "Category",
+     "type": "string",
+     "choiceMode": "dropdown_with_none"
+    },
+    "assignment_group": {
+     "label": "Assignment group",
+     "type": "reference",
+     "reference": "sys_user_group"
+    },
+    "assigned_to": {
+     "label": "Assigned to",
+     "type": "reference",
+     "reference": "sys_user"
+    }
+   }
+  },
+  "cmn_schedule_blackout": {
+   "label": "Blackout Schedule",
+   "extends": "cmn_schedule_condition",
+   "columns": {}
+  },
+  "cmn_schedule_maintenance": {
+   "label": "Maintenance Schedule",
+   "extends": "cmn_schedule_condition",
+   "columns": {}
+  },
+  "cmn_schedule_information": {
+   "label": "Information Schedule",
+   "extends": "cmn_schedule_condition",
+   "columns": {}
+  },
+  "chg_lockdown": {
+   "label": "Change Lockdown",
+   "extends": "cmn_schedule_condition",
+   "note": "Real table name undocumented; ResolvrNow name.",
+   "columns": {
+    "filter_by_ci": {
+     "label": "Filter by CI",
+     "type": "boolean",
+     "default": false
+    },
+    "change_condition": {
+     "label": "Change request condition",
+     "type": "conditions"
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "readOnly": true,
+     "default": "draft"
+    }
+   }
+  },
+  "chg_lockdown_change": {
+   "label": "Schedule Lockdown Change",
+   "columns": {
+    "lockdown": {
+     "label": "Lockdown",
+     "type": "reference",
+     "reference": "chg_lockdown",
+     "mandatory": true
+    },
+    "change_request": {
+     "label": "Change request",
+     "type": "reference",
+     "reference": "change_request",
+     "mandatory": true
+    },
+    "on_hold": {
+     "label": "On hold",
+     "type": "boolean",
+     "default": false
+    },
+    "held_before": {
+     "label": "Already on hold before lockdown",
+     "type": "boolean",
+     "default": false,
+     "readOnly": true
+    }
+   }
+  },
+  "risk_conditions": {
+   "label": "Risk Condition",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "risk": {
+     "label": "Risk",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none"
+    },
+    "impact": {
+     "label": "Impact",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none"
+    },
+    "use_advanced_condition": {
+     "label": "Use advanced condition",
+     "type": "boolean",
+     "default": false
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions",
+     "hint": "On change_request"
+    },
+    "advanced_condition": {
+     "label": "Advanced condition",
+     "type": "script",
+     "hint": "Sets answer true/false"
+    },
+    "use_script_values": {
+     "label": "Use script values",
+     "type": "boolean",
+     "default": false
+    },
+    "script_values": {
+     "label": "Script values",
+     "type": "script",
+     "hint": "Sets risk and impact"
+    }
+   }
+  },
+  "change_risk_asmt": {
+   "label": "Change Risk Assessment",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "draft"
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions",
+     "hint": "Which changes get this assessment"
+    },
+    "category_weight": {
+     "label": "Category weight",
+     "type": "decimal",
+     "default": 1
+    }
+   }
+  },
+  "change_risk_asmt_question": {
+   "label": "Change Risk Assessment Question",
+   "note": "ResolvrNow simplification of asmt_metric_category and asmt_metric.",
+   "columns": {
+    "risk_assessment": {
+     "label": "Risk assessment",
+     "type": "reference",
+     "reference": "change_risk_asmt",
+     "mandatory": true
+    },
+    "question": {
+     "label": "Question",
+     "type": "string",
+     "maxLength": 4000,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "mandatory": {
+     "label": "Mandatory",
+     "type": "boolean",
+     "default": false
+    },
+    "weight": {
+     "label": "Weight",
+     "type": "decimal",
+     "default": 1
+    },
+    "depends_on": {
+     "label": "Depends on",
+     "type": "conditions"
+    },
+    "allow_additional_info": {
+     "label": "Allow additional information",
+     "type": "boolean",
+     "default": false
+    },
+    "options": {
+     "label": "Answer options",
+     "type": "json",
+     "hint": "[{label, value}]"
+    }
+   }
+  },
+  "change_risk_asmt_threshold": {
+   "label": "Assessment Threshold",
+   "columns": {
+    "risk_assessment": {
+     "label": "Risk assessment",
+     "type": "reference",
+     "reference": "change_risk_asmt",
+     "mandatory": true
+    },
+    "risk": {
+     "label": "Risk",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    },
+    "score_greater_than": {
+     "label": "Score greater than",
+     "type": "decimal",
+     "mandatory": true
+    }
+   }
+  },
+  "change_risk_asmt_result": {
+   "label": "Change Risk Assessment Result",
+   "columns": {
+    "change": {
+     "label": "Change",
+     "type": "reference",
+     "reference": "change_request",
+     "mandatory": true
+    },
+    "risk_assessment": {
+     "label": "Risk assessment",
+     "type": "reference",
+     "reference": "change_risk_asmt",
+     "mandatory": true
+    },
+    "answers": {
+     "label": "Answers",
+     "type": "json"
+    },
+    "score": {
+     "label": "Score",
+     "type": "decimal",
+     "readOnly": true
+    },
+    "risk": {
+     "label": "Risk",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "readOnly": true
+    },
+    "taken_by": {
+     "label": "Taken by",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "taken_on": {
+     "label": "Taken on",
+     "type": "glide_date_time"
+    }
+   }
+  },
+  "sn_chg_probability_risk_lookup": {
+   "label": "Calculated Risk Score",
+   "columns": {
+    "impact": {
+     "label": "Impact",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    },
+    "success_probability": {
+     "label": "Success probability",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    },
+    "risk": {
+     "label": "Risk",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    }
+   }
+  },
+  "chg_policy": {
+   "label": "Change Policy",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "description": {
+     "label": "Description",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "table_name": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    }
+   }
+  },
+  "chg_policy_approval": {
+   "label": "Change Approval Policy",
+   "extends": "chg_policy",
+   "columns": {
+    "execution": {
+     "label": "Execution",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "first_match"
+    }
+   }
+  },
+  "chg_policy_input": {
+   "label": "Change Policy Input",
+   "columns": {
+    "policy": {
+     "label": "Policy",
+     "type": "reference",
+     "reference": "chg_policy",
+     "mandatory": true
+    },
+    "label": {
+     "label": "Label",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "column_name": {
+     "label": "Column name",
+     "type": "string",
+     "maxLength": 80,
+     "mandatory": true
+    },
+    "type": {
+     "label": "Type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "reference"
+    },
+    "reference_table": {
+     "label": "Reference table",
+     "type": "table_name"
+    }
+   }
+  },
+  "chg_policy_decision": {
+   "label": "Change Policy Decision",
+   "columns": {
+    "policy": {
+     "label": "Policy",
+     "type": "reference",
+     "reference": "chg_policy",
+     "mandatory": true
+    },
+    "label": {
+     "label": "Label",
+     "type": "string",
+     "maxLength": 100
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions",
+     "hint": "Over policy inputs, dot-walk allowed"
+    },
+    "answer": {
+     "label": "Approval definition",
+     "type": "reference",
+     "reference": "chg_approval_definition"
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    }
+   }
+  },
+  "chg_approval_definition": {
+   "label": "Change Approval Definition",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "mandatory": {
+     "label": "Mandatory",
+     "type": "boolean",
+     "default": false
+    },
+    "approval_action": {
+     "label": "Approval action",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "group"
+    },
+    "approver_source": {
+     "label": "Approver source",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "definition"
+    },
+    "user": {
+     "label": "User",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "group": {
+     "label": "Group",
+     "type": "reference",
+     "reference": "sys_user_group"
+    },
+    "user_field": {
+     "label": "User field",
+     "type": "field_name",
+     "hint": "Dot-walk on change_request"
+    },
+    "group_field": {
+     "label": "Group field",
+     "type": "field_name",
+     "hint": "Dot-walk on change_request"
+    },
+    "wait_for": {
+     "label": "Wait for",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "first_response"
+    },
+    "percentage": {
+     "label": "Percentage",
+     "type": "decimal"
+    }
+   }
+  },
+  "cab_definition": {
+   "label": "CAB Definition",
+   "extends": "cmn_schedule",
+   "note": "ServiceNow chain is cmn_schedule > mtg_definition > cab_definition; ResolvrNow flattens.",
+   "columns": {
+    "manager": {
+     "label": "CAB manager",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "delegates": {
+     "label": "Delegates",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "board_members": {
+     "label": "Board members",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "board_groups": {
+     "label": "Board groups",
+     "type": "glide_list",
+     "reference": "sys_user_group"
+    },
+    "rolling_window": {
+     "label": "Rolling meeting window (days)",
+     "type": "integer",
+     "default": 28
+    },
+    "cab_type": {
+     "label": "CAB type",
+     "type": "string",
+     "maxLength": 40
+    },
+    "time_zone": {
+     "label": "Time zone",
+     "type": "string",
+     "maxLength": 40
+    },
+    "locations": {
+     "label": "Locations",
+     "type": "glide_list",
+     "reference": "cmn_location"
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "conference_details": {
+     "label": "Conference details",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "use_filter_dates": {
+     "label": "Use filter criteria to drive Change Request date range",
+     "type": "boolean",
+     "default": false
+    },
+    "notification_lead_time": {
+     "label": "Notification lead time",
+     "type": "integer"
+    },
+    "auto_add_agenda_decisions": {
+     "label": "Auto add agenda decisions",
+     "type": "boolean",
+     "default": false
+    },
+    "auto_add_changes": {
+     "label": "Automatically add change requests",
+     "type": "boolean",
+     "default": false
+    },
+    "change_condition": {
+     "label": "Change request addition conditions",
+     "type": "conditions"
+    },
+    "time_per_agenda_item": {
+     "label": "Time per agenda item",
+     "type": "glide_duration",
+     "default": 600
+    },
+    "complete_preapproved": {
+     "label": "Complete pre-approved changes",
+     "type": "boolean",
+     "default": false
+    },
+    "related_schedules": {
+     "label": "Related schedules",
+     "type": "glide_list",
+     "reference": "cmn_schedule"
+    }
+   }
+  },
+  "cab_meeting": {
+   "label": "CAB Meeting",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "cab_definition": {
+     "label": "CAB definition",
+     "type": "reference",
+     "reference": "cab_definition"
+    },
+    "manager": {
+     "label": "CAB manager",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "delegates": {
+     "label": "Delegates",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "board_members": {
+     "label": "Board members",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "board_groups": {
+     "label": "Board groups",
+     "type": "glide_list",
+     "reference": "sys_user_group"
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "pending"
+    },
+    "start": {
+     "label": "Meeting start time",
+     "type": "glide_date_time",
+     "mandatory": true
+    },
+    "end": {
+     "label": "Meeting end time",
+     "type": "glide_date_time",
+     "mandatory": true
+    },
+    "meeting_notes": {
+     "label": "Meeting notes",
+     "type": "html"
+    },
+    "locations": {
+     "label": "Locations",
+     "type": "glide_list",
+     "reference": "cmn_location"
+    },
+    "conference_details": {
+     "label": "Conference details",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "use_filter_dates": {
+     "label": "Use filter criteria to drive Change Request date range",
+     "type": "boolean",
+     "default": false
+    },
+    "changes_start_after": {
+     "label": "Change requests starting after",
+     "type": "glide_date_time"
+    },
+    "changes_start_on_or_before": {
+     "label": "Change requests starting on or before",
+     "type": "glide_date_time"
+    },
+    "change_condition": {
+     "label": "Change request addition conditions",
+     "type": "conditions"
+    },
+    "complete_preapproved": {
+     "label": "Complete pre-approved changes",
+     "type": "boolean",
+     "default": false
+    },
+    "time_per_agenda_item": {
+     "label": "Time per agenda item",
+     "type": "glide_duration",
+     "default": 600
+    },
+    "notification_lead_time": {
+     "label": "Notification lead time",
+     "type": "integer"
+    },
+    "auto_add_agenda_decisions": {
+     "label": "Auto add agenda decisions",
+     "type": "boolean",
+     "default": false
+    },
+    "host": {
+     "label": "Host",
+     "type": "reference",
+     "reference": "sys_user"
+    }
+   }
+  },
+  "cab_agenda_item": {
+   "label": "CAB Agenda Item",
+   "columns": {
+    "meeting": {
+     "label": "Meeting",
+     "type": "reference",
+     "reference": "cab_meeting",
+     "mandatory": true
+    },
+    "task": {
+     "label": "Task",
+     "type": "reference",
+     "reference": "task",
+     "mandatory": true,
+     "referenceQual": "sys_class_name=change_request^ORsys_class_name=std_change_proposal"
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "notification_recipients": {
+     "label": "Notification recipients",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "short_description": {
+     "label": "Short description",
+     "type": "string",
+     "maxLength": 160
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "pending"
+    },
+    "decision": {
+     "label": "Decision",
+     "type": "string",
+     "choiceMode": "dropdown_with_none"
+    },
+    "allotted_time": {
+     "label": "Allotted time",
+     "type": "glide_duration"
+    },
+    "elapsed_time": {
+     "label": "Elapsed time",
+     "type": "glide_duration",
+     "readOnly": true
+    }
+   }
+  },
+  "cab_attendee": {
+   "label": "CAB Attendee",
+   "columns": {
+    "meeting": {
+     "label": "Meeting",
+     "type": "reference",
+     "reference": "cab_meeting",
+     "mandatory": true
+    },
+    "attendee": {
+     "label": "Attendee",
+     "type": "reference",
+     "reference": "sys_user",
+     "mandatory": true
+    },
+    "attendee_type": {
+     "label": "Attendee type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "board_member"
+    },
+    "response": {
+     "label": "Response",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "no_response"
+    },
+    "connected": {
+     "label": "Connected",
+     "type": "boolean",
+     "default": false,
+     "readOnly": true
+    }
+   }
+  },
+  "cab_runtime_state": {
+   "label": "CAB Runtime State",
+   "columns": {
+    "meeting": {
+     "label": "Meeting",
+     "type": "reference",
+     "reference": "cab_meeting",
+     "mandatory": true
+    },
+    "current_agenda_item": {
+     "label": "Current agenda item",
+     "type": "reference",
+     "reference": "cab_agenda_item"
+    },
+    "host": {
+     "label": "Host",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "item_started": {
+     "label": "Current item started",
+     "type": "glide_date_time"
+    },
+    "paused": {
+     "label": "Paused",
+     "type": "boolean",
+     "default": false
+    }
+   }
+  },
+  "chg_mgt_worker": {
+   "label": "Change Management Worker",
+   "columns": {
+    "state": {
+     "label": "State",
+     "type": "integer",
+     "choiceMode": "dropdown_with_none",
+     "default": "1"
+    },
+    "type": {
+     "label": "Type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "mandatory": true
+    },
+    "task": {
+     "label": "Change request",
+     "type": "reference",
+     "reference": "change_request"
+    },
+    "cmdb_ci": {
+     "label": "Configuration item",
+     "type": "reference",
+     "reference": "cmdb_ci"
+    },
+    "request": {
+     "label": "Request",
+     "type": "json"
+    },
+    "payload": {
+     "label": "Payload",
+     "type": "json"
+    },
+    "messages": {
+     "label": "Messages",
+     "type": "json",
+     "hint": "{errorMessages:[], warningMessages:[], infoMessages:[]}"
+    },
+    "started_at": {
+     "label": "Started",
+     "type": "glide_date_time"
+    },
+    "completed_at": {
+     "label": "Completed",
+     "type": "glide_date_time"
+    }
+   }
+  },
+  "chg_soc_definition": {
+   "label": "Change Schedule Definition",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "table_name": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    },
+    "start_date_field": {
+     "label": "Start date field",
+     "type": "field_name",
+     "default": "start_date"
+    },
+    "end_date_field": {
+     "label": "End date field",
+     "type": "field_name",
+     "default": "end_date"
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "left_column_fields": {
+     "label": "Left column fields",
+     "type": "field_list"
+    },
+    "right_column_fields": {
+     "label": "Right column fields",
+     "type": "field_list"
+    },
+    "show_blackout": {
+     "label": "Show blackout window",
+     "type": "boolean",
+     "default": true
+    },
+    "blackout_color": {
+     "label": "Blackout window color",
+     "type": "string",
+     "maxLength": 40,
+     "default": "#9e9e9e"
+    },
+    "show_maintenance": {
+     "label": "Show maintenance window",
+     "type": "boolean",
+     "default": true
+    },
+    "maintenance_color": {
+     "label": "Maintenance window color",
+     "type": "string",
+     "maxLength": 40,
+     "default": "#b3e5fc"
+    },
+    "share_with": {
+     "label": "Share with",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "none"
+    },
+    "shared_users": {
+     "label": "Shared users",
+     "type": "glide_list",
+     "reference": "sys_user"
+    },
+    "shared_groups": {
+     "label": "Shared groups",
+     "type": "glide_list",
+     "reference": "sys_user_group"
+    },
+    "shared_roles": {
+     "label": "Shared roles",
+     "type": "user_roles"
+    },
+    "owner": {
+     "label": "Owner",
+     "type": "reference",
+     "reference": "sys_user"
+    },
+    "owner_group": {
+     "label": "Group owner",
+     "type": "reference",
+     "reference": "sys_user_group"
+    }
+   }
+  },
+  "chg_soc_definition_child": {
+   "label": "Related Definition",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "definition": {
+     "label": "Change schedule definition",
+     "type": "reference",
+     "reference": "chg_soc_definition",
+     "mandatory": true
+    },
+    "active": {
+     "label": "Active",
+     "type": "boolean",
+     "default": true
+    },
+    "table_name": {
+     "label": "Table name",
+     "type": "table_name",
+     "default": "change_task"
+    },
+    "reference_field": {
+     "label": "Reference field",
+     "type": "field_name",
+     "default": "change_request"
+    },
+    "start_date_field": {
+     "label": "Start date field",
+     "type": "field_name",
+     "default": "planned_start_date"
+    },
+    "end_date_field": {
+     "label": "End date field",
+     "type": "field_name",
+     "default": "planned_end_date"
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "left_column_fields": {
+     "label": "Left column fields",
+     "type": "field_list"
+    },
+    "right_column_fields": {
+     "label": "Right column fields",
+     "type": "field_list"
+    }
+   }
+  },
+  "chg_soc_style_rule_core": {
+   "label": "Style Rule Core",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100
+    },
+    "table_name": {
+     "label": "Table",
+     "type": "table_name",
+     "default": "change_request"
+    },
+    "condition": {
+     "label": "Condition",
+     "type": "conditions"
+    },
+    "order": {
+     "label": "Order",
+     "type": "integer",
+     "default": 100
+    },
+    "advanced": {
+     "label": "Advanced",
+     "type": "boolean",
+     "default": false
+    },
+    "label_color": {
+     "label": "Label color",
+     "type": "string",
+     "maxLength": 40
+    },
+    "label_weight": {
+     "label": "Label weight",
+     "type": "string",
+     "maxLength": 40
+    },
+    "event_color": {
+     "label": "Event color",
+     "type": "string",
+     "maxLength": 40
+    },
+    "style": {
+     "label": "Style",
+     "type": "string",
+     "maxLength": 1000
+    }
+   }
+  },
+  "chg_soc_style_rule": {
+   "label": "Default Style Rule",
+   "extends": "chg_soc_style_rule_core",
+   "columns": {}
+  },
+  "chg_soc_definition_style_rule": {
+   "label": "Definition Style Rule",
+   "extends": "chg_soc_style_rule_core",
+   "columns": {
+    "definition": {
+     "label": "Change schedule definition",
+     "type": "reference",
+     "reference": "chg_soc_definition"
+    }
+   }
+  },
+  "chg_soc_def_child_style_rule": {
+   "label": "Related Definition Style Rule",
+   "extends": "chg_soc_style_rule_core",
+   "columns": {
+    "definition_child": {
+     "label": "Related definition",
+     "type": "reference",
+     "reference": "chg_soc_definition_child"
+    }
+   }
+  },
+  "task_ci": {
+   "label": "Affected CI",
+   "note": "Shared with CMDB/Incident specs; dedupe on merge.",
+   "columns": {
+    "task": {
+     "label": "Task",
+     "type": "reference",
+     "reference": "task",
+     "mandatory": true
+    },
+    "ci_item": {
+     "label": "Configuration item",
+     "type": "reference",
+     "reference": "cmdb_ci",
+     "mandatory": true
+    },
+    "manual_proposed_change": {
+     "label": "Manual proposed change",
+     "type": "boolean",
+     "default": false
+    },
+    "applied": {
+     "label": "Proposed change applied",
+     "type": "boolean",
+     "default": false,
+     "readOnly": true
+    }
+   }
+  },
+  "task_cmdb_ci_service": {
+   "label": "Impacted Service/CI",
+   "note": "Shared with CMDB/Incident specs; dedupe on merge.",
+   "columns": {
+    "task": {
+     "label": "Task",
+     "type": "reference",
+     "reference": "task",
+     "mandatory": true
+    },
+    "cmdb_ci_service": {
+     "label": "Impacted service/CI",
+     "type": "reference",
+     "reference": "cmdb_ci",
+     "mandatory": true
+    },
+    "manually_added": {
+     "label": "Manually added",
+     "type": "boolean",
+     "default": false
+    }
+   }
+  },
+  "task_service_offering": {
+   "label": "Impacted Service Offering",
+   "columns": {
+    "task": {
+     "label": "Task",
+     "type": "reference",
+     "reference": "task",
+     "mandatory": true
+    },
+    "service_offering": {
+     "label": "Service offering",
+     "type": "reference",
+     "reference": "service_offering",
+     "mandatory": true
+    },
+    "manually_added": {
+     "label": "Manually added",
+     "type": "boolean",
+     "default": false
+    }
+   }
+  },
+  "chg_success_score_rating": {
+   "label": "Change Success Score Rating",
+   "columns": {
+    "rating": {
+     "label": "Rating",
+     "type": "string",
+     "maxLength": 40,
+     "mandatory": true
+    },
+    "min_score": {
+     "label": "Minimum score",
+     "type": "integer"
+    },
+    "max_score": {
+     "label": "Maximum score",
+     "type": "integer"
+    },
+    "color": {
+     "label": "Color",
+     "type": "string",
+     "maxLength": 40
+    }
+   }
+  },
+  "rm_product": {
+   "label": "Product",
+   "extends": "task",
+   "number": {
+    "prefix": "PRDT",
+    "number": 1000,
+    "digits": 7
+   },
+   "columns": {}
+  },
+  "rm_release": {
+   "label": "Release",
+   "extends": "task",
+   "number": {
+    "prefix": "RLSE",
+    "number": 1000,
+    "digits": 7
+   },
+   "overrides": {
+    "state": {
+     "default": "-5"
+    }
+   },
+   "columns": {
+    "product": {
+     "label": "Product",
+     "type": "reference",
+     "reference": "rm_product"
+    },
+    "release_type": {
+     "label": "Release type",
+     "type": "string",
+     "choiceMode": "dropdown_with_none"
+    },
+    "percent_complete": {
+     "label": "Percent complete",
+     "type": "percent_complete",
+     "default": 0
+    },
+    "planned_start_date": {
+     "label": "Planned start date",
+     "type": "glide_date_time"
+    },
+    "planned_end_date": {
+     "label": "Planned end date",
+     "type": "glide_date_time"
+    },
+    "planned_duration": {
+     "label": "Planned duration (days)",
+     "type": "integer",
+     "readOnly": true
+    }
+   }
+  },
+  "rm_release_phase": {
+   "label": "Release Phase",
+   "extends": "task",
+   "number": {
+    "prefix": "RPHS",
+    "number": 1000,
+    "digits": 7
+   },
+   "overrides": {
+    "state": {
+     "default": "-5"
+    }
+   },
+   "columns": {
+    "release": {
+     "label": "Release",
+     "type": "reference",
+     "reference": "rm_release",
+     "mandatory": true
+    },
+    "percent_complete": {
+     "label": "Percent complete",
+     "type": "percent_complete",
+     "default": 0
+    },
+    "planned_start_date": {
+     "label": "Planned start date",
+     "type": "glide_date_time"
+    },
+    "planned_end_date": {
+     "label": "Planned end date",
+     "type": "glide_date_time"
+    },
+    "planned_duration": {
+     "label": "Planned duration (days)",
+     "type": "integer",
+     "readOnly": true
+    }
+   }
+  },
+  "rm_task": {
+   "label": "Release Task",
+   "extends": "task",
+   "number": {
+    "prefix": "RTSK",
+    "number": 1000,
+    "digits": 7
+   },
+   "overrides": {
+    "state": {
+     "default": "-5"
+    }
+   },
+   "columns": {
+    "release_phase": {
+     "label": "Release phase",
+     "type": "reference",
+     "reference": "rm_release_phase"
+    },
+    "release": {
+     "label": "Release",
+     "type": "reference",
+     "reference": "rm_release"
+    }
+   }
+  },
+  "rm_m2m_release_task": {
+   "label": "Release Item",
+   "columns": {
+    "release": {
+     "label": "Release",
+     "type": "reference",
+     "reference": "rm_release",
+     "mandatory": true
+    },
+    "task": {
+     "label": "Work item or change",
+     "type": "reference",
+     "reference": "task",
+     "mandatory": true
+    }
+   }
+  },
+  "sn_devops_tool": {
+   "label": "DevOps Tool",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 100,
+     "mandatory": true
+    },
+    "type": {
+     "label": "Tool type",
+     "type": "string",
+     "maxLength": 40,
+     "hint": "jenkins, github, azure_devops, gitlab, harness"
+    },
+    "url": {
+     "label": "URL",
+     "type": "url"
+    },
+    "token": {
+     "label": "Token",
+     "type": "password2"
+    },
+    "integration_user": {
+     "label": "Integration user",
+     "type": "reference",
+     "reference": "sys_user"
+    }
+   }
+  },
+  "sn_devops_step": {
+   "label": "DevOps Step",
+   "columns": {
+    "name": {
+     "label": "Name",
+     "type": "string",
+     "maxLength": 160,
+     "mandatory": true
+    },
+    "tool": {
+     "label": "Tool",
+     "type": "reference",
+     "reference": "sn_devops_tool",
+     "mandatory": true
+    },
+    "pipeline_name": {
+     "label": "Pipeline",
+     "type": "string",
+     "maxLength": 255
+    },
+    "orchestration_task_name": {
+     "label": "Orchestration task name",
+     "type": "string",
+     "maxLength": 255
+    },
+    "orchestration_task_url": {
+     "label": "Orchestration task URL",
+     "type": "url"
+    },
+    "change_control": {
+     "label": "Change control",
+     "type": "boolean",
+     "default": false
+    },
+    "change_receipt": {
+     "label": "Change receipt",
+     "type": "boolean",
+     "default": false
+    },
+    "chg_model": {
+     "label": "Change model",
+     "type": "reference",
+     "reference": "chg_model"
+    },
+    "change_template": {
+     "label": "Change template values",
+     "type": "string",
+     "maxLength": 4000
+    },
+    "assignment_group": {
+     "label": "Change assignment group",
+     "type": "reference",
+     "reference": "sys_user_group"
+    }
+   }
+  },
+  "sn_devops_callback": {
+   "label": "DevOps Callback",
+   "columns": {
+    "step": {
+     "label": "Step",
+     "type": "reference",
+     "reference": "sn_devops_step"
+    },
+    "change_request": {
+     "label": "Change request",
+     "type": "reference",
+     "reference": "change_request"
+    },
+    "callback_url": {
+     "label": "Callback URL",
+     "type": "url",
+     "mandatory": true
+    },
+    "task_execution_url": {
+     "label": "Task execution URL",
+     "type": "url"
+    },
+    "pipeline_name": {
+     "label": "Pipeline",
+     "type": "string",
+     "maxLength": 255
+    },
+    "stage_name": {
+     "label": "Stage",
+     "type": "string",
+     "maxLength": 160
+    },
+    "build_number": {
+     "label": "Build number",
+     "type": "string",
+     "maxLength": 40
+    },
+    "branch_name": {
+     "label": "Branch",
+     "type": "string",
+     "maxLength": 255
+    },
+    "state": {
+     "label": "State",
+     "type": "string",
+     "choiceMode": "dropdown_with_none",
+     "default": "waiting"
+    }
+   }
+  }
+ },
+ "constants": {
+  "notes": {
+   "format": "choices: '<table>.<field>' -> [{value,label,sequence,dependentValue}]; tables use the SDK JSON column shape; constants are engine seeds.",
+   "on_hold_reason": "change_request.on_hold_reason and change_task.on_hold_reason are free-text strings (SDK: string, maxLength 4000); no choice list.",
+   "risk": "Highest risk = lowest non-empty numeric value. API samples document Moderate=3 and Low=4; values 1 (Very High) and 2 (High) are inferred. The API field table claiming 1 High/2 Moderate/3 Low is treated as an error.",
+   "sources": [
+    "https://www.servicenow.com/docs/r/it-service-management/change-management/c_ChangeStateModel.html",
+    "https://www.servicenow.com/docs/r/api-reference/rest-apis/change-management-api.html",
+    "https://www.servicenow.com/docs/r/it-service-management/change-management/default-state-field-policies.html",
+    "https://www.servicenow.com/docs/r/it-service-management/change-management/configure-conflict-properties.html",
+    "https://www.servicenow.com/docs/r/it-service-management/change-management/r_ChangeManagementProperties.html"
+   ]
+  },
+  "provenance": {
+   "documented": [
+    "change_request.state",
+    "change_request.type",
+    "change_request.close_code",
+    "change_request.conflict_status",
+    "change_request.scope",
+    "change_request.reason (values)",
+    "change_request.impact",
+    "change_request.urgency",
+    "change_request.priority (1-4)",
+    "change_request.risk (3 Moderate, 4 Low)",
+    "change_request.phase (values)",
+    "change_request.phase_state (values)",
+    "change_request.action_status",
+    "change_request.child_changes_creation_status",
+    "change_request.upon_approval (proceed)",
+    "change_request.upon_reject (cancel)",
+    "change_task.change_task_type (labels)",
+    "change_task.state (labels)",
+    "change_task.created_from",
+    "chg_template.state (labels)",
+    "chg_lockdown.state (labels)",
+    "cmn_schedule_*.category (labels)",
+    "cmn_schedule_condition.source (labels)",
+    "conflict.type (labels except assigned_to)",
+    "conflict.type not_in_maintenance_window (value)",
+    "cab_meeting.state (labels)",
+    "cab_attendee.response (labels)",
+    "chg_mgt_worker.state 1 Waiting and 3 Complete",
+    "chg_approval_definition.* (labels)",
+    "chg_policy_approval.execution (labels)",
+    "chg_policy_input.type (labels)",
+    "rm_release.state and rm_task.state (numeric categories)"
+   ],
+   "inferred": [
+    "change_request.risk 1 and 2",
+    "change_request.priority 5",
+    "change_request.review_status",
+    "change_request.category beyond Hardware/Network/Software/Other/DevOps",
+    "labels of phase and phase_state except Requested/Open",
+    "change_task.state numeric values",
+    "change_task.close_code",
+    "all snake_case values whose labels only are documented",
+    "chg_mgt_worker.state 2 and 4",
+    "cab_agenda_item.*",
+    "cab_attendee.attendee_type",
+    "std_change_proposal.*",
+    "rm_release/rm_task labels",
+    "sn_devops_callback.state",
+    "table names: sttrm_* (except sttrm_state_transition), chg_template_*, chg_lockdown*, chg_policy_input, chg_policy_decision, chg_approval_definition, change_risk_asmt_question/result, task_service_offering, std_change_task_template, sn_devops_step/callback columns"
+   ]
+  },
+  "stateValues": {
+   "draft": -5,
+   "assess": -4,
+   "authorize": -3,
+   "scheduled": -2,
+   "implement": -1,
+   "review": 0,
+   "closed": 3,
+   "canceled": 4
+  },
+  "stateNameAliases": {
+   "new": "draft"
+  },
+  "terminalStates": [
+   3,
+   4
+  ],
+  "cancelableFrom": [
+   -5,
+   -4,
+   -3,
+   -2,
+   -1
+  ],
+  "notifyRequesterOnStates": [
+   -2,
+   -1,
+   0,
+   4
+  ],
+  "stateTransitions": {
+   "normal": [
+    {
+     "from": -5,
+     "to": -4,
+     "driver": "ui_action:Request Approval",
+     "automatic": false,
+     "conditions": [
+      "Not On hold",
+      "State Field Policy Managed"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -5,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -4,
+     "to": -3,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Documented",
+     "approvalOutcome": "approved"
+    },
+    {
+     "from": -4,
+     "to": -5,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Documented",
+     "approvalOutcome": "rejected"
+    },
+    {
+     "from": -4,
+     "to": -5,
+     "driver": "ui_action:Revert to New",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -4,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -3,
+     "to": -2,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [
+      "Authorize approvals approved or skipped (low risk, manager approved in Assess)"
+     ],
+     "provenance": "Documented",
+     "approvalOutcome": "approved"
+    },
+    {
+     "from": -3,
+     "to": -5,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Documented",
+     "approvalOutcome": "rejected"
+    },
+    {
+     "from": -3,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": -1,
+     "driver": "ui_action:Implement",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "ui_action:Review",
+     "automatic": false,
+     "conditions": [
+      "Not On hold"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "model_evaluation",
+     "automatic": true,
+     "conditions": [
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": 0,
+     "to": 3,
+     "driver": "ui_action:Close",
+     "automatic": false,
+     "conditions": [
+      "State Field Policy Managed",
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    }
+   ],
+   "standard": [
+    {
+     "from": -5,
+     "to": -2,
+     "driver": "ui_action:Request Approval",
+     "automatic": false,
+     "conditions": [
+      "Not On hold"
+     ],
+     "provenance": "Documented",
+     "approvalOutcome": "pre-approved (no approval records)"
+    },
+    {
+     "from": -5,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": -1,
+     "driver": "ui_action:Implement",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "ui_action:Review",
+     "automatic": false,
+     "conditions": [
+      "Not On hold"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "model_evaluation",
+     "automatic": true,
+     "conditions": [
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": 0,
+     "to": 3,
+     "driver": "ui_action:Close",
+     "automatic": false,
+     "conditions": [
+      "State Field Policy Managed",
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    }
+   ],
+   "emergency": [
+    {
+     "from": -5,
+     "to": -3,
+     "driver": "ui_action:Request Approval",
+     "automatic": false,
+     "conditions": [
+      "Not On hold",
+      "State Field Policy Managed"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -5,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -3,
+     "to": -2,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Documented",
+     "approvalOutcome": "approved"
+    },
+    {
+     "from": -3,
+     "to": -5,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Documented",
+     "approvalOutcome": "rejected"
+    },
+    {
+     "from": -3,
+     "to": -5,
+     "driver": "ui_action:Revert to New",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -3,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": -1,
+     "driver": "ui_action:Implement",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -2,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "ui_action:Review",
+     "automatic": false,
+     "conditions": [
+      "Not On hold"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 0,
+     "driver": "model_evaluation",
+     "automatic": true,
+     "conditions": [
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -1,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Documented"
+    },
+    {
+     "from": 0,
+     "to": 3,
+     "driver": "ui_action:Close",
+     "automatic": false,
+     "conditions": [
+      "State Field Policy Managed",
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    }
+   ],
+   "unauthorized": [
+    {
+     "from": 0,
+     "to": -3,
+     "driver": "ui_action:Request Approval",
+     "automatic": false,
+     "conditions": [
+      "State Field Policy Managed"
+     ],
+     "provenance": "Documented"
+    },
+    {
+     "from": -3,
+     "to": 0,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [
+      "creates change_task 'Post Implementation Review' (type review) for Change Management"
+     ],
+     "provenance": "Documented",
+     "approvalOutcome": "approved"
+    },
+    {
+     "from": -3,
+     "to": 0,
+     "driver": "approval",
+     "automatic": true,
+     "conditions": [],
+     "provenance": "Inferred",
+     "approvalOutcome": "rejected"
+    },
+    {
+     "from": -3,
+     "to": 4,
+     "driver": "ui_action:Cancel Change",
+     "automatic": false,
+     "conditions": [],
+     "provenance": "Inferred"
+    },
+    {
+     "from": 0,
+     "to": 3,
+     "driver": "ui_action:Close",
+     "automatic": false,
+     "conditions": [
+      "State Field Policy Managed",
+      "No active Change Tasks"
+     ],
+     "provenance": "Documented"
+    }
+   ]
+  },
+  "onHold": {
+   "allowedTargets": [
+    4
+   ],
+   "pendingApprovalsBecome": "not_required",
+   "restoreApprovalsTo": "requested",
+   "syncToActiveTasks": true,
+   "keepManuallyHeldTasks": true,
+   "clearOnCancel": true
+  },
+  "baseModels": [
+   {
+    "name": "Normal",
+    "itil_change_process": "normal",
+    "record_preset": "type=normal^EQ",
+    "states": [
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0,
+     3,
+     4
+    ],
+    "initial": -5,
+    "implementation_states": [
+     -1
+    ],
+    "default_change_model": true,
+    "color": "#488df4"
+   },
+   {
+    "name": "Standard",
+    "itil_change_process": "standard",
+    "record_preset": "type=standard^EQ",
+    "states": [
+     -5,
+     -2,
+     -1,
+     0,
+     3,
+     4
+    ],
+    "initial": -5,
+    "implementation_states": [
+     -1
+    ],
+    "sys_id_documented_sample": "e55d0bfec343101035ae3f52c1d3ae49"
+   },
+   {
+    "name": "Emergency",
+    "itil_change_process": "emergency",
+    "record_preset": "type=emergency^EQ",
+    "states": [
+     -5,
+     -3,
+     -2,
+     -1,
+     0,
+     3,
+     4
+    ],
+    "initial": -5,
+    "implementation_states": [
+     -1
+    ],
+    "color": "#ea3423"
+   },
+   {
+    "name": "Unauthorized Change",
+    "itil_change_process": "",
+    "record_preset": "type=emergency^unauthorized=true^EQ",
+    "states": [
+     0,
+     -3,
+     3,
+     4
+    ],
+    "initial": 0,
+    "implementation_states": []
+   },
+   {
+    "name": "Change Registration",
+    "itil_change_process": "",
+    "record_preset": "type=normal^short_description=Automated : Change^EQ",
+    "states": [
+     0,
+     3,
+     4
+    ],
+    "initial": 0,
+    "available_in_ui": false,
+    "approvals": "none"
+   },
+   {
+    "name": "Cloud Infrastructure",
+    "itil_change_process": "",
+    "states": [
+     -5,
+     -3,
+     -1,
+     3,
+     4
+    ],
+    "initial": -5,
+    "optional": true
+   },
+   {
+    "name": "DevOps",
+    "optional": true
+   },
+   {
+    "name": "DevOps simplified",
+    "optional": true
+   },
+   {
+    "name": "App",
+    "optional": true,
+    "note": "skips assessment"
+   },
+   {
+    "name": "Low Risk",
+    "optional": true
+   },
+   {
+    "name": "Patching",
+    "optional": true
+   }
+  ],
+  "baseAttributes": [
+   {
+    "name": "allow_ci_modification",
+    "label": "Allow CI Modification"
+   },
+   {
+    "name": "allow_implementation",
+    "label": "Allow Implementation"
+   },
+   {
+    "name": "allow_conflict_detection",
+    "label": "Allow Conflict Detection"
+   },
+   {
+    "name": "allow_child_change_creation",
+    "label": "Allow Child Change Creation"
+   }
+  ],
+  "baseConditionTypes": [
+   "Mandatory Fields",
+   "Transition Condition",
+   "Transition Script",
+   "No active Change Tasks",
+   "Not On hold"
+  ],
+  "defaultStateFieldPolicies": {
+   "Normal": {
+    "-4": [
+     "assignment_group"
+    ],
+    "-3": [
+     "assignment_group"
+    ],
+    "-2": [
+     "assignment_group"
+    ],
+    "-1": [
+     "assignment_group"
+    ],
+    "0": [
+     "assignment_group"
+    ],
+    "3": [
+     "assignment_group",
+     "close_code",
+     "close_notes"
+    ]
+   },
+   "Standard": {
+    "-2": [
+     "assignment_group"
+    ],
+    "-1": [
+     "assignment_group"
+    ],
+    "0": [
+     "assignment_group"
+    ],
+    "3": [
+     "assignment_group",
+     "close_code",
+     "close_notes"
+    ]
+   },
+   "Emergency": {
+    "-3": [
+     "assignment_group"
+    ],
+    "-2": [
+     "assignment_group"
+    ],
+    "-1": [
+     "assignment_group"
+    ],
+    "0": [
+     "assignment_group"
+    ],
+    "3": [
+     "close_code",
+     "close_notes"
+    ]
+   },
+   "Unauthorized Change": {
+    "0": [
+     "assignment_group"
+    ],
+    "-3": [
+     "assignment_group",
+     "cmdb_ci",
+     "short_description",
+     "description"
+    ],
+    "3": [
+     "assignment_group",
+     "close_code",
+     "close_notes"
+    ]
+   },
+   "Change Registration": {
+    "0": [
+     "assignment_group"
+    ],
+    "3": [
+     "assignment_group",
+     "description",
+     "close_code",
+     "close_notes"
+    ],
+    "4": [
+     "description"
+    ]
+   },
+   "Cloud Infrastructure": {
+    "-3": [
+     "assignment_group"
+    ],
+    "3": [
+     "cmdb_ci",
+     "short_description",
+     "start_date",
+     "end_date",
+     "close_code",
+     "close_notes"
+    ]
+   }
+  },
+  "policyMessages": {
+   "mandatory": "Mandatory fields must be populated: {fields}",
+   "readOnly": "Read-only fields can't be modified: {fields}",
+   "ciLocked": "Configuration item cannot change for Change Requests in this state"
+  },
+  "approvalsByState": {
+   "normal": {
+    "assess": {
+     "approvers": "members of assignment_group",
+     "waitFor": "first_response"
+    },
+    "authorize": [
+     {
+      "when": "risk in (1,2,3)",
+      "approvers": "group 'CAB Approval'",
+      "waitFor": "first_response"
+     },
+     {
+      "when": "risk == 4",
+      "approvers": "assignment_group.manager",
+      "waitFor": "first_response"
+     },
+     {
+      "when": "risk == 4 and manager approved in assess",
+      "approvers": "none, skip to scheduled"
+     }
+    ]
+   },
+   "standard": {
+    "requestApproval": "approval=approved, no records"
+   },
+   "emergency": {
+    "authorize": {
+     "approvers": "group 'CAB Approval'",
+     "waitFor": "first_response"
+    }
+   },
+   "unauthorized": {
+    "authorize": {
+     "approvers": "group 'Change Management'",
+     "waitFor": "first_response"
+    }
+   },
+   "onReject": {
+    "state": -5,
+    "approval": "rejected",
+    "otherPending": "not_required"
+   },
+   "onRevertToNew": {
+    "state": -5,
+    "approval": "not requested",
+    "pending": "cancelled"
+   }
+  },
+  "riskMatrix": {
+   "description": "sn_chg_probability_risk_lookup seed: impact x success probability -> risk (ResolvrNow default, inferred)",
+   "rows": [
+    {
+     "impact": 1,
+     "success_probability": "high",
+     "risk": 3
+    },
+    {
+     "impact": 1,
+     "success_probability": "medium",
+     "risk": 2
+    },
+    {
+     "impact": 1,
+     "success_probability": "low",
+     "risk": 2
+    },
+    {
+     "impact": 2,
+     "success_probability": "high",
+     "risk": 4
+    },
+    {
+     "impact": 2,
+     "success_probability": "medium",
+     "risk": 3
+    },
+    {
+     "impact": 2,
+     "success_probability": "low",
+     "risk": 2
+    },
+    {
+     "impact": 3,
+     "success_probability": "high",
+     "risk": 4
+    },
+    {
+     "impact": 3,
+     "success_probability": "medium",
+     "risk": 4
+    },
+    {
+     "impact": 3,
+     "success_probability": "low",
+     "risk": 3
+    }
+   ],
+   "successProbabilityBands": {
+    "modelSuccessWindowDays": 90,
+    "high": 0.9,
+    "medium": 0.7
+   },
+   "combineRule": "min non-empty risk value across engines (risk conditions, risk assessment, calculated score)"
+  },
+  "riskConditionSeeds": [
+   {
+    "order": 100,
+    "name": "Insufficient lead time (Normal)",
+    "active": true,
+    "condition": "chg_model.name=Normal^start_date<javascript:gs.daysAgo(-7)",
+    "risk": 2
+   },
+   {
+    "order": 110,
+    "name": "Insufficient lead time (Standard)",
+    "active": true,
+    "condition": "chg_model.name=Standard^start_date<javascript:gs.daysAgo(-3)",
+    "risk": 3
+   },
+   {
+    "order": 200,
+    "name": "Critical service affected",
+    "active": true,
+    "condition": "cmdb_ci is a service with busines_criticality in (1 - most critical, 2 - somewhat critical)",
+    "risk": 2,
+    "impact": 1
+   },
+   {
+    "order": 900,
+    "name": "DevOps risk condition",
+    "active": false,
+    "condition": "committer risk score based"
+   }
+  ],
+  "riskAssessment": {
+   "score": "sum(answer_value * question_weight * category_weight)",
+   "riskFromThresholds": "risk of the threshold with the largest score_greater_than strictly below score",
+   "example": {
+    "score": 7,
+    "thresholds": {
+     "High": 10,
+     "Moderate": 6,
+     "Low": 0
+    },
+    "result": "Moderate"
+   },
+   "relatedLinkVisibleWhen": {
+    "type": [
+     "normal",
+     "emergency"
+    ],
+    "state": [
+     -5,
+     -4,
+     -3
+    ]
+   }
+  },
+  "conflictDetection": {
+   "requires": [
+    "cmdb_ci or affected CIs (advanced mode)",
+    "start_date",
+    "end_date",
+    "exclude_from_conflict_detection=false"
+   ],
+   "triggerFields": [
+    "cmdb_ci",
+    "start_date",
+    "end_date",
+    "state"
+   ],
+   "overlap": "a.start < b.end && b.start < a.end (contiguous windows do not overlap when allow_contiguous_changes)",
+   "statusValues": [
+    "Not Run",
+    "Conflict",
+    "No Conflict"
+   ],
+   "restJobStatus": {
+    "0": "not run",
+    "1": "running",
+    "2": "complete",
+    "3": "canceled",
+    "4": "error"
+   },
+   "scheduledJobs": [
+    {
+     "name": "Change Conflict Detection < 1 Week Away",
+     "every": "1 day"
+    },
+    {
+     "name": "Change Conflict Detection < 1 Month Away",
+     "every": "2 days"
+    },
+    {
+     "name": "Change Conflict Detection >= 1 Month Away",
+     "every": "7 days"
+    }
+   ],
+   "nextAvailable": {
+    "windowDays": 90,
+    "choiceLimit": 100,
+    "noSlotMessage": "No slots found for {days} days from now",
+    "updatedMessage": "Change has been updated"
+   }
+  },
+  "changeTaskAutoCreate": {
+   "onEnter": -1,
+   "tasks": [
+    {
+     "short_description": "Implement",
+     "change_task_type": "implementation",
+     "created_from": "workflow"
+    },
+    {
+     "short_description": "Post-implementation testing",
+     "change_task_type": "testing",
+     "created_from": "workflow"
+    }
+   ],
+   "onEnterReview": "cancel open tasks with created_from=workflow",
+   "unauthorizedPIR": {
+    "short_description": "Post Implementation Review",
+    "change_task_type": "review",
+    "assignment_group": "Change Management"
+   }
+  },
+  "lockdown": {
+   "actions": {
+    "draft": [
+     "preview",
+     "update",
+     "request_approval",
+     "delete"
+    ],
+    "awaiting_approval": [
+     "preview",
+     "revert_to_draft",
+     "cancel_lockdown",
+     "delete"
+    ],
+    "enforced": [
+     "cancel_lockdown",
+     "delete"
+    ],
+    "cancelled": [
+     "delete"
+    ]
+   },
+   "previewMax": 1000
+  },
+  "changeTemplateLifecycle": {
+   "publish": "draft -> proposed (or published when no approvers)",
+   "approve": "proposed -> published",
+   "reject": "proposed -> draft",
+   "retire": "published -> pending_retirement",
+   "retireApproved": "pending_retirement -> retired",
+   "retireRejected": "pending_retirement -> published"
+  },
+  "cab": {
+   "timerColors": [
+    {
+     "upTo": 0.5,
+     "color": "green"
+    },
+    {
+     "upTo": 0.75,
+     "color": "yellow"
+    },
+    {
+     "upTo": 1.0,
+     "color": "orange"
+    },
+    {
+     "above": 1.0,
+     "color": "red"
+    }
+   ],
+   "autoDecisionNoteFormat": "(CAB Automation) - {number} - {decision} - {manager} - {time} {timezone}"
+  },
+  "successScoreMultipliers": {
+   "successful": 3,
+   "successful_issues": -2,
+   "unsuccessful": -5,
+   "p1_incident_caused": -10,
+   "p2_incident_caused": -5,
+   "p3_incident_caused": -2,
+   "ratings": [
+    "Low",
+    "Medium",
+    "High",
+    "Excellent"
+   ]
+  },
+  "roles": {
+   "itil": [],
+   "change_manager": [],
+   "itil_admin": [],
+   "sn_change_read": [
+    "sn_cmdb_user",
+    "dependency_views",
+    "view_changer",
+    "cmdb_read",
+    "app_service_user",
+    "cmdb_query_builder_read"
+   ],
+   "sn_change_write": [
+    "sn_change_read",
+    "template_editor",
+    "cmdb_query_builder"
+   ],
+   "sn_change_admin": [
+    "sn_change_write",
+    "sn_change_cab.cab_manager",
+    "change_manager"
+   ],
+   "sn_change_cab.cab_manager": [],
+   "change_model_script_admin": [],
+   "sn_chg_soc.change_soc_admin": [],
+   "approval_user": [],
+   "release_v2_admin": [
+    "release_v2_user"
+   ],
+   "release_v2_user": [],
+   "sn_release_read": []
+  },
+  "restRoles": {
+   "GET": [
+    "change_manager",
+    "itil",
+    "sn_change_read",
+    "admin"
+   ],
+   "POST": [
+    "change_manager",
+    "itil",
+    "admin"
+   ],
+   "PATCH": [
+    "change_manager",
+    "itil",
+    "admin"
+   ],
+   "DELETE": [
+    "change_manager",
+    "admin"
+   ]
+  },
+  "events": [
+   {
+    "name": "sn_change.state.updated",
+    "when": "state changes and property enabled"
+   },
+   {
+    "name": "change_model.evaluate",
+    "parm1": "change_request sys_id"
+   },
+   {
+    "name": "ci.change.unplanned",
+    "parm1": "cmdb_ci sys_id"
+   }
+  ],
+  "notifications": [
+   {
+    "name": "Change request state change",
+    "table": "change_request",
+    "when": "state changes to -2, -1, 0 or 4",
+    "to": "requested_by",
+    "excludeUpdater": true
+   },
+   {
+    "name": "Change task assigned",
+    "table": "change_task",
+    "when": "assigned_to set",
+    "to": "assigned_to"
+   },
+   {
+    "name": "Unauthorized change created",
+    "table": "change_request",
+    "when": "insert with unauthorized=true",
+    "to": [
+     "assignment_group",
+     "cmdb_ci.managed_by",
+     "cmdb_ci.owned_by",
+     "cmdb_ci.assigned_to"
+    ]
+   },
+   {
+    "name": "Approval request",
+    "table": "sysapproval_approver",
+    "when": "state=requested",
+    "to": "approver"
+   },
+   {
+    "name": "CAB meeting invitation",
+    "table": "cab_meeting",
+    "when": "refresh or manual send",
+    "to": "attendees"
+   },
+   {
+    "name": "CAB agenda inclusion",
+    "table": "cab_agenda_item",
+    "when": "insert",
+    "to": "task.requested_by"
+   },
+   {
+    "name": "Standard change proposal decision",
+    "table": "std_change_proposal",
+    "when": "approved or rejected",
+    "to": "Change Management group"
+   }
+  ],
+  "uiActions": [
+   {
+    "name": "Request Approval",
+    "action": "state_model_request_approval",
+    "states": [
+     -5
+    ],
+    "targets": {
+     "normal": -4,
+     "emergency": -3,
+     "standard": -2
+    }
+   },
+   {
+    "name": "Request Approval (unauthorized)",
+    "action": "state_model_request_approval",
+    "states": [
+     0
+    ],
+    "condition": "unauthorized=true and model Unauthorized Change",
+    "target": -3
+   },
+   {
+    "name": "Implement",
+    "action": "state_model_move_to_implement",
+    "states": [
+     -2
+    ],
+    "target": -1
+   },
+   {
+    "name": "Review",
+    "action": "state_model_move_to_review",
+    "states": [
+     -1
+    ],
+    "target": 0
+   },
+   {
+    "name": "Close",
+    "action": "state_model_move_to_closed",
+    "states": [
+     0
+    ],
+    "target": 3
+   },
+   {
+    "name": "Cancel Change",
+    "action": "state_model_move_to_canceled",
+    "states": [
+     -5,
+     -4,
+     -3,
+     -2,
+     -1
+    ],
+    "target": 4
+   },
+   {
+    "name": "Revert to New",
+    "action": "state_model_move_to_new",
+    "states": {
+     "normal": [
+      -4
+     ],
+     "emergency": [
+      -3
+     ]
+    },
+    "target": -5
+   },
+   {
+    "name": "Check Conflicts",
+    "condition": "cmdb_ci, start_date, end_date set; not excluded"
+   },
+   {
+    "name": "Calculate Risk",
+    "condition": "risk rule mode ui_action; roles admin or itil; a rule matches"
+   },
+   {
+    "name": "Risk Assessment",
+    "condition": "type normal/emergency; state New/Assess/Authorize; assessment matches"
+   },
+   {
+    "name": "Copy Change",
+    "condition": "enable_copy and type != standard"
+   },
+   {
+    "name": "Propose a Standard Change Template"
+   },
+   {
+    "name": "Refresh Impacted Services"
+   },
+   {
+    "name": "Edit Risk Conditions"
+   },
+   {
+    "name": "View Calendar"
+   },
+   {
+    "name": "Conflict Calendar"
+   },
+   {
+    "name": "Show Flows"
+   }
+  ],
+  "properties": {
+   "glide.ui.risk_calculate_rule": {
+    "default": "ui_action",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "business_rule | ui_action | none"
+   },
+   "glide.approval_engine.change_task": {
+    "default": "process_guide",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.enable_copy": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.copy.attributes": {
+    "default": "category,cmdb_ci,priority,risk,impact,type,assignment_group,assigned_to,short_description,description,change_plan,backout_plan,test_plan",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.copy.rl.change_task.attributes": {
+    "default": "cmdb_ci,priority,assignment_group,assigned_to,short_description,description",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.copy.rl.task_ci.attributes": {
+    "default": "ci_item",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.copy.rl.task_cmdb_ci_service.attributes": {
+    "default": "cmdb_ci_service",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.copy.related_lists": {
+    "default": "task_ci,task_cmdb_ci_service,change_task",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.attach.enable_copy": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.rl.change_task.attach.enable_copy": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.task.refresh_impacted_services": {
+    "default": "incident,change_request",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.task.associate_ci": {
+    "default": "change_request,incident",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.refresh_impacted.include_affected_cis": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": "default not documented"
+   },
+   "com.snc.change_request.refresh_impacted.event": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_request.populate_service_offering": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.populate_business_application": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_request.refresh_impacted_services.message.show": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_management.enforce_data_requirements": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.enable_unauthorized": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.event.state_updated.enabled": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.event.state_updated.states": {
+    "default": "",
+    "type": "string",
+    "provenance": "Documented",
+    "description": "empty = all states"
+   },
+   "com.snc.change_request.auto.discovery": {
+    "default": "Off",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "Off | Both | Automatic | Manual"
+   },
+   "com.snc.change_request.disco.auto.state": {
+    "default": "Review",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_request.disco.manual.state": {
+    "default": "Implement, Review",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_management.policy.approval.log": {
+    "default": "",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "debug logging level"
+   },
+   "sn_change_cab.com.snc.change_management.cab.use_sow_meeting": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": "true for new instances, false for upgrades"
+   },
+   "com.snc.change_management.change_model.hide": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_management.change_model.manage_workflow": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_management.change_model.type_compatibility": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "com.snc.change_management.change_model.default_read_roles": {
+    "default": "itil,sn_change_read",
+    "type": "string",
+    "provenance": "Inferred",
+    "description": "roles that can read change models"
+   },
+   "com.snc.change_request.ci_assignment_group.field_name": {
+    "default": "support_group",
+    "type": "string",
+    "provenance": "Inferred",
+    "description": "optional property; CI field used to default assignment_group"
+   },
+   "com.snc.change_request.service_offering_assignment_group.field_name": {
+    "default": "support_group",
+    "type": "string",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "com.snc.change_management.lockdown.preview.max_changes": {
+    "default": 1000,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.role": {
+    "default": "itil",
+    "type": "string",
+    "provenance": "Inferred",
+    "description": "comma separated roles"
+   },
+   "change.conflict.useprogressworker": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.mode": {
+    "default": "basic",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "basic | advanced"
+   },
+   "change.conflict.refresh.conflicts": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.blackout": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.relatedchildblackout": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.relatedparentblackout": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.currentci": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.currentwindow": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.relatedchildwindow": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.relatedparentwindow": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.ci_maint_sched": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.relatedservices": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.assigned_to": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.populateimpactedcis": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.identifymostcritical": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "change.conflict.next_available.schedule_window": {
+    "default": 90,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.next_available.choice_limit": {
+    "default": 100,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.log": {
+    "default": "notice",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.show_conflict_message": {
+    "default": "user_preference",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "user_preference | always | never"
+   },
+   "change.conflict.allow_contiguous_changes": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.consolidated_conflicts": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.max_count": {
+    "default": 1000,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": "minimum 1000"
+   },
+   "change.conflict.lockdown": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.information": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.relatedchildinformation": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "change.conflict.relatedparentinformation": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "unauthorized.enable_event_processing": {
+    "default": false,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": "Unauthorized Change Properties page; physical name inferred"
+   },
+   "unauthorized.notification_ignore_period": {
+    "default": "1 day",
+    "type": "duration",
+    "provenance": "Documented",
+    "description": "physical name inferred"
+   },
+   "unauthorized.change_request_query": {
+    "default": "active=true^stateIN-1,0",
+    "type": "conditions",
+    "provenance": "Inferred",
+    "description": "valid change query; example from docs"
+   },
+   "unauthorized.ci_class_inclusion": {
+    "default": "",
+    "type": "string",
+    "provenance": "Documented",
+    "description": "physical name inferred"
+   },
+   "sn_chg_soc.change_soc_initial_limit": {
+    "default": 40,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_chg_soc.change_soc_scroll_load_limit": {
+    "default": 20,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_chg_soc.change_soc_total_limit": {
+    "default": 1000,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_chg_soc.landing_page.pinned_notification": {
+    "default": "true",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_chg_soc.schedule_window_days": {
+    "default": 30,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_major_change.affected_ci_threshold": {
+    "default": 2000,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_major_change.threshold_enforcement_mode": {
+    "default": "warning",
+    "type": "choice",
+    "provenance": "Documented",
+    "description": "warning | blocking"
+   },
+   "sn_major_change.child_change_generation_batch_size": {
+    "default": 500,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "std_change.two_step": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Documented",
+    "description": "stored on std_change_properties.two_step; true on new instances"
+   },
+   "sn_devops.enable_change_receipt_state_transition": {
+    "default": true,
+    "type": "boolean",
+    "provenance": "Inferred",
+    "description": ""
+   },
+   "sn_devops.change_request_handler_subflow": {
+    "default": "Default Change Handler",
+    "type": "string",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_devops.change_request.cancel_state": {
+    "default": 4,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_devops.change_request.closed_state": {
+    "default": 3,
+    "type": "integer",
+    "provenance": "Documented",
+    "description": ""
+   },
+   "sn_devops.change_request.implement_state": {
+    "default": -1,
+    "type": "integer",
+    "provenance": "Inferred",
+    "description": ""
+   }
+  },
+  "releaseStateCategories": {
+   "rm_release": {
+    "completed_states": [
+     3
+    ],
+    "close_states": [
+     3,
+     7
+    ],
+    "default_close_state": 3,
+    "default_work_state": 2,
+    "default_open_state": 1,
+    "default_skipped_state": 7,
+    "default_pending_state": -5,
+    "pending_states": [
+     -5
+    ],
+    "open_states": [
+     1
+    ],
+    "work_in_progress_states": [
+     2,
+     4,
+     10
+    ],
+    "skipped_states": [
+     4,
+     7
+    ]
+   },
+   "rm_task": {
+    "completed_states": [
+     3
+    ],
+    "close_states": [
+     3,
+     4,
+     7
+    ],
+    "default_close_state": 3,
+    "default_work_state": 2,
+    "default_open_state": 1,
+    "default_skipped_state": 7,
+    "default_pending_state": -5,
+    "pending_states": [
+     -5
+    ],
+    "open_states": [
+     1
+    ],
+    "work_in_progress_states": [
+     2
+    ],
+    "skipped_states": [
+     4,
+     7
+    ]
+   }
+  },
+  "devops": {
+   "tokenHeader": "Authorization: sn_devops.DevOpsToken <tool_sys_id>:<tool_token>",
+   "endpoints": [
+    "GET /api/sn_devops/{v}/devops/orchestration/changeControl",
+    "POST /api/sn_devops/{v}/devops/orchestration/changeControl",
+    "PUT /api/sn_devops/{v}/devops/orchestration/changeControl/{changeControlId}",
+    "GET /api/sn_devops/{v}/devops/orchestration/changeInfo",
+    "PUT /api/sn_devops/{v}/devops/orchestration/changeInfo?changeRequestNumber="
+   ],
+   "changeRequestDetailsForbidden": [
+    "impact",
+    "number",
+    "risk",
+    "risk_impact_analysis",
+    "sys_id"
+   ],
+   "flows": [
+    "DevOps Change Request Manual Approval Flow",
+    "DevOps Change Request Minimal Automation Approval Flow",
+    "DevOps Change Request Advanced Automation Approval Flow"
+   ],
+   "policies": [
+    "DevOps Model Change Policy",
+    "DevOps Change Request Minimal Automation Policy",
+    "DevOps Change Request Advanced Automation Policy"
+   ],
+   "approvalWorkNotes": [
+    "Change Approval Policy not found. Change Request has been rejected (%s).",
+    "%s is inactive. Change Request has been rejected (%s).",
+    "No Decisions matched. %s has been skipped (%s).",
+    "No approvals were generated from matched Decisions. %s has been skipped (%s).",
+    "Change Request has been rejected by %s (%s).",
+    "Change Request has been approved by %s (%s)."
+   ]
+  }
+ }
+}

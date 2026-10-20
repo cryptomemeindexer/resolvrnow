@@ -1,0 +1,19 @@
+{
+  "browser": { "mode": "launch", "executable_path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "headless": false },
+  "start_url": { "url": "https://www.servicenow.com/products/itsm.html" },
+  "environment": { "viewport": { "width": 1440, "height": 900, "device_scale_factor": 1 } },
+  "actions": [
+    { "step_id": "settle", "action": "wait_for_timeout", "duration_ms": 6000 },
+    { "step_id": "tab_agent_productivity", "action": "click", "locator": { "kind": "role", "role": "tab", "name": "Agent Productivity" }, "timeout_ms": 15000 },
+    { "step_id": "w1", "action": "wait_for_timeout", "duration_ms": 1200 },
+    { "step_id": "tab_self_service", "action": "click", "locator": { "kind": "role", "role": "tab", "name": "Self-Service" }, "timeout_ms": 15000 },
+    { "step_id": "w2", "action": "wait_for_timeout", "duration_ms": 1200 },
+    { "step_id": "tab_service_predictability", "action": "click", "locator": { "kind": "role", "role": "tab", "name": "Service Predictability" }, "timeout_ms": 15000 },
+    { "step_id": "w3", "action": "wait_for_timeout", "duration_ms": 1200 },
+    { "step_id": "tab_change_management", "action": "click", "locator": { "kind": "role", "role": "tab", "name": "Change Management" }, "timeout_ms": 15000 },
+    { "step_id": "w4", "action": "wait_for_timeout", "duration_ms": 1200 },
+    { "step_id": "tab_issue_identification", "action": "click", "locator": { "kind": "role", "role": "tab", "name": "Issue Identification" }, "timeout_ms": 15000 },
+    { "step_id": "w5", "action": "wait_for_timeout", "duration_ms": 1200 }
+  ],
+  "capture": { "after_each_step": ["accessibility"], "at_end": ["url"], "events": [] }
+}

@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+  --color-brand-50: #eefbf9;
+  --color-brand-100: #d3f3ef;
+  --color-brand-200: #a9e6df;
+  --color-brand-300: #74d0c8;
+  --color-brand-400: #40b2ab;
+  --color-brand-500: #1f9690;
+  --color-brand-600: #157873;
+  --color-brand-700: #0f5f63;
+  --color-brand-800: #0d4b4f;
+  --color-brand-900: #0a3a3d;
+
+  --color-ember-400: #f7c768;
+  --color-ember-500: #f5b544;
+  --color-ember-600: #db9419;
+}
+
+@theme inline {
+  --color-canvas: var(--app-canvas);
+  --color-surface: var(--app-surface);
+  --color-raised: var(--app-raised);
+  --color-line: var(--app-line);
+  --color-ink: var(--app-ink);
+  --color-muted: var(--app-muted);
+  --color-subtle: var(--app-subtle);
+}
+
+:root {
+  --app-canvas: #f5f6f8;
+  --app-surface: #ffffff;
+  --app-raised: #fafbfc;
+  --app-line: #e3e6eb;
+  --app-ink: #121826;
+  --app-muted: #5b6474;
+  --app-subtle: #8b93a1;
+  color-scheme: light;
+}
+
+.dark {
+  --app-canvas: #0d1117;
+  --app-surface: #141a22;
+  --app-raised: #19202a;
+  --app-line: #273141;
+  --app-ink: #e8ecf2;
+  --app-muted: #a3adbd;
+  --app-subtle: #748094;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--app-canvas);
+  color: var(--app-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+[dir="rtl"] body {
+  font-family: "Inter Variable", "Segoe UI", Tahoma, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand-400) 35%, transparent);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--app-line) transparent;
+}
+
+/* Rich text rendered from knowledge articles and HTML fields */
+.prose-app {
+  line-height: 1.65;
+}
+.prose-app h1 { font-size: 1.5rem; font-weight: 650; margin: 1.2em 0 0.5em; }
+.prose-app h2 { font-size: 1.25rem; font-weight: 650; margin: 1.1em 0 0.45em; }
+.prose-app h3 { font-size: 1.05rem; font-weight: 650; margin: 1em 0 0.4em; }
+.prose-app p { margin: 0.6em 0; }
+.prose-app ul { list-style: disc; padding-inline-start: 1.4em; margin: 0.6em 0; }
+.prose-app ol { list-style: decimal; padding-inline-start: 1.4em; margin: 0.6em 0; }
+.prose-app code { font-family: var(--font-mono); font-size: 0.9em; background: var(--app-raised); padding: 0.1em 0.35em; border-radius: 4px; }
+.prose-app pre { background: var(--app-raised); border: 1px solid var(--app-line); padding: 0.8em 1em; border-radius: 8px; overflow-x: auto; }
+.prose-app a { color: var(--color-brand-600); text-decoration: underline; }
+.prose-app table { border-collapse: collapse; margin: 0.8em 0; }
+.prose-app th, .prose-app td { border: 1px solid var(--app-line); padding: 0.35em 0.6em; }
+.prose-app blockquote { border-inline-start: 3px solid var(--app-line); padding-inline-start: 0.9em; color: var(--app-muted); }

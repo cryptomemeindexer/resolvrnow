@@ -1,0 +1,19 @@
+services:
+  resolvrnow:
+    build: .
+    image: resolvrnow:latest
+    ports:
+      - "8080:8080"
+    environment:
+      # Loads the fictional "Northwind Labs" demo data on first start (demo users share the password demo1234).
+      RESOLVRNOW_DEMO: "true"
+      # Password for the built-in 'admin' account created on first start.
+      RESOLVRNOW_ADMIN_PASSWORD: change-me-now
+      # Optional: enables generative AI skills (Claude). Everything works offline without it.
+      # ANTHROPIC_API_KEY: sk-ant-...
+    volumes:
+      - resolvrnow-data:/data
+    restart: unless-stopped
+
+volumes:
+  resolvrnow-data: {}

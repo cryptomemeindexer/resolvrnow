@@ -1,0 +1,4295 @@
+{
+ "_meta": {
+  "description": "Platform core data for ResolvrNow: choice lists, tables missing from the SDK schema (or ResolvrNow extensions), and constants. Companion of docs/spec/platform-core.md, notifications-events.md and approvals-flows.md.",
+  "basis": "Each entry carries basis 'documented' (ServiceNow Brazil docs, restated), 'inferred' (SDK model, platform behavior or ResolvrNow decision), 'mixed' or 'sdk'.",
+  "columnFormat": "Same keys as server/src/schema/sdk/sdk-tables.json columns (type, label, reference, maxLength, default, mandatory, readOnly, dependent, cascade) plus 'basis'. Choice lists live in the top-level 'choices' map keyed '<table>.<field>'.",
+  "systemColumns": "System columns (sys_id, sys_created_on/by, sys_updated_on/by, sys_mod_count, sys_class_name) are implicit."
+ },
+ "choices": {
+  "sysapproval_approver.state": [
+   {
+    "value": "not requested",
+    "label": "Not Yet Requested",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "cancelled",
+    "label": "Cancelled",
+    "sequence": 50,
+    "basis": "inferred"
+   },
+   {
+    "value": "not_required",
+    "label": "No Longer Required",
+    "sequence": 60,
+    "basis": "inferred"
+   },
+   {
+    "value": "duplicate",
+    "label": "Duplicate",
+    "sequence": 70,
+    "basis": "inferred"
+   }
+  ],
+  "task.approval": [
+   {
+    "value": "not requested",
+    "label": "Not Yet Requested",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "cancelled",
+    "label": "Cancelled",
+    "sequence": 50,
+    "basis": "inferred"
+   },
+   {
+    "value": "not_required",
+    "label": "No Longer Required",
+    "sequence": 60,
+    "basis": "inferred"
+   },
+   {
+    "value": "duplicate",
+    "label": "Duplicate",
+    "sequence": 70,
+    "basis": "inferred"
+   }
+  ],
+  "sysapproval_group.approval": [
+   {
+    "value": "not requested",
+    "label": "Not Yet Requested",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "approved",
+    "label": "Approved",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "rejected",
+    "label": "Rejected",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "cancelled",
+    "label": "Cancelled",
+    "sequence": 50,
+    "basis": "inferred"
+   },
+   {
+    "value": "not_required",
+    "label": "No Longer Required",
+    "sequence": 60,
+    "basis": "inferred"
+   },
+   {
+    "value": "duplicate",
+    "label": "Duplicate",
+    "sequence": 70,
+    "basis": "inferred"
+   }
+  ],
+  "sysapproval_group.resolvr_wait_for": [
+   {
+    "value": "first_response",
+    "label": "First response",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "any",
+    "label": "Anyone approves",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "all",
+    "label": "All responses",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "percentage",
+    "label": "Percentage of users",
+    "sequence": 40,
+    "basis": "documented"
+   }
+  ],
+  "task.upon_approval": [
+   {
+    "value": "proceed",
+    "label": "Proceed to next task",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "do_nothing",
+    "label": "Wait for a user to close this task",
+    "sequence": 20,
+    "basis": "inferred"
+   }
+  ],
+  "task.upon_reject": [
+   {
+    "value": "cancel",
+    "label": "Cancel all future tasks",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "goto",
+    "label": "Go to a previous task",
+    "sequence": 20,
+    "basis": "inferred"
+   }
+  ],
+  "task.state": [
+   {
+    "value": -5,
+    "label": "Pending",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": 1,
+    "label": "Open",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": 2,
+    "label": "Work in Progress",
+    "sequence": 30,
+    "basis": "inferred"
+   },
+   {
+    "value": 3,
+    "label": "Closed Complete",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": 4,
+    "label": "Closed Incomplete",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": 7,
+    "label": "Closed Skipped",
+    "sequence": 60,
+    "basis": "inferred"
+   }
+  ],
+  "sys_email.type": [
+   {
+    "value": "send-ready",
+    "label": "Send-ready",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "sent",
+    "label": "Sent",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "send-failed",
+    "label": "Send-failed",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "send-ignored",
+    "label": "Send-ignored",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "send-retry-backoff",
+    "label": "Send-retry-backoff",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": "send-retry-delayed",
+    "label": "Send-retry-delayed",
+    "sequence": 60,
+    "basis": "documented"
+   },
+   {
+    "value": "send-translation-ready",
+    "label": "Send-translation-ready",
+    "sequence": 70,
+    "basis": "documented"
+   },
+   {
+    "value": "received",
+    "label": "Received",
+    "sequence": 80,
+    "basis": "documented"
+   },
+   {
+    "value": "received-ignored",
+    "label": "Received-ignored",
+    "sequence": 90,
+    "basis": "documented"
+   },
+   {
+    "value": "draft",
+    "label": "Draft",
+    "sequence": 100,
+    "basis": "inferred"
+   }
+  ],
+  "sys_email.state": [
+   {
+    "value": "ready",
+    "label": "Ready",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "processed",
+    "label": "Processed",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "error",
+    "label": "Error",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "ignored",
+    "label": "Ignored",
+    "sequence": 40,
+    "basis": "documented"
+   }
+  ],
+  "sys_email.receive_type": [
+   {
+    "value": "new",
+    "label": "New",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "reply",
+    "label": "Reply",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "forward",
+    "label": "Forward",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_email.notification_type": [
+   {
+    "value": "SMTP",
+    "label": "SMTP",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "SMS",
+    "label": "SMS",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_script.when": [
+   {
+    "value": "before",
+    "label": "before",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "after",
+    "label": "after",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "async",
+    "label": "async",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "async_always",
+    "label": "async (also during upgrades)",
+    "sequence": 40,
+    "basis": "inferred"
+   },
+   {
+    "value": "display",
+    "label": "display",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": "before_display",
+    "label": "display (SDK value; treated as display)",
+    "sequence": 60,
+    "basis": "inferred"
+   }
+  ],
+  "sys_security_acl.operation": [
+   {
+    "value": "read",
+    "label": "read",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "write",
+    "label": "write",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "create",
+    "label": "create",
+    "sequence": 30,
+    "basis": "inferred"
+   },
+   {
+    "value": "delete",
+    "label": "delete",
+    "sequence": 40,
+    "basis": "inferred"
+   },
+   {
+    "value": "list_edit",
+    "label": "list_edit",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": "execute",
+    "label": "execute",
+    "sequence": 60,
+    "basis": "inferred"
+   },
+   {
+    "value": "report_view",
+    "label": "report_view",
+    "sequence": 70,
+    "basis": "documented"
+   },
+   {
+    "value": "personalize_choices",
+    "label": "personalize_choices",
+    "sequence": 80,
+    "basis": "documented"
+   },
+   {
+    "value": "report_on",
+    "label": "report_on",
+    "sequence": 90,
+    "basis": "inferred"
+   },
+   {
+    "value": "save_as_template",
+    "label": "save_as_template",
+    "sequence": 100,
+    "basis": "inferred"
+   },
+   {
+    "value": "add_to_list",
+    "label": "add_to_list",
+    "sequence": 110,
+    "basis": "inferred"
+   },
+   {
+    "value": "query_range",
+    "label": "query_range",
+    "sequence": 120,
+    "basis": "inferred"
+   },
+   {
+    "value": "query_match",
+    "label": "query_match",
+    "sequence": 130,
+    "basis": "inferred"
+   }
+  ],
+  "sys_security_acl.type": [
+   {
+    "value": "record",
+    "label": "record",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "rest_endpoint",
+    "label": "REST endpoint",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "client_callable_script_include",
+    "label": "client callable script include",
+    "sequence": 30,
+    "basis": "inferred"
+   },
+   {
+    "value": "ui_page",
+    "label": "UI page",
+    "sequence": 40,
+    "basis": "inferred"
+   },
+   {
+    "value": "processor",
+    "label": "processor",
+    "sequence": 50,
+    "basis": "inferred"
+   }
+  ],
+  "sys_security_acl.decision_type": [
+   {
+    "value": "allow",
+    "label": "Allow If",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "deny",
+    "label": "Deny Unless",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sysevent.state": [
+   {
+    "value": "ready",
+    "label": "Ready",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "processing",
+    "label": "Processing (ResolvrNow transient)",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "processed",
+    "label": "Processed",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "error",
+    "label": "Error",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "transferred",
+    "label": "Transferred",
+    "sequence": 50,
+    "basis": "documented"
+   }
+  ],
+  "sysevent_email_action.generation_type": [
+   {
+    "value": "engine",
+    "label": "Record inserted or updated",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "event",
+    "label": "Event is fired",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "triggered",
+    "label": "Triggered (flow notification step)",
+    "sequence": 30,
+    "basis": "inferred"
+   }
+  ],
+  "sysevent_email_action.type": [
+   {
+    "value": "email",
+    "label": "EMAIL",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "vcalendar",
+    "label": "Meeting Invitation",
+    "sequence": 20,
+    "basis": "inferred"
+   }
+  ],
+  "sysevent_email_action.content_type": [
+   {
+    "value": "text/html",
+    "label": "HTML only",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "multipart/alternative",
+    "label": "HTML and plain text",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "text/plain",
+    "label": "Plain text only",
+    "sequence": 30,
+    "basis": "inferred"
+   }
+  ],
+  "sysevent_email_action.importance": [
+   {
+    "value": "low",
+    "label": "Low",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "high",
+    "label": "High",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sysevent_email_action.digest_type": [
+   {
+    "value": "single",
+    "label": "Single target record",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "multiple",
+    "label": "Multiple target record",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sysevent_in_email_action.type": [
+   {
+    "value": "new",
+    "label": "New",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "reply",
+    "label": "Reply",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "forward",
+    "label": "Forward",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sysevent_in_email_action.action": [
+   {
+    "value": "record_action",
+    "label": "Record Action",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "reply_email",
+    "label": "Reply Email",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_email_reply_separator.type": [
+   {
+    "value": "string",
+    "label": "String",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "regex",
+    "label": "Regex",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_policy_action.visible": [
+   {
+    "value": "ignore",
+    "label": "Leave alone",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "true",
+    "label": "True",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "false",
+    "label": "False",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_policy_action.mandatory": [
+   {
+    "value": "ignore",
+    "label": "Leave alone",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "true",
+    "label": "True",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "false",
+    "label": "False",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_policy_action.disabled": [
+   {
+    "value": "ignore",
+    "label": "Leave alone",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "true",
+    "label": "True",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "false",
+    "label": "False",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_data_policy_rule.mandatory": [
+   {
+    "value": "ignore",
+    "label": "Leave alone",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "true",
+    "label": "True",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "false",
+    "label": "False",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_data_policy_rule.disabled": [
+   {
+    "value": "ignore",
+    "label": "Leave alone",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "true",
+    "label": "True",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "false",
+    "label": "False",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_policy.ui_type": [
+   {
+    "value": 0,
+    "label": "Desktop",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": 1,
+    "label": "Mobile / Service Portal",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": 10,
+    "label": "Both",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_action_view.visibility": [
+   {
+    "value": "include",
+    "label": "Include",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "exclude",
+    "label": "Exclude",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_ui_element.type": [
+   {
+    "value": "element",
+    "label": "element",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": ".begin_split",
+    "label": ".begin_split",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": ".split",
+    "label": ".split",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "split",
+    "label": "split",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": ".end_split",
+    "label": ".end_split",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": "end_split",
+    "label": "end_split",
+    "sequence": 60,
+    "basis": "documented"
+   },
+   {
+    "value": "formatter",
+    "label": "formatter",
+    "sequence": 70,
+    "basis": "documented"
+   },
+   {
+    "value": "list",
+    "label": "list",
+    "sequence": 80,
+    "basis": "documented"
+   },
+   {
+    "value": "annotation",
+    "label": "annotation",
+    "sequence": 90,
+    "basis": "documented"
+   },
+   {
+    "value": "chart",
+    "label": "chart",
+    "sequence": 100,
+    "basis": "documented"
+   },
+   {
+    "value": "component",
+    "label": "component",
+    "sequence": 110,
+    "basis": "documented"
+   }
+  ],
+  "sys_dictionary.choice": [
+   {
+    "value": 0,
+    "label": "None",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": 1,
+    "label": "Dropdown with -- None --",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": 2,
+    "label": "Suggestion",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": 3,
+    "label": "Dropdown without -- None --",
+    "sequence": 40,
+    "basis": "documented"
+   }
+  ],
+  "sys_dictionary.reference_cascade_rule": [
+   {
+    "value": "clear",
+    "label": "Clear",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "delete",
+    "label": "Delete",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "cascade",
+    "label": "Cascade",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "delete_no_workflow",
+    "label": "Delete no workflow",
+    "sequence": 40,
+    "basis": "documented"
+   },
+   {
+    "value": "restrict",
+    "label": "Restrict",
+    "sequence": 50,
+    "basis": "documented"
+   },
+   {
+    "value": "none",
+    "label": "None",
+    "sequence": 60,
+    "basis": "documented"
+   }
+  ],
+  "sys_dictionary.use_reference_qualifier": [
+   {
+    "value": "simple",
+    "label": "Simple",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "dynamic",
+    "label": "Dynamic",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "advanced",
+    "label": "Advanced",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ],
+  "sys_dictionary.read_only_option": [
+   {
+    "value": "instance_configured",
+    "label": "Instance Configured",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "display_read_only",
+    "label": "Display Read Only",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "client_script_modifiable",
+    "label": "Client Script Modifiable",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "strict_read_only",
+    "label": "Strict Read Only",
+    "sequence": 40,
+    "basis": "documented"
+   }
+  ],
+  "sysrule_assignment.match_conditions": [
+   {
+    "value": "ALL",
+    "label": "All",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "ANY",
+    "label": "Any",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "metric_definition.type": [
+   {
+    "value": "field_value_duration",
+    "label": "Field value duration",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "script",
+    "label": "Script calculation",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_flow_context.state": [
+   {
+    "value": "QUEUED",
+    "label": "Queued",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "IN_PROGRESS",
+    "label": "In Progress",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "WAITING",
+    "label": "Waiting",
+    "sequence": 30,
+    "basis": "inferred"
+   },
+   {
+    "value": "COMPLETE",
+    "label": "Complete",
+    "sequence": 40,
+    "basis": "inferred"
+   },
+   {
+    "value": "CANCELLED",
+    "label": "Cancelled",
+    "sequence": 50,
+    "basis": "inferred"
+   },
+   {
+    "value": "ERROR",
+    "label": "Error",
+    "sequence": 60,
+    "basis": "inferred"
+   }
+  ],
+  "sys_hub_flow_base.status": [
+   {
+    "value": "draft",
+    "label": "Draft",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "published",
+    "label": "Published",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_hub_flow_base.type": [
+   {
+    "value": "flow",
+    "label": "Flow",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "subflow",
+    "label": "Subflow",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_hub_flow_base.run_as": [
+   {
+    "value": "user",
+    "label": "User who initiates session",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "system",
+    "label": "System user",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "sys_user.notification": [
+   {
+    "value": 2,
+    "label": "Enable",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": 1,
+    "label": "Disable",
+    "sequence": 20,
+    "basis": "inferred"
+   }
+  ],
+  "sys_user.identity_type": [
+   {
+    "value": "human",
+    "label": "Human",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "machine",
+    "label": "Machine",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "ai_agent",
+    "label": "AI Agent",
+    "sequence": 30,
+    "basis": "documented"
+   },
+   {
+    "value": "unclassified",
+    "label": "-",
+    "sequence": 40,
+    "basis": "documented"
+   }
+  ],
+  "sys_user_has_role.state": [
+   {
+    "value": "active",
+    "label": "Active",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "requested",
+    "label": "Requested",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "pending",
+    "label": "Pending",
+    "sequence": 30,
+    "basis": "inferred"
+   }
+  ],
+  "sys_audit_role.operation": [
+   {
+    "value": "added",
+    "label": "Added",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "removed",
+    "label": "Removed",
+    "sequence": 20,
+    "basis": "documented"
+   }
+  ],
+  "cmn_notif_device.type": [
+   {
+    "value": "Email",
+    "label": "Email",
+    "sequence": 10,
+    "basis": "inferred"
+   },
+   {
+    "value": "SMS",
+    "label": "SMS",
+    "sequence": 20,
+    "basis": "inferred"
+   },
+   {
+    "value": "Voice",
+    "label": "Voice",
+    "sequence": 30,
+    "basis": "inferred"
+   },
+   {
+    "value": "Push",
+    "label": "Push",
+    "sequence": 40,
+    "basis": "inferred"
+   }
+  ],
+  "glide.approval_engine.<table>": [
+   {
+    "value": "approval_engine",
+    "label": "Approval Rules",
+    "sequence": 10,
+    "basis": "documented"
+   },
+   {
+    "value": "process_guide",
+    "label": "Process Guides (deprecated, treated as off)",
+    "sequence": 20,
+    "basis": "documented"
+   },
+   {
+    "value": "off",
+    "label": "Turn engines off",
+    "sequence": 30,
+    "basis": "documented"
+   }
+  ]
+ },
+ "tables": {
+  "sys_user_grmember": {
+   "label": "Group Member",
+   "basis": "documented",
+   "displayField": "user",
+   "audit": true,
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/t_ExJSConstrainAssignmentGroupField.html"
+   ],
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "group": {
+     "type": "reference",
+     "label": "Group",
+     "reference": "sys_user_group",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_user_has_role": {
+   "label": "User Role",
+   "basis": "mixed",
+   "displayField": "role",
+   "audit": true,
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "role": {
+     "type": "reference",
+     "label": "Role",
+     "reference": "sys_user_role",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "inherited": {
+     "type": "boolean",
+     "label": "Inherited",
+     "default": false,
+     "readOnly": true,
+     "basis": "inferred"
+    },
+    "granted_by": {
+     "type": "reference",
+     "label": "Granted by",
+     "reference": "sys_user_group",
+     "basis": "inferred"
+    },
+    "included_in_role": {
+     "type": "reference",
+     "label": "Included in role",
+     "reference": "sys_user_role",
+     "basis": "inferred"
+    },
+    "inheritance_count": {
+     "type": "integer",
+     "label": "Inheritance count",
+     "default": 0,
+     "basis": "inferred"
+    },
+    "state": {
+     "type": "string",
+     "label": "State",
+     "default": "active",
+     "maxLength": 40,
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_group_has_role": {
+   "label": "Group Role",
+   "basis": "documented",
+   "displayField": "role",
+   "audit": true,
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAGroupRole.html"
+   ],
+   "columns": {
+    "group": {
+     "type": "reference",
+     "label": "Group",
+     "reference": "sys_user_group",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "role": {
+     "type": "reference",
+     "label": "Role",
+     "reference": "sys_user_role",
+     "mandatory": true,
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "inherits": {
+     "type": "boolean",
+     "label": "Inherits",
+     "default": true,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_user_delegate": {
+   "label": "Delegate",
+   "basis": "inferred",
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "mandatory": true,
+     "basis": "inferred"
+    },
+    "delegate": {
+     "type": "reference",
+     "label": "Delegate",
+     "reference": "sys_user",
+     "mandatory": true,
+     "basis": "inferred"
+    },
+    "starts": {
+     "type": "glide_date_time",
+     "label": "Starts",
+     "basis": "inferred"
+    },
+    "ends": {
+     "type": "glide_date_time",
+     "label": "Ends",
+     "basis": "inferred"
+    },
+    "approvals": {
+     "type": "boolean",
+     "label": "Approvals",
+     "default": true,
+     "basis": "inferred"
+    },
+    "assignments": {
+     "type": "boolean",
+     "label": "Assignments",
+     "default": true,
+     "basis": "inferred"
+    },
+    "notifications": {
+     "type": "boolean",
+     "label": "Notifications",
+     "default": true,
+     "basis": "inferred"
+    },
+    "invitations": {
+     "type": "boolean",
+     "label": "Meeting invitations",
+     "default": true,
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_audit_role": {
+   "label": "Audit Roles",
+   "basis": "documented",
+   "system": true,
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/user-administration/audit-user-roles.html"
+   ],
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "basis": "documented"
+    },
+    "role": {
+     "type": "reference",
+     "label": "Role",
+     "reference": "sys_user_role",
+     "basis": "documented"
+    },
+    "operation": {
+     "type": "string",
+     "label": "Operation",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "granted_by": {
+     "type": "reference",
+     "label": "Granted by group",
+     "reference": "sys_user_group",
+     "basis": "documented"
+    },
+    "count_after_change": {
+     "type": "integer",
+     "label": "Count after change",
+     "basis": "documented"
+    },
+    "changed_by": {
+     "type": "string",
+     "label": "Changed by",
+     "maxLength": 100,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_choice": {
+   "label": "Choice",
+   "basis": "documented",
+   "displayField": "label",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/t_ViewChoiceListDefinitions.html"
+   ],
+   "columns": {
+    "name": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "element": {
+     "type": "string",
+     "label": "Element",
+     "mandatory": true,
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "language": {
+     "type": "string",
+     "label": "Language",
+     "default": "en",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "value": {
+     "type": "string",
+     "label": "Value",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "label": {
+     "type": "string",
+     "label": "Label",
+     "maxLength": 255,
+     "basis": "documented"
+    },
+    "sequence": {
+     "type": "integer",
+     "label": "Sequence",
+     "basis": "documented"
+    },
+    "inactive": {
+     "type": "boolean",
+     "label": "Inactive",
+     "default": false,
+     "basis": "documented"
+    },
+    "dependent_value": {
+     "type": "string",
+     "label": "Dependent value",
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "hint": {
+     "type": "string",
+     "label": "Hint",
+     "maxLength": 255,
+     "basis": "documented"
+    }
+   },
+   "notes": "Engine column `value` uses maxLength 100; platform limit is 40 characters and numeric values in [-999, 999]."
+  },
+  "sys_choice_set": {
+   "label": "Choice Set",
+   "basis": "documented",
+   "columns": {
+    "name": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "element": {
+     "type": "string",
+     "label": "Element",
+     "mandatory": true,
+     "maxLength": 100,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_number_counter": {
+   "label": "Counter",
+   "basis": "mixed",
+   "system": true,
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/t_AutoNumberingRecordsInATable.html"
+   ],
+   "columns": {
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "inferred"
+    },
+    "number": {
+     "type": "integer",
+     "label": "Last number",
+     "default": 0,
+     "basis": "inferred"
+    }
+   },
+   "notes": "v1 engine keeps the counter in sys_number.number; see platform-core.md 3.9."
+  },
+  "sys_audit": {
+   "label": "Audit",
+   "basis": "inferred",
+   "system": true,
+   "columns": {
+    "tablename": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "inferred"
+    },
+    "documentkey": {
+     "type": "string",
+     "label": "Document key",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "fieldname": {
+     "type": "string",
+     "label": "Field name",
+     "maxLength": 80,
+     "basis": "inferred"
+    },
+    "oldvalue": {
+     "type": "string",
+     "label": "Old value",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "newvalue": {
+     "type": "string",
+     "label": "New value",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "user": {
+     "type": "string",
+     "label": "User",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "reason": {
+     "type": "string",
+     "label": "Reason",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "record_checkpoint": {
+     "type": "integer",
+     "label": "Record update count",
+     "basis": "inferred"
+    },
+    "internal_checkpoint": {
+     "type": "integer",
+     "label": "Internal checkpoint",
+     "basis": "inferred"
+    }
+   },
+   "notes": "Journal additions are audited with oldvalue 'JOURNAL FIELD ADDITION'."
+  },
+  "sys_audit_delete": {
+   "label": "Deleted Records",
+   "basis": "mixed",
+   "system": true,
+   "columns": {
+    "tablename": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "inferred"
+    },
+    "documentkey": {
+     "type": "string",
+     "label": "Document key",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "display_value": {
+     "type": "string",
+     "label": "Display value",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "payload": {
+     "type": "json",
+     "label": "Payload",
+     "basis": "inferred"
+    }
+   },
+   "notes": "Not written for tables carrying the no_audit_delete attribute (documented)."
+  },
+  "sys_history_set": {
+   "label": "History Set",
+   "basis": "inferred",
+   "system": true,
+   "columns": {
+    "id": {
+     "type": "string",
+     "label": "Document key",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "inferred"
+    },
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "basis": "inferred"
+    },
+    "language": {
+     "type": "string",
+     "label": "Language",
+     "default": "en",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "initialized": {
+     "type": "glide_date_time",
+     "label": "Initialized",
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_history_line": {
+   "label": "History Line",
+   "basis": "inferred",
+   "system": true,
+   "columns": {
+    "set": {
+     "type": "reference",
+     "label": "Set",
+     "reference": "sys_history_set",
+     "basis": "inferred"
+    },
+    "field": {
+     "type": "string",
+     "label": "Field",
+     "maxLength": 80,
+     "basis": "inferred"
+    },
+    "label": {
+     "type": "string",
+     "label": "Label",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "type": {
+     "type": "string",
+     "label": "Type",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "old": {
+     "type": "string",
+     "label": "Old (display)",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "new": {
+     "type": "string",
+     "label": "New (display)",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "old_value": {
+     "type": "string",
+     "label": "Old value",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "new_value": {
+     "type": "string",
+     "label": "New value",
+     "maxLength": 8000,
+     "basis": "inferred"
+    },
+    "update": {
+     "type": "integer",
+     "label": "Update",
+     "basis": "inferred"
+    },
+    "update_time": {
+     "type": "glide_date_time",
+     "label": "Update time",
+     "basis": "inferred"
+    },
+    "user": {
+     "type": "string",
+     "label": "User",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "user_id": {
+     "type": "reference",
+     "label": "User ID",
+     "reference": "sys_user",
+     "basis": "inferred"
+    },
+    "user_name": {
+     "type": "string",
+     "label": "User name",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "internal_checkpoint": {
+     "type": "integer",
+     "label": "Internal checkpoint",
+     "basis": "inferred"
+    }
+   }
+  },
+  "sysevent": {
+   "label": "Event",
+   "basis": "mixed",
+   "system": true,
+   "displayField": "name",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/system-events/events.html",
+    "https://www.servicenow.com/docs/r/platform-administration/system-events/event-logs-2.html"
+   ],
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "parm1": {
+     "type": "string",
+     "label": "Parm1",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "parm2": {
+     "type": "string",
+     "label": "Parm2",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "documented"
+    },
+    "instance": {
+     "type": "string",
+     "label": "Instance",
+     "maxLength": 32,
+     "basis": "documented"
+    },
+    "state": {
+     "type": "string",
+     "label": "State",
+     "default": "ready",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "queue": {
+     "type": "string",
+     "label": "Queue",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "processed": {
+     "type": "glide_date_time",
+     "label": "Processed",
+     "basis": "documented"
+    },
+    "processing_duration": {
+     "type": "integer",
+     "label": "Processing time (ms)",
+     "basis": "documented"
+    },
+    "uri": {
+     "type": "string",
+     "label": "URI",
+     "maxLength": 1000,
+     "basis": "documented"
+    },
+    "user_id": {
+     "type": "string",
+     "label": "User ID",
+     "maxLength": 32,
+     "basis": "documented"
+    },
+    "user_name": {
+     "type": "string",
+     "label": "User name",
+     "maxLength": 100,
+     "basis": "inferred"
+    },
+    "process_on": {
+     "type": "glide_date_time",
+     "label": "Process on",
+     "basis": "inferred"
+    },
+    "claimed_by": {
+     "type": "string",
+     "label": "Claimed by",
+     "maxLength": 100,
+     "basis": "inferred"
+    },
+    "resolvr_snapshot": {
+     "type": "json",
+     "label": "Record snapshot (ResolvrNow extension)",
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_email": {
+   "sdk": true,
+   "basis": "sdk",
+   "notes": "Defined by the SDK schema; ResolvrNow adds no column. Value sets are under choices['sys_email.*']."
+  },
+  "sys_email_log": {
+   "label": "Email Log (originating event and notification)",
+   "basis": "inferred",
+   "system": true,
+   "columns": {
+    "email": {
+     "type": "reference",
+     "label": "Email",
+     "reference": "sys_email",
+     "basis": "inferred"
+    },
+    "notification": {
+     "type": "reference",
+     "label": "Notification",
+     "reference": "sysevent_email_action",
+     "basis": "inferred"
+    },
+    "event": {
+     "type": "reference",
+     "label": "Event",
+     "reference": "sysevent",
+     "basis": "inferred"
+    }
+   }
+  },
+  "syslog_email": {
+   "label": "Email Log Entry",
+   "basis": "mixed",
+   "system": true,
+   "columns": {
+    "email": {
+     "type": "reference",
+     "label": "Email",
+     "reference": "sys_email",
+     "basis": "inferred"
+    },
+    "level": {
+     "type": "string",
+     "label": "Level",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "message": {
+     "type": "string",
+     "label": "Message",
+     "maxLength": 4000,
+     "basis": "documented"
+    }
+   },
+   "notes": "Rows kept 7 days (documented)."
+  },
+  "sys_watermark": {
+   "label": "Email Watermark",
+   "basis": "mixed",
+   "system": true,
+   "number": {
+    "prefix": "MSG",
+    "start": 0,
+    "digits": 7
+   },
+   "columns": {
+    "number": {
+     "type": "string",
+     "label": "Number",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "source_table": {
+     "type": "table_name",
+     "label": "Source table",
+     "basis": "inferred"
+    },
+    "source_id": {
+     "type": "string",
+     "label": "Source ID",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "email": {
+     "type": "reference",
+     "label": "Email",
+     "reference": "sys_email",
+     "basis": "inferred"
+    }
+   },
+   "notes": "Stored number includes the random suffix, e.g. MSG0000008_aLJc130zDhCVuh3spXmt."
+  },
+  "sysevent_in_email_action": {
+   "label": "Inbound Email Action",
+   "basis": "mixed",
+   "extends": "sysrule",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/t_CreatingAnInboundEmailAction.html"
+   ],
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "mandatory": true,
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "collection": {
+     "type": "table_name",
+     "label": "Target table",
+     "basis": "documented"
+    },
+    "action": {
+     "type": "string",
+     "label": "Action type",
+     "default": "record_action",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "stop_processing": {
+     "type": "boolean",
+     "label": "Stop processing",
+     "default": false,
+     "basis": "documented"
+    },
+    "type": {
+     "type": "string",
+     "label": "Type",
+     "default": "new",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "required_roles": {
+     "type": "user_roles",
+     "label": "Required roles",
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "documented"
+    },
+    "from": {
+     "type": "reference",
+     "label": "From",
+     "reference": "sys_user",
+     "basis": "documented"
+    },
+    "filter_condition": {
+     "type": "conditions",
+     "label": "Condition",
+     "basis": "documented"
+    },
+    "condition_script": {
+     "type": "string",
+     "label": "Condition script",
+     "maxLength": 1000,
+     "basis": "inferred"
+    },
+    "template": {
+     "type": "string",
+     "label": "Field actions",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "reply_email": {
+     "type": "html",
+     "label": "Reply email",
+     "basis": "documented"
+    },
+    "script": {
+     "type": "script",
+     "label": "Script",
+     "basis": "documented"
+    },
+    "description": {
+     "type": "string",
+     "label": "Description",
+     "maxLength": 4000,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_email_reply_separator": {
+   "label": "Email Reply Separator",
+   "basis": "mixed",
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "type": {
+     "type": "string",
+     "label": "Type",
+     "default": "string",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "documented"
+    },
+    "separator": {
+     "type": "string",
+     "label": "Separator",
+     "maxLength": 1000,
+     "basis": "documented"
+    },
+    "short_description": {
+     "type": "string",
+     "label": "Short description",
+     "maxLength": 160,
+     "basis": "documented"
+    },
+    "language": {
+     "type": "string",
+     "label": "Language",
+     "maxLength": 40,
+     "basis": "documented"
+    }
+   }
+  },
+  "cmn_notif_device": {
+   "label": "Notification Device",
+   "basis": "mixed",
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "maxLength": 100,
+     "basis": "inferred"
+    },
+    "type": {
+     "type": "string",
+     "label": "Type",
+     "default": "Email",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "email_address": {
+     "type": "email",
+     "label": "Email address",
+     "basis": "inferred"
+    },
+    "phone_number": {
+     "type": "string",
+     "label": "Phone number",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "primary_email": {
+     "type": "boolean",
+     "label": "Primary email",
+     "default": false,
+     "basis": "inferred"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "inferred"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "inferred"
+    }
+   }
+  },
+  "cmn_notif_message": {
+   "label": "Notification Subscription",
+   "basis": "inferred",
+   "columns": {
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "mandatory": true,
+     "basis": "inferred"
+    },
+    "notification": {
+     "type": "reference",
+     "label": "Notification",
+     "reference": "sysevent_email_action",
+     "mandatory": true,
+     "basis": "inferred"
+    },
+    "device": {
+     "type": "reference",
+     "label": "Device",
+     "reference": "cmn_notif_device",
+     "basis": "inferred"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Subscribed",
+     "default": true,
+     "basis": "inferred"
+    },
+    "filter_condition": {
+     "type": "conditions",
+     "label": "Filter",
+     "basis": "inferred"
+    },
+    "digest": {
+     "type": "boolean",
+     "label": "Digest",
+     "default": false,
+     "basis": "inferred"
+    },
+    "digest_interval": {
+     "type": "reference",
+     "label": "Digest interval",
+     "reference": "sys_email_digest_interval",
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_email_digest_part": {
+   "label": "Email Digest Part",
+   "basis": "mixed",
+   "system": true,
+   "columns": {
+    "notification": {
+     "type": "reference",
+     "label": "Notification",
+     "reference": "sysevent_email_action",
+     "basis": "inferred"
+    },
+    "target_table": {
+     "type": "table_name",
+     "label": "Target table",
+     "basis": "inferred"
+    },
+    "instance": {
+     "type": "string",
+     "label": "Target",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "subject": {
+     "type": "string",
+     "label": "Subject",
+     "maxLength": 160,
+     "basis": "inferred"
+    },
+    "body": {
+     "type": "html",
+     "label": "Body",
+     "basis": "inferred"
+    },
+    "body_text": {
+     "type": "string",
+     "label": "Body text",
+     "maxLength": 8000,
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_email_digest_part_user": {
+   "label": "Email Digest Part User",
+   "basis": "mixed",
+   "system": true,
+   "columns": {
+    "digest_part": {
+     "type": "reference",
+     "label": "Digest part",
+     "reference": "sys_email_digest_part",
+     "basis": "inferred"
+    },
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "basis": "inferred"
+    },
+    "digest_key": {
+     "type": "string",
+     "label": "Digest key",
+     "maxLength": 100,
+     "basis": "inferred"
+    },
+    "send_after": {
+     "type": "glide_date_time",
+     "label": "Send after",
+     "basis": "inferred"
+    },
+    "sent": {
+     "type": "boolean",
+     "label": "Sent",
+     "default": false,
+     "basis": "inferred"
+    }
+   }
+  },
+  "sysapproval_approver": {
+   "label": "Approval",
+   "basis": "mixed",
+   "audit": true,
+   "sources": [
+    "https://www.servicenow.com/docs/r/build-workflows/approvals/r_Approvals.html"
+   ],
+   "columns": {
+    "approver": {
+     "type": "reference",
+     "label": "Approver",
+     "reference": "sys_user",
+     "basis": "documented"
+    },
+    "state": {
+     "type": "string",
+     "label": "State",
+     "default": "requested",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "sysapproval": {
+     "type": "reference",
+     "label": "Approval for",
+     "reference": "task",
+     "basis": "documented"
+    },
+    "document_id": {
+     "type": "document_id",
+     "label": "Approving",
+     "dependent": "source_table",
+     "basis": "documented"
+    },
+    "source_table": {
+     "type": "table_name",
+     "label": "Source table",
+     "basis": "inferred"
+    },
+    "comments": {
+     "type": "journal_input",
+     "label": "Comments",
+     "basis": "documented"
+    },
+    "group": {
+     "type": "reference",
+     "label": "Group",
+     "reference": "sysapproval_group",
+     "basis": "inferred"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "basis": "inferred"
+    },
+    "due_date": {
+     "type": "glide_date_time",
+     "label": "Due date",
+     "basis": "inferred"
+    },
+    "expected_start": {
+     "type": "glide_date_time",
+     "label": "Expected start",
+     "basis": "inferred"
+    },
+    "approval_column": {
+     "type": "string",
+     "label": "Approval column",
+     "default": "approval",
+     "maxLength": 80,
+     "basis": "inferred"
+    },
+    "approval_journal_column": {
+     "type": "string",
+     "label": "Approval journal column",
+     "default": "approval_history",
+     "maxLength": 80,
+     "basis": "inferred"
+    },
+    "approval_source": {
+     "type": "string",
+     "label": "Approval source",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "iteration": {
+     "type": "integer",
+     "label": "Iteration",
+     "default": 0,
+     "basis": "inferred"
+    },
+    "flow_context": {
+     "type": "reference",
+     "label": "Flow",
+     "reference": "sys_flow_context",
+     "basis": "inferred"
+    },
+    "wf_activity": {
+     "type": "string",
+     "label": "Workflow activity",
+     "maxLength": 32,
+     "basis": "inferred"
+    }
+   },
+   "notes": "Rows created manually default to 'not requested' (documented); the column default 'requested' applies to rule/flow creation."
+  },
+  "sysapproval_group": {
+   "label": "Group approval",
+   "basis": "inferred",
+   "extends": "task",
+   "columns": {
+    "resolvr_wait_for": {
+     "type": "string",
+     "label": "Wait for (ResolvrNow extension)",
+     "default": "first_response",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "resolvr_percentage": {
+     "type": "integer",
+     "label": "Percentage (ResolvrNow extension)",
+     "basis": "inferred"
+    }
+   },
+   "notes": "Inherits parent (approved record), assignment_group (approving group), approval (group state), short_description, approval_set, due_date from task."
+  },
+  "sysrule_approvals": {
+   "label": "Approval Rule",
+   "basis": "mixed",
+   "extends": "sysrule",
+   "sources": [
+    "https://www.servicenow.com/docs/r/build-workflows/approvals/t_SetUpAGatingApprViaApprovalRule.html"
+   ],
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "run_before": {
+     "type": "boolean",
+     "label": "Run rule before",
+     "default": true,
+     "basis": "documented"
+    },
+    "user": {
+     "type": "reference",
+     "label": "User",
+     "reference": "sys_user",
+     "basis": "documented"
+    },
+    "group": {
+     "type": "reference",
+     "label": "Group",
+     "reference": "sys_user_group",
+     "basis": "documented"
+    },
+    "set_state": {
+     "type": "string",
+     "label": "Set state",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "condition": {
+     "type": "conditions",
+     "label": "Condition",
+     "basis": "documented"
+    },
+    "script": {
+     "type": "script",
+     "label": "Script",
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "inferred"
+    }
+   }
+  },
+  "metric_definition": {
+   "label": "Metric Definition",
+   "basis": "documented",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/create-metric.html"
+   ],
+   "columns": {
+    "number": {
+     "type": "string",
+     "label": "Number",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "mandatory": true,
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "field": {
+     "type": "field_name",
+     "label": "Field",
+     "dependent": "table",
+     "basis": "documented"
+    },
+    "type": {
+     "type": "string",
+     "label": "Type",
+     "default": "field_value_duration",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "timeline": {
+     "type": "boolean",
+     "label": "Timeline",
+     "default": false,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "description": {
+     "type": "string",
+     "label": "Description",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "script": {
+     "type": "script",
+     "label": "Script",
+     "basis": "documented"
+    }
+   }
+  },
+  "metric_instance": {
+   "label": "Metric Instance",
+   "basis": "mixed",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/c_MetricInstance.html"
+   ],
+   "columns": {
+    "definition": {
+     "type": "reference",
+     "label": "Definition",
+     "reference": "metric_definition",
+     "basis": "documented"
+    },
+    "id": {
+     "type": "string",
+     "label": "ID",
+     "maxLength": 32,
+     "basis": "documented"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "inferred"
+    },
+    "field": {
+     "type": "string",
+     "label": "Field",
+     "maxLength": 80,
+     "basis": "inferred"
+    },
+    "field_value": {
+     "type": "string",
+     "label": "Field value",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "value": {
+     "type": "string",
+     "label": "Value",
+     "maxLength": 255,
+     "basis": "documented"
+    },
+    "start": {
+     "type": "glide_date_time",
+     "label": "Start",
+     "basis": "inferred"
+    },
+    "end": {
+     "type": "glide_date_time",
+     "label": "End",
+     "basis": "inferred"
+    },
+    "duration": {
+     "type": "glide_duration",
+     "label": "Duration",
+     "basis": "documented"
+    },
+    "business_duration": {
+     "type": "glide_duration",
+     "label": "Business duration",
+     "basis": "inferred"
+    },
+    "calculation_complete": {
+     "type": "boolean",
+     "label": "Calculation complete",
+     "default": false,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_ui_policy": {
+   "label": "UI Policy",
+   "basis": "mixed",
+   "extends": "sys_metadata",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/t_CreateAUIPolicy.html"
+   ],
+   "columns": {
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "short_description": {
+     "type": "string",
+     "label": "Short description",
+     "maxLength": 160,
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "documented"
+    },
+    "conditions": {
+     "type": "conditions",
+     "label": "Conditions",
+     "dependent": "table",
+     "basis": "documented"
+    },
+    "global": {
+     "type": "boolean",
+     "label": "Global",
+     "default": true,
+     "basis": "documented"
+    },
+    "view": {
+     "type": "string",
+     "label": "View",
+     "maxLength": 80,
+     "basis": "documented"
+    },
+    "reverse_if_false": {
+     "type": "boolean",
+     "label": "Reverse if false",
+     "default": true,
+     "basis": "documented"
+    },
+    "on_load": {
+     "type": "boolean",
+     "label": "On load",
+     "default": true,
+     "basis": "documented"
+    },
+    "inherit": {
+     "type": "boolean",
+     "label": "Inherit",
+     "default": false,
+     "basis": "documented"
+    },
+    "run_scripts": {
+     "type": "boolean",
+     "label": "Run scripts",
+     "default": false,
+     "basis": "documented"
+    },
+    "script_true": {
+     "type": "script",
+     "label": "Execute if true",
+     "basis": "documented"
+    },
+    "script_false": {
+     "type": "script",
+     "label": "Execute if false",
+     "basis": "documented"
+    },
+    "ui_type": {
+     "type": "integer",
+     "label": "Run scripts in UI type",
+     "default": 0,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_ui_policy_action": {
+   "label": "UI Policy Action",
+   "basis": "mixed",
+   "columns": {
+    "ui_policy": {
+     "type": "reference",
+     "label": "UI policy",
+     "reference": "sys_ui_policy",
+     "cascade": "delete",
+     "basis": "inferred"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "documented"
+    },
+    "field": {
+     "type": "field_name",
+     "label": "Field name",
+     "dependent": "table",
+     "basis": "documented"
+    },
+    "visible": {
+     "type": "string",
+     "label": "Visible",
+     "default": "ignore",
+     "maxLength": 10,
+     "basis": "documented"
+    },
+    "mandatory": {
+     "type": "string",
+     "label": "Mandatory",
+     "default": "ignore",
+     "maxLength": 10,
+     "basis": "documented"
+    },
+    "disabled": {
+     "type": "string",
+     "label": "Read only",
+     "default": "ignore",
+     "maxLength": 10,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_data_policy2": {
+   "label": "Data Policy",
+   "basis": "mixed",
+   "extends": "sys_metadata",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/r_DataPolicyFields.html"
+   ],
+   "columns": {
+    "model_table": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "inherit": {
+     "type": "boolean",
+     "label": "Inherit",
+     "default": false,
+     "basis": "documented"
+    },
+    "reverse_if_false": {
+     "type": "boolean",
+     "label": "Reverse if false",
+     "default": true,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": true,
+     "basis": "documented"
+    },
+    "short_description": {
+     "type": "string",
+     "label": "Short description",
+     "maxLength": 160,
+     "basis": "documented"
+    },
+    "description": {
+     "type": "string",
+     "label": "Description",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "apply_import_set": {
+     "type": "boolean",
+     "label": "Apply to import sets",
+     "default": true,
+     "basis": "documented"
+    },
+    "apply_soap": {
+     "type": "boolean",
+     "label": "Apply to SOAP",
+     "default": true,
+     "basis": "documented"
+    },
+    "enforce_ui": {
+     "type": "boolean",
+     "label": "Use as UI Policy on client",
+     "default": true,
+     "basis": "documented"
+    },
+    "conditions": {
+     "type": "conditions",
+     "label": "Conditions",
+     "dependent": "model_table",
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_data_policy_rule": {
+   "label": "Data Policy Rule",
+   "basis": "mixed",
+   "columns": {
+    "sys_data_policy": {
+     "type": "reference",
+     "label": "Data policy",
+     "reference": "sys_data_policy2",
+     "cascade": "delete",
+     "basis": "inferred"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "documented"
+    },
+    "field": {
+     "type": "field_name",
+     "label": "Field name",
+     "dependent": "table",
+     "basis": "documented"
+    },
+    "disabled": {
+     "type": "string",
+     "label": "Read only",
+     "default": "ignore",
+     "maxLength": 10,
+     "basis": "documented"
+    },
+    "mandatory": {
+     "type": "string",
+     "label": "Mandatory",
+     "default": "ignore",
+     "maxLength": 10,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_ui_action_view": {
+   "label": "UI Action Visibility",
+   "basis": "mixed",
+   "columns": {
+    "sys_ui_action": {
+     "type": "reference",
+     "label": "UI action",
+     "reference": "sys_ui_action",
+     "cascade": "delete",
+     "basis": "inferred"
+    },
+    "sys_ui_view": {
+     "type": "reference",
+     "label": "View",
+     "reference": "sys_ui_view",
+     "basis": "inferred"
+    },
+    "visibility": {
+     "type": "string",
+     "label": "Visibility",
+     "default": "include",
+     "maxLength": 10,
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_state_model": {
+   "label": "State Model",
+   "basis": "documented",
+   "extends": "sys_metadata",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/state-management/add-state-model.html"
+   ],
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "mandatory": true,
+     "maxLength": 100,
+     "basis": "documented"
+    },
+    "table": {
+     "type": "table_name",
+     "label": "Table",
+     "mandatory": true,
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "documented"
+    },
+    "active": {
+     "type": "boolean",
+     "label": "Active",
+     "default": false,
+     "basis": "documented"
+    },
+    "description": {
+     "type": "string",
+     "label": "Description",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "condition": {
+     "type": "conditions",
+     "label": "Condition",
+     "dependent": "table",
+     "basis": "documented"
+    },
+    "common_exit_condition": {
+     "type": "conditions",
+     "label": "Common exit condition",
+     "dependent": "table",
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_state_transition": {
+   "label": "State Transition",
+   "basis": "documented",
+   "extends": "sys_metadata",
+   "columns": {
+    "state_model": {
+     "type": "reference",
+     "label": "State model",
+     "reference": "sys_state_model",
+     "cascade": "delete",
+     "basis": "documented"
+    },
+    "state": {
+     "type": "string",
+     "label": "State",
+     "maxLength": 40,
+     "basis": "documented"
+    },
+    "order": {
+     "type": "integer",
+     "label": "Order",
+     "default": 100,
+     "basis": "documented"
+    },
+    "terminal_state": {
+     "type": "boolean",
+     "label": "Terminal state",
+     "default": false,
+     "basis": "documented"
+    },
+    "description": {
+     "type": "string",
+     "label": "Description",
+     "maxLength": 4000,
+     "basis": "documented"
+    },
+    "enter_condition": {
+     "type": "conditions",
+     "label": "Enter condition",
+     "basis": "documented"
+    },
+    "exit_condition": {
+     "type": "conditions",
+     "label": "Exit condition",
+     "basis": "documented"
+    }
+   }
+  },
+  "dl_u_priority": {
+   "label": "Priority Data Lookup",
+   "basis": "documented",
+   "extends": "dl_matcher",
+   "sources": [
+    "https://www.servicenow.com/docs/r/platform-administration/r_CreateCustomDataLookups.html"
+   ],
+   "columns": {
+    "impact": {
+     "type": "integer",
+     "label": "Impact",
+     "basis": "documented"
+    },
+    "urgency": {
+     "type": "integer",
+     "label": "Urgency",
+     "basis": "documented"
+    },
+    "priority": {
+     "type": "integer",
+     "label": "Priority",
+     "basis": "documented"
+    }
+   }
+  },
+  "sys_trigger": {
+   "label": "Scheduled job queue entry (async business rules)",
+   "basis": "inferred",
+   "system": true,
+   "columns": {
+    "name": {
+     "type": "string",
+     "label": "Name",
+     "maxLength": 255,
+     "basis": "inferred"
+    },
+    "next_action": {
+     "type": "glide_date_time",
+     "label": "Next action",
+     "basis": "inferred"
+    },
+    "document": {
+     "type": "table_name",
+     "label": "Table",
+     "basis": "inferred"
+    },
+    "document_key": {
+     "type": "string",
+     "label": "Document key",
+     "maxLength": 32,
+     "basis": "inferred"
+    },
+    "job_context": {
+     "type": "json",
+     "label": "Job context",
+     "basis": "inferred"
+    },
+    "state": {
+     "type": "string",
+     "label": "State",
+     "default": "ready",
+     "maxLength": 40,
+     "basis": "inferred"
+    },
+    "claimed_by": {
+     "type": "string",
+     "label": "Claimed by",
+     "maxLength": 100,
+     "basis": "inferred"
+    },
+    "error": {
+     "type": "string",
+     "label": "Error",
+     "maxLength": 4000,
+     "basis": "inferred"
+    }
+   }
+  },
+  "sys_hub_flow": {
+   "sdk": true,
+   "basis": "inferred",
+   "columnsAdded": {
+    "resolvr_definition": {
+     "type": "json",
+     "label": "Definition (ResolvrNow extension)",
+     "basis": "inferred"
+    }
+   }
+  },
+  "resolvr_flow_snapshot": {
+   "label": "Flow Snapshot",
+   "basis": "inferred",
+   "columns": {
+    "flow": {
+     "type": "reference",
+     "label": "Flow",
+     "reference": "sys_hub_flow",
+     "basis": "inferred"
+    },
+    "version": {
+     "type": "integer",
+     "label": "Version",
+     "basis": "inferred"
+    },
+    "definition": {
+     "type": "json",
+     "label": "Definition",
+     "basis": "inferred"
+    }
+   }
+  }
+ },
+ "constants": {
+  "baseRoles": [
+   {
+    "name": "admin",
+    "description": "Passes every role check and every ACL with admin overrides; cannot pass 'nobody'.",
+    "contains": [
+     "catalog_admin",
+     "catalog",
+     "import_admin",
+     "import_scheduler",
+     "import_set_loader",
+     "import_transformer",
+     "image_admin",
+     "personalize_dictionary",
+     "user_criteria_admin",
+     "sp_admin",
+     "ais_admin"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "itil",
+    "description": "Base fulfiller: work incidents, problems, changes; read CMDB; assignable to tasks.",
+    "contains": [
+     "agent_workspace_user",
+     "app_service_user",
+     "cmdb_query_builder",
+     "cmdb_read",
+     "dependency_views",
+     "email_composer",
+     "snc_platform_rest_api_access",
+     "sn_change_write",
+     "sn_incident_write",
+     "sn_problem_write",
+     "sn_request_write",
+     "survey_reader",
+     "template_editor",
+     "tracked_file_reader",
+     "view_changer",
+     "viz_creator"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "itil_admin",
+    "description": "Team lead: delete incidents, problems, changes (with itil); full CMDB control.",
+    "contains": [
+     "assessment_admin",
+     "cmdb_read",
+     "sn_bm_client.benchmark_data_viewer"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "approver_user",
+    "description": "Act on approvals routed to the user; requester abilities.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "approval_admin",
+    "description": "View and modify approvals not assigned to the user.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "catalog_admin",
+    "description": "Manage Service Catalog catalogs, categories, items (no scripting).",
+    "contains": [
+     "user_criteria_admin",
+     "catalog_builder_editor",
+     "catalog_template_editor",
+     "catalog",
+     "catalog_lookup_admin"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "catalog",
+    "description": "Read and some write on catalog requests, tasks and items.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "catalog_editor",
+    "description": "Edit and publish items in assigned catalogs/categories.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "catalog_manager",
+    "description": "Edit catalogs/categories they manage and assign editors.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "knowledge",
+    "description": "Contribute to the default knowledge base; Knowledge menu.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "knowledge_admin",
+    "description": "Administer all knowledge bases except scoped ones.",
+    "contains": [
+     "knowledge"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "knowledge_manager",
+    "description": "Administer knowledge bases they manage.",
+    "contains": [
+     "knowledge"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "user_admin",
+    "description": "Administer users, groups, locations, companies.",
+    "contains": [
+     "fsm_skill_admin",
+     "skill_admin",
+     "territory_admin"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "assignment_rule_admin",
+    "description": "Manage assignment rules.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "business_rule_admin",
+    "description": "Manage business rules.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "client_script_admin",
+    "description": "Manage client scripts.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "ui_action_admin",
+    "description": "Manage UI actions.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "ui_policy_admin",
+    "description": "Manage UI policies.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "form_admin",
+    "description": "Manage forms, sections and section elements.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "script_include_admin",
+    "description": "Manage script includes.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize",
+    "description": "Configure forms, lists, rules, controls, scripts.",
+    "contains": [
+     "personalize_control",
+     "personalize_rules",
+     "personalize_dictionary",
+     "personalize_choices",
+     "personalize_styles",
+     "personalize_responses",
+     "personalize_list",
+     "personalize_form"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_rules",
+    "description": "Configure business rules and scripts.",
+    "contains": [
+     "business_rule_admin",
+     "client_script_admin",
+     "ui_policy_admin",
+     "ui_action_admin"
+    ],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_choices",
+    "description": "Configure choices for choice/suggestion fields.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_dictionary",
+    "description": "Configure dictionary entries and labels.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_form",
+    "description": "Configure forms.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_list",
+    "description": "Configure lists and list calculations.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "personalize_control",
+    "description": "Configure list controls.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "template_editor",
+    "description": "Personal templates.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "view_changer",
+    "description": "Switch views.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "list_updater",
+    "description": "Update selected / entire list.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "task_editor",
+    "description": "Edit protected task fields.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "snc_platform_rest_api_access",
+    "description": "Table, Import Set, Aggregate and Attachment REST APIs when their API ACLs are active.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "impersonator",
+    "description": "Impersonate non-admin users.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "security_admin",
+    "description": "Elevated privilege; manage ACLs after elevation.",
+    "contains": [],
+    "elevated": true,
+    "basis": "documented"
+   },
+   {
+    "name": "public",
+    "description": "Granted without login.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "user",
+    "description": "No function in the base system.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "nobody",
+    "description": "Denies everyone, including admin, regardless of admin overrides.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "snc_internal",
+    "description": "Explicit role held by internal users (all users when explicit roles are active).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "snc_external",
+    "description": "Explicit role held by external users (customers, consumers, kiosks).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "metric_admin",
+    "description": "Manage metric definitions.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "state_model_admin",
+    "description": "Manage state models for task tables.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "data_lookup_admin",
+    "description": "Manage priority lookup rules.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "flow_designer",
+    "description": "Build flows and subflows.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "action_designer",
+    "description": "Build custom flow actions.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "sysevent_script_action_admin",
+    "description": "Manage script actions.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "role_delegator",
+    "description": "Delegate held roles within managed groups.",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "sn_incident_write",
+    "description": "Incident write access (contained in itil).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "sn_problem_write",
+    "description": "Problem write access (contained in itil).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "sn_change_write",
+    "description": "Change write access (contained in itil).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "sn_request_write",
+    "description": "Request write access (contained in itil).",
+    "contains": [],
+    "basis": "documented"
+   },
+   {
+    "name": "cmdb_read",
+    "description": "Read any CMDB table (contained in admin and itil).",
+    "contains": [],
+    "basis": "documented"
+   }
+  ],
+  "aclEvaluationOrder": [
+   {
+    "scope": "row",
+    "step": 1,
+    "pattern": "{table}",
+    "description": "Record class"
+   },
+   {
+    "scope": "row",
+    "step": 2,
+    "pattern": "{ancestor}",
+    "description": "Each parent table, nearest first"
+   },
+   {
+    "scope": "row",
+    "step": 3,
+    "pattern": "*",
+    "description": "Any table"
+   },
+   {
+    "scope": "field",
+    "step": 1,
+    "pattern": "{table}.{field}",
+    "description": "Record class and field"
+   },
+   {
+    "scope": "field",
+    "step": 2,
+    "pattern": "{ancestor}.{field}",
+    "description": "Each parent table and field, nearest first"
+   },
+   {
+    "scope": "field",
+    "step": 3,
+    "pattern": "*.{field}",
+    "description": "Any table, this field"
+   },
+   {
+    "scope": "field",
+    "step": 4,
+    "pattern": "{table}.*",
+    "description": "Record class, any field"
+   },
+   {
+    "scope": "field",
+    "step": 5,
+    "pattern": "{ancestor}.*",
+    "description": "Each parent table, any field, nearest first"
+   },
+   {
+    "scope": "field",
+    "step": 6,
+    "pattern": "*.*",
+    "description": "Any table, any field"
+   }
+  ],
+  "aclRules": {
+   "firstMatchingLevelDecides": true,
+   "orAcrossAclsAtLevel": true,
+   "andInsideAcl": [
+    "roles (any listed)",
+    "condition",
+    "script"
+   ],
+   "denyUnlessEvaluatedFirst": "Every applicable decision_type=deny ACL at any level must pass before Allow-If evaluation.",
+   "adminOverride": "admin passes ACLs with admin_overrides=true",
+   "nobodyRole": "An ACL listing role 'nobody' fails for everyone, including admin.",
+   "rowDefault": "deny (admin allowed) when no row-level ACL matches",
+   "fieldDefault": "follow the row decision when no field-level ACL matches",
+   "createFieldFallback": "field-level create falls back to field-level write when no field create ACL exists",
+   "restLimitBeforeAcl": true,
+   "basis": "inferred"
+  },
+  "fieldTypes": [
+   {
+    "name": "string",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "as stored",
+    "engineSupported": true
+   },
+   {
+    "name": "choice",
+    "storage": "text",
+    "apiValue": "choice value",
+    "displayValue": "choice label",
+    "engineSupported": true
+   },
+   {
+    "name": "integer",
+    "storage": "integer",
+    "apiValue": "decimal string",
+    "displayValue": "choice label or number",
+    "engineSupported": true
+   },
+   {
+    "name": "longint",
+    "storage": "integer",
+    "apiValue": "decimal string",
+    "displayValue": "number",
+    "engineSupported": false
+   },
+   {
+    "name": "decimal",
+    "storage": "real",
+    "apiValue": "number (scale 2 default)",
+    "displayValue": "locale number",
+    "engineSupported": true
+   },
+   {
+    "name": "float",
+    "storage": "real",
+    "apiValue": "number (scale 7)",
+    "displayValue": "locale number",
+    "engineSupported": true
+   },
+   {
+    "name": "currency",
+    "storage": "real",
+    "apiValue": "number",
+    "displayValue": "formatted with currency symbol",
+    "engineSupported": true
+   },
+   {
+    "name": "price",
+    "storage": "real",
+    "apiValue": "number",
+    "displayValue": "formatted with currency symbol",
+    "engineSupported": true
+   },
+   {
+    "name": "percent_complete",
+    "storage": "real",
+    "apiValue": "number",
+    "displayValue": "number (progress bar in UI)",
+    "engineSupported": true
+   },
+   {
+    "name": "boolean",
+    "storage": "integer",
+    "apiValue": "\"true\"/\"false\"",
+    "displayValue": "\"true\"/\"false\"",
+    "engineSupported": true
+   },
+   {
+    "name": "glide_date_time",
+    "storage": "text",
+    "apiValue": "UTC 'YYYY-MM-DD HH:MM:SS'",
+    "displayValue": "user time zone and format",
+    "engineSupported": true
+   },
+   {
+    "name": "glide_date",
+    "storage": "text",
+    "apiValue": "'YYYY-MM-DD'",
+    "displayValue": "user date format",
+    "engineSupported": true
+   },
+   {
+    "name": "glide_time",
+    "storage": "text",
+    "apiValue": "'1970-01-01 HH:MM:SS'",
+    "displayValue": "user time zone",
+    "engineSupported": true
+   },
+   {
+    "name": "due_date",
+    "storage": "text",
+    "apiValue": "UTC date-time",
+    "displayValue": "user time zone and format",
+    "engineSupported": true
+   },
+   {
+    "name": "glide_duration",
+    "storage": "integer",
+    "apiValue": "'1970-01-01 HH:MM:SS' offset (stored as ms)",
+    "displayValue": "'N Days HH:MM:SS'",
+    "engineSupported": true
+   },
+   {
+    "name": "timer",
+    "storage": "integer",
+    "apiValue": "as glide_duration",
+    "displayValue": "as glide_duration",
+    "engineSupported": false
+   },
+   {
+    "name": "reference",
+    "storage": "text",
+    "apiValue": "sys_id (or reference_key value)",
+    "displayValue": "display value of target",
+    "engineSupported": true
+   },
+   {
+    "name": "glide_list",
+    "storage": "text",
+    "apiValue": "comma-separated sys_ids/emails",
+    "displayValue": "comma-separated display values",
+    "engineSupported": true
+   },
+   {
+    "name": "document_id",
+    "storage": "text",
+    "apiValue": "sys_id (table in dependent field)",
+    "displayValue": "display value of target",
+    "engineSupported": true
+   },
+   {
+    "name": "journal",
+    "storage": "none",
+    "apiValue": "latest entries text",
+    "displayValue": "formatted entries",
+    "engineSupported": true
+   },
+   {
+    "name": "journal_input",
+    "storage": "none",
+    "apiValue": "latest entries text",
+    "displayValue": "formatted entries",
+    "engineSupported": true
+   },
+   {
+    "name": "journal_list",
+    "storage": "none",
+    "apiValue": "merged entries text",
+    "displayValue": "formatted entries",
+    "engineSupported": true
+   },
+   {
+    "name": "html",
+    "storage": "text",
+    "apiValue": "raw HTML",
+    "displayValue": "sanitized HTML",
+    "engineSupported": true
+   },
+   {
+    "name": "translated_html",
+    "storage": "text",
+    "apiValue": "raw HTML",
+    "displayValue": "translated sanitized HTML",
+    "engineSupported": false
+   },
+   {
+    "name": "translated_text",
+    "storage": "text",
+    "apiValue": "value",
+    "displayValue": "translated value",
+    "engineSupported": true
+   },
+   {
+    "name": "multi_two_lines",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "as stored",
+    "engineSupported": true
+   },
+   {
+    "name": "wiki_text",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "rendered wiki",
+    "engineSupported": false
+   },
+   {
+    "name": "email",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "as stored",
+    "engineSupported": true
+   },
+   {
+    "name": "url",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "link",
+    "engineSupported": true
+   },
+   {
+    "name": "phone_number",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "formatted",
+    "engineSupported": true
+   },
+   {
+    "name": "ph_number",
+    "storage": "text",
+    "apiValue": "E.164",
+    "displayValue": "formatted",
+    "engineSupported": false
+   },
+   {
+    "name": "ip_address",
+    "storage": "text",
+    "apiValue": "as stored",
+    "displayValue": "as stored",
+    "engineSupported": true
+   },
+   {
+    "name": "GUID",
+    "storage": "text",
+    "apiValue": "32 hex chars",
+    "displayValue": "as stored",
+    "engineSupported": true
+   },
+   {
+    "name": "sys_class_name",
+    "storage": "text",
+    "apiValue": "table name",
+    "displayValue": "table label",
+    "engineSupported": true
+   },
+   {
+    "name": "table_name",
+    "storage": "text",
+    "apiValue": "table name",
+    "displayValue": "table label",
+    "engineSupported": true
+   },
+   {
+    "name": "field_name",
+    "storage": "text",
+    "apiValue": "element name",
+    "displayValue": "field label",
+    "engineSupported": true
+   },
+   {
+    "name": "field_list",
+    "storage": "text",
+    "apiValue": "comma-separated element names",
+    "displayValue": "field labels",
+    "engineSupported": true
+   },
+   {
+    "name": "conditions",
+    "storage": "text",
+    "apiValue": "encoded query",
+    "displayValue": "readable condition",
+    "engineSupported": true
+   },
+   {
+    "name": "condition_string",
+    "storage": "text",
+    "apiValue": "script text",
+    "displayValue": "script text",
+    "engineSupported": false
+   },
+   {
+    "name": "script",
+    "storage": "text",
+    "apiValue": "source",
+    "displayValue": "source",
+    "engineSupported": true
+   },
+   {
+    "name": "script_plain",
+    "storage": "text",
+    "apiValue": "source",
+    "displayValue": "source",
+    "engineSupported": false
+   },
+   {
+    "name": "json",
+    "storage": "text",
+    "apiValue": "JSON string",
+    "displayValue": "JSON string",
+    "engineSupported": true
+   },
+   {
+    "name": "name_values",
+    "storage": "text",
+    "apiValue": "JSON object string",
+    "displayValue": "JSON object string",
+    "engineSupported": true
+   },
+   {
+    "name": "user_roles",
+    "storage": "text",
+    "apiValue": "comma-separated role names",
+    "displayValue": "comma-separated role names",
+    "engineSupported": true
+   },
+   {
+    "name": "password",
+    "storage": "text",
+    "apiValue": "never returned (one-way hash)",
+    "displayValue": "********",
+    "engineSupported": false
+   },
+   {
+    "name": "password2",
+    "storage": "text",
+    "apiValue": "never returned (encrypted)",
+    "displayValue": "********",
+    "engineSupported": true
+   },
+   {
+    "name": "image",
+    "storage": "text",
+    "apiValue": "attachment reference",
+    "displayValue": "image URL",
+    "engineSupported": true
+   },
+   {
+    "name": "user_image",
+    "storage": "text",
+    "apiValue": "attachment reference",
+    "displayValue": "image URL",
+    "engineSupported": false
+   },
+   {
+    "name": "domain_id",
+    "storage": "text",
+    "apiValue": "sys_id or 'global'",
+    "displayValue": "domain name",
+    "engineSupported": true
+   },
+   {
+    "name": "days_of_week",
+    "storage": "text",
+    "apiValue": "digits 1-7",
+    "displayValue": "day names",
+    "engineSupported": true
+   },
+   {
+    "name": "variables",
+    "storage": "none",
+    "apiValue": "catalog variables",
+    "displayValue": "catalog variables",
+    "engineSupported": true
+   }
+  ],
+  "properties": {
+   "glide.sm.default_mode": {
+    "default": "deny",
+    "description": "Decision when no row-level ACL matches (admin always allowed).",
+    "basis": "inferred"
+   },
+   "glide.read_only.legacy_read_only_behavior": {
+    "default": "client_script_modifiable",
+    "description": "Behavior of instance_configured read-only fields.",
+    "basis": "documented"
+   },
+   "glide.itil.assign.number.on.insert": {
+    "default": "true",
+    "description": "Allocate numbers at insert (ResolvrNow default; platform default allocates at form load).",
+    "basis": "documented"
+   },
+   "glide.record.display_value_default": {
+    "default": "",
+    "description": "Fallback display field name.",
+    "basis": "documented"
+   },
+   "glide.businessrule.async_condition_check": {
+    "default": "false",
+    "description": "Re-evaluate async rule conditions when the job runs.",
+    "basis": "documented"
+   },
+   "glide.ui.schedule_job_for_group_parent_change": {
+    "default": "false",
+    "description": "Copy parent roles asynchronously when a parent group is removed.",
+    "basis": "documented"
+   },
+   "glide.ui.schedule_slushbucket_save_for_group_roles": {
+    "default": "false",
+    "description": "Save group role/member edits in the background.",
+    "basis": "documented"
+   },
+   "glide.sys.log_impersonation": {
+    "default": "true",
+    "description": "Log interactive impersonation begin/end.",
+    "basis": "documented"
+   },
+   "glide.sys.log_impersonation.non_interactive": {
+    "default": "false",
+    "description": "Log non-interactive impersonations.",
+    "basis": "documented"
+   },
+   "glide.history.max_entries": {
+    "default": "250",
+    "description": "Max activity stream entries.",
+    "basis": "documented"
+   },
+   "glide.max_activity_size": {
+    "default": "102400",
+    "description": "Max bytes per activity entry.",
+    "basis": "documented"
+   },
+   "glide.ui.activity.email_roles": {
+    "default": "itil",
+    "description": "Roles that see emails in the activity stream (empty = all).",
+    "basis": "documented"
+   },
+   "glide.ui.activity.displayname": {
+    "default": "true",
+    "description": "Show full names (true) or user IDs in activity entries.",
+    "basis": "documented"
+   },
+   "glide.ui.list.allow_extended_fields": {
+    "default": "false",
+    "description": "Allow child-table fields on parent lists.",
+    "basis": "documented"
+   },
+   "glide.ui.task.insert": {
+    "default": "false",
+    "description": "Show Insert / Insert and Stay on task forms.",
+    "basis": "documented"
+   },
+   "glide.ui.form_multiple_splits": {
+    "default": "false",
+    "description": "Allow more than two form columns.",
+    "basis": "documented"
+   },
+   "glide.short.labels": {
+    "default": "true",
+    "description": "Short labels for dot-walked fields.",
+    "basis": "documented"
+   },
+   "glide.email.smtp.active": {
+    "default": "true",
+    "description": "Send outbound email.",
+    "basis": "inferred"
+   },
+   "glide.email.read.active": {
+    "default": "true",
+    "description": "Read inbound email.",
+    "basis": "inferred"
+   },
+   "glide.email.user": {
+    "default": "",
+    "description": "Instance sender address.",
+    "basis": "inferred"
+   },
+   "glide.servlet.uri": {
+    "default": "",
+    "description": "Base URL for links in emails.",
+    "basis": "documented"
+   },
+   "glide.email.smtp.max_recipients": {
+    "default": "100",
+    "description": "Recipients per email; larger lists are split.",
+    "basis": "documented"
+   },
+   "glide.email.journal.lines": {
+    "default": "3",
+    "description": "Journal entries rendered in notifications (-1 = all).",
+    "basis": "documented"
+   },
+   "glide.email.append.timezone": {
+    "default": "true",
+    "description": "Append system time zone to date-times in emails.",
+    "basis": "documented"
+   },
+   "glide.email.watermark.visible": {
+    "default": "true",
+    "description": "Show watermark in HTML bodies.",
+    "basis": "documented"
+   },
+   "glide.email.reply_subject_prefix": {
+    "default": "re:,aw:,r:,Accepted:,Tentative:,Declined:",
+    "description": "Reply prefixes (case-sensitive).",
+    "basis": "documented"
+   },
+   "glide.email.forward_subject_prefix": {
+    "default": "fw:,fwd:",
+    "description": "Forward prefixes (case-insensitive).",
+    "basis": "documented"
+   },
+   "glide.inbound.email.classify.by.thread_index": {
+    "default": "false",
+    "description": "Classify Outlook thread-index mails as replies.",
+    "basis": "documented"
+   },
+   "glide.email.inbound_action.extract_from_header": {
+    "default": "false",
+    "description": "Compute email.fromAddress from headers.",
+    "basis": "documented"
+   },
+   "glide.pop3readerjob.create_caller": {
+    "default": "false",
+    "description": "Create users for unknown senders from trusted domains.",
+    "basis": "documented"
+   },
+   "glide.user.trusted_domain": {
+    "default": "",
+    "description": "Trusted domains for automatic user creation.",
+    "basis": "documented"
+   },
+   "glide.email.smtp.claim.lookback.hrs": {
+    "default": "24",
+    "description": "Retry window for failed sends.",
+    "basis": "documented"
+   },
+   "glide.notification.recipient.include_logging": {
+    "default": "true",
+    "description": "Log why recipients were included.",
+    "basis": "documented"
+   },
+   "glide.notification.recipient.exclude_logging": {
+    "default": "true",
+    "description": "Log why recipients were excluded.",
+    "basis": "documented"
+   },
+   "com.glide.sysevent.priority.enabled": {
+    "default": "true",
+    "description": "Process events by registry priority.",
+    "basis": "documented"
+   },
+   "glide.event_processor.all_events_upgrade_safe": {
+    "default": "false",
+    "description": "Process all events during upgrades.",
+    "basis": "documented"
+   },
+   "glide.event_processor.upgrade_safe_events": {
+    "default": "",
+    "description": "Events processed during upgrades.",
+    "basis": "documented"
+   },
+   "glide.approval_engine.<table>": {
+    "default": "off",
+    "description": "Approval engine per task table (approval_engine | process_guide | off).",
+    "basis": "documented"
+   },
+   "sn_flow_designer.max_actions": {
+    "default": "50",
+    "description": "Max action steps per flow.",
+    "basis": "documented"
+   },
+   "sn_flow_designer.max_iterations": {
+    "default": "1000",
+    "description": "Max loop iterations.",
+    "basis": "documented"
+   },
+   "resolvr.explicit_roles.enabled": {
+    "default": "true",
+    "description": "Grant snc_internal to new users unless snc_external is given.",
+    "basis": "inferred"
+   },
+   "resolvr.rest.acl_pushdown": {
+    "default": "false",
+    "description": "Push simple ACLs into SQL for lists (changes page sizes vs platform).",
+    "basis": "inferred"
+   },
+   "resolvr.events.poll_interval_ms": {
+    "default": "1000",
+    "description": "Event processor tick.",
+    "basis": "inferred"
+   },
+   "resolvr.events.retention_days": {
+    "default": "7",
+    "description": "Retention of processed events.",
+    "basis": "inferred"
+   },
+   "resolvr.email.sender.interval_ms": {
+    "default": "60000",
+    "description": "Outbound sender tick (platform: every minute).",
+    "basis": "inferred"
+   },
+   "resolvr.flows.poll_interval_ms": {
+    "default": "1000",
+    "description": "Flow runner tick.",
+    "basis": "inferred"
+   },
+   "resolvr.instance_id": {
+    "default": "(generated)",
+    "description": "Token for unsubscribe-by-email.",
+    "basis": "inferred"
+   }
+  },
+  "savePipeline": [
+   "load previous snapshot",
+   "insert: defaults and number",
+   "API path: drop fields failing field ACLs, apply input",
+   "calculated fields",
+   "before rules order < 1000",
+   "before engines: role, state model, data lookup, assignment, approval (classic), data policy",
+   "before rules order >= 1000, recompute calculated fields",
+   "validation (mandatory per data policy, max_length, unique, strict read-only, cascade restrict); abort check",
+   "database write, system fields, journal, audit, cascades",
+   "after rules order < 1000",
+   "after engines: role sync, metrics, table notifications, flow trigger",
+   "after rules order >= 1000",
+   "enqueue async rules, commit (events commit with the transaction)"
+  ],
+  "displayValueLookupOrder": [
+   "display=true on the most specific table",
+   "display=true on a parent table",
+   "field named name, u_name or x_name",
+   "field named number, u_number or x_number",
+   "field named by glide.record.display_value_default",
+   "sys_created_on"
+  ],
+  "inboundClassificationOrder": [
+   "forward",
+   "reply",
+   "new"
+  ],
+  "emailRetryBackoffMinutes": [
+   1,
+   5,
+   10,
+   20,
+   40,
+   60,
+   120,
+   120
+  ],
+  "emailRetryDelayedMinutes": 30,
+  "watermark": {
+   "marker": "Ref:",
+   "defaultPrefix": "MSG",
+   "digits": 7,
+   "randomSuffixLength": 20,
+   "labelLength": 31
+  },
+  "approvalRuleTypes": [
+   {
+    "type": "first_response",
+    "approvedWhen": "first response approves",
+    "rejectedWhen": "first response rejects",
+    "basis": "documented"
+   },
+   {
+    "type": "any",
+    "aliases": [
+     "anyone"
+    ],
+    "approvedWhen": "one approval",
+    "rejectedWhen": "all responded without approval",
+    "basis": "mixed"
+   },
+   {
+    "type": "all",
+    "aliases": [
+     "everyone"
+    ],
+    "approvedWhen": "all approved",
+    "rejectedWhen": "first rejection",
+    "basis": "documented"
+   },
+   {
+    "type": "percentage",
+    "approvedWhen": "approvals >= roundHalfUp(N*p/100)",
+    "rejectedWhen": "approvals + pending < required",
+    "basis": "mixed",
+    "edgeCases": "empty or <= 0 behaves as first_response; >= 100 requires all responses"
+   }
+  ],
+  "seeds": {
+   "dl_u_priority": [
+    {
+     "impact": 1,
+     "urgency": 1,
+     "priority": 1
+    },
+    {
+     "impact": 1,
+     "urgency": 2,
+     "priority": 2
+    },
+    {
+     "impact": 1,
+     "urgency": 3,
+     "priority": 3
+    },
+    {
+     "impact": 2,
+     "urgency": 1,
+     "priority": 2
+    },
+    {
+     "impact": 2,
+     "urgency": 2,
+     "priority": 3
+    },
+    {
+     "impact": 2,
+     "urgency": 3,
+     "priority": 4
+    },
+    {
+     "impact": 3,
+     "urgency": 1,
+     "priority": 3
+    },
+    {
+     "impact": 3,
+     "urgency": 2,
+     "priority": 4
+    },
+    {
+     "impact": 3,
+     "urgency": 3,
+     "priority": 5,
+     "note": "incident lookup page shows 4; generic and problem pages show 5"
+    }
+   ],
+   "sys_email_digest_interval": [
+    {
+     "name": "Every hour",
+     "interval_ms": 3600000
+    },
+    {
+     "name": "Every 4 hours",
+     "interval_ms": 14400000
+    },
+    {
+     "name": "Daily",
+     "interval_ms": 86400000
+    },
+    {
+     "name": "Weekly",
+     "interval_ms": 604800000
+    }
+   ],
+   "sys_email_reply_separator": [
+    {
+     "name": "Outlook original message",
+     "type": "string",
+     "separator": "-----Original Message-----",
+     "order": 100
+    },
+    {
+     "name": "On ... wrote",
+     "type": "regex",
+     "separator": "^On .+ wrote:$",
+     "order": 200
+    },
+    {
+     "name": "Quoted From header",
+     "type": "regex",
+     "separator": "^From: .+$",
+     "order": 300
+    }
+   ]
+  }
+ }
+}
