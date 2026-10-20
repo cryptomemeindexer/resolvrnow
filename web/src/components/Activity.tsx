@@ -3,7 +3,7 @@ import { Lock, Mail, MessageSquare, Paperclip, PenLine, PlusCircle } from 'lucid
 import { useState } from 'react';
 import { type ActivityItem, api } from '../lib/api';
 import { useAuth } from '../lib/auth';
-import { Avatar, Button, cx, Empty, Loading, localDateTime, relativeTime, Textarea, useToast } from './ui';
+import { Avatar, Button, cx, Empty, Loading, localDateTime, relativeTime, Segmented, Textarea, useToast } from './ui';
 
 function Entry({ item }: { item: ActivityItem }) {
   const who = item.user_name || item.created_by || 'System';
@@ -23,8 +23,8 @@ function Entry({ item }: { item: ActivityItem }) {
           </div>
           <div
             className={cx(
-              'mt-1 whitespace-pre-wrap rounded-lg px-3 py-2 text-sm',
-              internal ? 'border border-amber-200 bg-amber-50/70 dark:border-amber-500/20 dark:bg-amber-500/10' : 'border border-line bg-raised',
+              'mt-1.5 whitespace-pre-wrap rounded-tile px-3.5 py-2.5 text-sm leading-relaxed',
+              internal ? 'border border-amber-200 bg-amber-50/70 dark:border-amber-500/20 dark:bg-amber-500/10' : 'border border-line bg-surface',
             )}
           >
             {item.value}
@@ -36,7 +36,7 @@ function Entry({ item }: { item: ActivityItem }) {
   if (item.type === 'changes' || item.type === 'created') {
     return (
       <li className="flex gap-3">
-        <span className="mt-0.5 flex size-[30px] shrink-0 items-center justify-center rounded-full bg-raised text-subtle">
+        <span className="mt-0.5 flex size-[30px] shrink-0 items-center justify-center rounded-full border border-line bg-surface text-subtle">
           {item.type === 'created' ? <PlusCircle className="size-4" /> : <PenLine className="size-4" />}
         </span>
         <div className="min-w-0 flex-1 text-sm">
@@ -133,23 +133,23 @@ export function Activity({ table, sysId, canWrite }: { table: string; sysId: str
   return (
     <div className="space-y-4">
       {canWrite && (
-        <div className="rounded-xl border border-line bg-surface p-3 shadow-xs">
-          <div className="mb-2 flex items-center gap-1 text-xs">
+        <div className="rounded-card border border-line bg-surface p-4 shadow-card">
+          <div className="mb-3 flex flex-wrap items-center gap-1.5">
             {agent && (
               <button
                 type="button"
                 onClick={() => setKind('work_notes')}
-                className={cx('rounded-md px-2 py-1 font-medium', kind === 'work_notes' ? 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300' : 'text-muted hover:bg-raised')}
+                className={cx('micro rounded-lg px-2.5 py-1.5', kind === 'work_notes' ? 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300' : 'text-subtle hover:bg-sunken')}
               >
-                Work notes (internal)
+                Work notes · internal
               </button>
             )}
             <button
               type="button"
               onClick={() => setKind('comments')}
-              className={cx('rounded-md px-2 py-1 font-medium', kind === 'comments' ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300' : 'text-muted hover:bg-raised')}
+              className={cx('micro rounded-lg px-2.5 py-1.5', kind === 'comments' ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300' : 'text-subtle hover:bg-sunken')}
             >
-              Additional comments (customer visible)
+              Comments · visible to caller
             </button>
           </div>
           <Textarea
@@ -161,7 +161,7 @@ export function Activity({ table, sysId, canWrite }: { table: string; sysId: str
               if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && text.trim()) post.mutate();
             }}
           />
-          <div className="mt-2 flex items-center justify-between">
+          <div className="mt-3 flex items-center justify-between">
             <label className="inline-flex cursor-pointer items-center gap-1 text-xs text-muted hover:text-ink">
               <Paperclip className="size-3.5" /> Attach file
               <input type="file" className="hidden" onChange={(e) => e.target.files?.[0] && upload.mutate(e.target.files[0])} />
@@ -172,18 +172,15 @@ export function Activity({ table, sysId, canWrite }: { table: string; sysId: str
           </div>
         </div>
       )}
-      <div className="flex items-center gap-1 text-xs">
-        {(['all', 'notes', 'changes'] as const).map((f) => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setFilter(f)}
-            className={cx('rounded-md px-2 py-1 capitalize', filter === f ? 'bg-raised font-medium text-ink' : 'text-muted hover:text-ink')}
-          >
-            {f === 'notes' ? 'Comments & notes' : f === 'changes' ? 'Field changes' : 'All activity'}
-          </button>
-        ))}
-      </div>
+      <Segmented
+        value={filter}
+        onChange={setFilter}
+        options={[
+          { id: 'all', label: 'All activity' },
+          { id: 'notes', label: 'Notes' },
+          { id: 'changes', label: 'Field changes' },
+        ]}
+      />
       {q.isLoading ? <Loading /> : items.length === 0 ? <Empty title="No activity yet" /> : <ol className="space-y-4">{items.map((i, n) => <Entry key={`${i.type}-${i.created_on}-${n}`} item={i} />)}</ol>}
     </div>
   );

@@ -52,9 +52,9 @@ export function DataTable({
     <div className="overflow-x-auto scrollbar-thin">
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="border-b border-line bg-raised text-left text-xs font-medium text-muted">
+          <tr className="border-b border-line bg-sunken text-left">
             {selectable && (
-              <th className="w-8 px-3 py-2">
+              <th className="w-10 px-4 py-3">
                 <input
                   type="checkbox"
                   aria-label="Select all"
@@ -68,10 +68,10 @@ export function DataTable({
               const label = meta[c.split('.')[0]]?.label ?? c;
               const active = sort?.field === c;
               return (
-                <th key={c} className="px-3 py-2 font-medium whitespace-nowrap">
+                <th key={c} className="micro px-4 py-3 whitespace-nowrap text-subtle">
                   <button
                     type="button"
-                    className={cx('inline-flex items-center gap-1 hover:text-ink', active && 'text-ink')}
+                    className={cx('inline-flex items-center gap-1 tracking-[inherit] uppercase hover:text-ink', active && 'text-ink')}
                     onClick={() => onSort?.({ field: c, desc: active ? !sort?.desc : false })}
                   >
                     {label}
@@ -91,13 +91,13 @@ export function DataTable({
           {rows.map((r) => (
             <tr
               key={r.sys_id}
-              className="cursor-pointer border-b border-line/70 hover:bg-raised"
+              className="cursor-pointer border-b border-line/70 transition-colors last:border-0 hover:bg-raised"
               onClick={() => onOpen(r)}
               onKeyDown={(e) => e.key === 'Enter' && onOpen(r)}
               tabIndex={0}
             >
               {selectable && (
-                <td className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
+                <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                   <input
                     type="checkbox"
                     aria-label="Select row"
@@ -113,7 +113,7 @@ export function DataTable({
                 </td>
               )}
               {columns.map((c, i) => (
-                <td key={c} className={cx('px-3 py-2 align-top', i === 0 && 'font-medium text-brand-700 dark:text-brand-300')}>
+                <td key={c} className={cx('px-4 py-3 align-top', i === 0 && 'font-semibold whitespace-nowrap text-accent')}>
                   <Cell field={c} col={meta[c]} v={r.values[c]} />
                 </td>
               ))}

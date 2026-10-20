@@ -4,75 +4,120 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Helvetica where the platform has it, Inter (bundled) everywhere else */
+  --font-sans: "Helvetica Neue", Helvetica, "Inter Variable", Arial, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 
-  --color-brand-50: #eefbf9;
-  --color-brand-100: #d3f3ef;
-  --color-brand-200: #a9e6df;
-  --color-brand-300: #74d0c8;
-  --color-brand-400: #40b2ab;
-  --color-brand-500: #1f9690;
-  --color-brand-600: #157873;
-  --color-brand-700: #0f5f63;
-  --color-brand-800: #0d4b4f;
-  --color-brand-900: #0a3a3d;
+  /* Coral, the color of the Resolve mark */
+  --color-brand-50: #fff4f0;
+  --color-brand-100: #ffe3da;
+  --color-brand-200: #ffc6b6;
+  --color-brand-300: #ffa28a;
+  --color-brand-400: #fb7b5e;
+  --color-brand-500: #ee5738;
+  --color-brand-600: #d3412a;
+  --color-brand-700: #ad3420;
+  --color-brand-800: #832817;
+  --color-brand-900: #561b10;
+  --color-brand-950: #2f0f08;
 
-  --color-ember-400: #f7c768;
-  --color-ember-500: #f5b544;
-  --color-ember-600: #db9419;
+  /* Warm neutrals */
+  --color-sand-50: #faf8f6;
+  --color-sand-100: #f2ede7;
+  --color-sand-200: #e8e0d6;
+  --color-sand-300: #d4c7b8;
+  --color-sand-400: #ab9a86;
+  --color-sand-500: #8a7a67;
+  --color-sand-600: #6b5f51;
+  --color-sand-700: #4d443a;
+  --color-sand-800: #2f2923;
+  --color-sand-900: #1f1a15;
+  --color-sand-950: #13100d;
+
+  /* Gold accent, used sparingly (top line, highlights) */
+  --color-gold-300: #dcc293;
+  --color-gold-400: #c9a66b;
+  --color-gold-500: #b08d52;
+  --color-gold-600: #8f7140;
+
+  --radius-card: 20px;
+  --radius-tile: 14px;
+  --radius-control: 10px;
+
+  --shadow-card: 0 1px 2px rgb(33 28 21 / 0.06);
+  --shadow-float: 0 0 40px rgb(74 56 30 / 0.07);
+  --shadow-pop: 0 18px 48px -16px rgb(74 56 30 / 0.28), 0 2px 6px rgb(74 56 30 / 0.06);
 }
 
 @theme inline {
   --color-canvas: var(--app-canvas);
   --color-surface: var(--app-surface);
   --color-raised: var(--app-raised);
+  --color-sunken: var(--app-sunken);
   --color-line: var(--app-line);
+  --color-line-strong: var(--app-line-strong);
   --color-ink: var(--app-ink);
   --color-muted: var(--app-muted);
   --color-subtle: var(--app-subtle);
+  --color-accent: var(--app-accent);
 }
 
 :root {
-  --app-canvas: #f5f6f8;
+  --app-canvas: #f3f1f4;
   --app-surface: #ffffff;
-  --app-raised: #fafbfc;
-  --app-line: #e3e6eb;
-  --app-ink: #121826;
-  --app-muted: #5b6474;
-  --app-subtle: #8b93a1;
+  --app-raised: #faf8f5;
+  --app-sunken: #f2eee9;
+  --app-line: #e8e0d6;
+  --app-line-strong: #d6cabb;
+  --app-ink: #211c15;
+  --app-muted: #5c5248;
+  --app-subtle: #7a6c5b;
+  --app-accent: var(--color-brand-600);
+  --app-backdrop:
+    radial-gradient(circle at 18% 12%, rgb(242 244 250 / 0.85), transparent 45%),
+    radial-gradient(circle at 82% 4%, rgb(233 235 248 / 0.85), transparent 45%),
+    linear-gradient(180deg, #eeecf7 0%, #f3f2f4 50%, #f6f0ed 76%, #f9e9e1 100%);
   color-scheme: light;
 }
 
 .dark {
-  --app-canvas: #0d1117;
-  --app-surface: #141a22;
-  --app-raised: #19202a;
-  --app-line: #273141;
-  --app-ink: #e8ecf2;
-  --app-muted: #a3adbd;
-  --app-subtle: #748094;
+  --app-canvas: #15110e;
+  --app-surface: #1d1915;
+  --app-raised: #241f1a;
+  --app-sunken: #29231d;
+  --app-line: #352e27;
+  --app-line-strong: #4a4037;
+  --app-ink: #f4efe9;
+  --app-muted: #c4b8aa;
+  --app-subtle: #9c8e7e;
+  --app-accent: var(--color-brand-400);
+  --app-backdrop:
+    radial-gradient(circle at 18% 10%, rgb(66 56 92 / 0.32), transparent 45%),
+    radial-gradient(circle at 85% 0%, rgb(52 46 76 / 0.28), transparent 45%),
+    linear-gradient(180deg, #18141b 0%, #15110e 55%, #1c130f 100%);
   color-scheme: dark;
 }
 
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--app-canvas);
+  background-color: var(--app-canvas);
+  background-image: var(--app-backdrop);
+  background-attachment: fixed;
   color: var(--app-ink);
   font-family: var(--font-sans);
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: "cv11", "ss01";
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [dir="rtl"] body {
-  font-family: "Inter Variable", "Segoe UI", Tahoma, sans-serif;
+  font-family: "Geeza Pro", "Segoe UI", Tahoma, "Inter Variable", sans-serif;
 }
 
 :focus-visible {
@@ -81,27 +126,99 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-brand-400) 35%, transparent);
+  background: color-mix(in srgb, var(--color-brand-300) 40%, transparent);
 }
 
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: var(--app-line) transparent;
+  scrollbar-color: var(--app-line-strong) transparent;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+@layer components {
+  /* Large product title, as on the workspace home */
+  .display {
+    font-size: clamp(34px, 4vw, 44px);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-500);
+  }
+  .dark .display {
+    color: var(--color-brand-400);
+  }
+
+  /* Small uppercase label introduced by a short rule */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--app-accent);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 18px;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+  }
+
+  /* Section heading with a diamond marker */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--app-ink);
+  }
+  .section-title::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    background: var(--color-brand-500);
+  }
+
+  /* Tiny uppercase caption (stat labels, table headers, rail labels) */
+  .micro {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Thin coral-to-gold line along the top of the page */
+  .topline {
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-brand-400), var(--color-gold-500));
+  }
 }
 
 /* Rich text rendered from knowledge articles and HTML fields */
 .prose-app {
   line-height: 1.65;
 }
-.prose-app h1 { font-size: 1.5rem; font-weight: 650; margin: 1.2em 0 0.5em; }
-.prose-app h2 { font-size: 1.25rem; font-weight: 650; margin: 1.1em 0 0.45em; }
-.prose-app h3 { font-size: 1.05rem; font-weight: 650; margin: 1em 0 0.4em; }
+.prose-app h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; margin: 1.2em 0 0.5em; }
+.prose-app h2 { font-size: 1.25rem; font-weight: 700; margin: 1.1em 0 0.45em; }
+.prose-app h3 { font-size: 1.05rem; font-weight: 700; margin: 1em 0 0.4em; }
 .prose-app p { margin: 0.6em 0; }
 .prose-app ul { list-style: disc; padding-inline-start: 1.4em; margin: 0.6em 0; }
 .prose-app ol { list-style: decimal; padding-inline-start: 1.4em; margin: 0.6em 0; }
-.prose-app code { font-family: var(--font-mono); font-size: 0.9em; background: var(--app-raised); padding: 0.1em 0.35em; border-radius: 4px; }
-.prose-app pre { background: var(--app-raised); border: 1px solid var(--app-line); padding: 0.8em 1em; border-radius: 8px; overflow-x: auto; }
-.prose-app a { color: var(--color-brand-600); text-decoration: underline; }
+.prose-app code { font-family: var(--font-mono); font-size: 0.9em; background: var(--app-sunken); padding: 0.1em 0.35em; border-radius: 4px; }
+.prose-app pre { background: var(--app-sunken); border: 1px solid var(--app-line); padding: 0.8em 1em; border-radius: 10px; overflow-x: auto; }
+.prose-app a { color: var(--app-accent); text-decoration: underline; }
 .prose-app table { border-collapse: collapse; margin: 0.8em 0; }
 .prose-app th, .prose-app td { border: 1px solid var(--app-line); padding: 0.35em 0.6em; }
-.prose-app blockquote { border-inline-start: 3px solid var(--app-line); padding-inline-start: 0.9em; color: var(--app-muted); }
+.prose-app blockquote { border-inline-start: 3px solid var(--color-brand-200); padding-inline-start: 0.9em; color: var(--app-muted); }

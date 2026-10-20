@@ -48,11 +48,13 @@ function ValueInput({ meta, col, cond, onChange }: { meta: TableMeta; col?: Colu
     return (
       <Select value={cond.value} onChange={(e) => onChange(e.target.value)} className="w-48">
         <option value="">-- None --</option>
-        {col.choices.map((c) => (
-          <option key={c.value} value={c.value}>
-            {c.label}
-          </option>
-        ))}
+        {col.choices
+          .filter((c, i, all) => all.findIndex((x) => x.value === c.value) === i)
+          .map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
       </Select>
     );
   }
@@ -114,7 +116,7 @@ export function FilterBuilder({ meta, query, onApply }: { meta: TableMeta; query
       {model.blocks.length === 0 && <p className="text-sm text-muted">No conditions. All records are shown.</p>}
       {model.blocks.map((block, bi) => (
         <div key={bi} className="space-y-2 rounded-lg border border-line p-3">
-          {bi > 0 && <div className="text-xs font-semibold uppercase text-ember-600">or</div>}
+          {bi > 0 && <div className="text-xs font-semibold uppercase text-gold-600">or</div>}
           {block.map((cluster, ci) =>
             cluster.map((cond, oi) => {
               const col = meta.columns[cond.field.split('.')[0]];

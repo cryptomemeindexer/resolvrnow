@@ -9,7 +9,7 @@ SLAs and AI on one metadata-driven platform, with a REST API your integrations a
 
 [Website](https://resolvrnow.com) · [Quick start](#quick-start) · [Features](#features) · [API compatibility](#api-compatibility) · [AI](#ai-built-in) · [Architecture](#architecture) · [How it was built](#how-it-was-built)
 
-![License: MIT](https://img.shields.io/badge/license-MIT-0f5f63) ![Node 22+](https://img.shields.io/badge/node-22%2B-157873) ![Self-hosted](https://img.shields.io/badge/deploy-self--hosted-f5b544)
+![License: MIT](https://img.shields.io/badge/license-MIT-d3412a) ![Node 22+](https://img.shields.io/badge/node-22%2B-ee5738) ![Self-hosted](https://img.shields.io/badge/deploy-self--hosted-b08d52)
 
 <img src="site/assets/workspace.png" alt="ResolvrNow agent workspace" width="900" />
 

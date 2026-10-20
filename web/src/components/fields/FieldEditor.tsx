@@ -66,7 +66,7 @@ export function FieldEditor({ table, col, value, onChange, readOnly, invalid, de
       <Select id={id} disabled={readOnly} invalid={invalid} value={value.value} onChange={(e) => set(e.target.value, e.target.selectedOptions[0]?.text ?? '')}>
         {(none || !value.value) && <option value="">-- None --</option>}
         {choices.map((c) => (
-          <option key={c.value} value={c.value}>
+          <option key={`${c.dependentValue ?? ''}:${c.value}`} value={c.value}>
             {c.label}
           </option>
         ))}

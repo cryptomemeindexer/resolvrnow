@@ -49,7 +49,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
 
   return createPortal(
     <div className="fixed inset-0 z-50 bg-black/40 p-4 pt-[12vh]" onMouseDown={onClose}>
-      <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-line bg-surface shadow-2xl" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="mx-auto w-full max-w-2xl overflow-hidden rounded-card border border-line bg-surface shadow-pop" onMouseDown={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-2 border-b border-line px-4">
           <Search className="size-4 text-subtle" />
           <input

@@ -4,10 +4,11 @@ import { useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { DataTable, type SortState } from '../../components/DataTable';
 import { FilterBuilder } from '../../components/FilterBuilder';
-import { Button, Card, Empty, Input, Loading, Select } from '../../components/ui';
-import { type FieldValue, fv, tableQuery } from '../../lib/api';
+import { Button, Card, Empty, Input, Loading, Segmented, Select } from '../../components/ui';
+import { api, type FieldValue, fv, type NavApp, type NavModule, tableQuery } from '../../lib/api';
 import { parseQuery, stringifyQuery } from '../../lib/encoded';
 import { useTableMeta } from './RecordPage';
+import { moduleHref } from './Shell';
 
 function conditionLabel(meta: ReturnType<typeof useTableMeta>['data'], field: string, op: string, value: string): string {
   const col = meta?.columns[field.split('.')[0]];
@@ -36,11 +37,33 @@ function toCsv(columns: string[], labels: string[], rows: Record<string, FieldVa
   return [labels.map(esc).join(','), ...rows.map((r) => columns.map((c) => esc(fv(r[c]).display_value || fv(r[c]).value)).join(','))].join('\n');
 }
 
+/** List modules from the navigation that show the same table, used as quick filters. */
+function useSiblingModules(table: string): NavModule[] {
+  const nav = useQuery({
+    queryKey: ['navigation'],
+    queryFn: async () => (await api.get<{ result: NavApp[] }>('/api/app/navigation')).result,
+    staleTime: 300_000,
+  });
+  return useMemo(() => {
+    const seen = new Set<string>();
+    const out: NavModule[] = [];
+    for (const a of nav.data ?? []) {
+      for (const m of a.modules) {
+        if (m.table !== table || m.route || seen.has(m.title)) continue;
+        seen.add(m.title);
+        out.push(m);
+      }
+    }
+    return out;
+  }, [nav.data, table]);
+}
+
 export function ListPage() {
   const { table = '' } = useParams();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const meta = useTableMeta(table);
+  const siblings = useSiblingModules(table);
   const query = params.get('query') ?? meta.data?.list.defaultQuery ?? '';
   const title = params.get('title');
   const page = Number(params.get('page') ?? '0');
@@ -57,6 +80,7 @@ export function ListPage() {
     if (q) next.set('query', q);
     else next.delete('query');
     next.delete('page');
+    next.delete('title');
     setParams(next);
   };
 
@@ -73,6 +97,12 @@ export function ListPage() {
   const m = meta.data;
   const total = data.data?.total ?? 0;
   const rows = (data.data?.rows ?? []).map((r) => ({ sys_id: fv(r.sys_id).value, table: fv(r.sys_class_name).value || table, values: r }));
+
+  const current = siblings.find((s) => s.title === title && (s.query ?? '') === query);
+  const filters = [
+    ...(title && !current ? [{ id: '__current', label: title }] : []),
+    ...siblings.map((s) => ({ id: s.title, label: s.title, to: moduleHref(s) })),
+  ];
 
   const removeCondition = (bi: number, ci: number) => {
     const blocks = parsed.blocks.map((b) => [...b]);
@@ -97,41 +127,50 @@ export function ListPage() {
   };
 
   return (
-    <div className="mx-auto max-w-[1600px] px-4 py-4 lg:px-6">
-      <div className="mb-3 flex flex-wrap items-center gap-3">
-        <div className="min-w-0 flex-1">
-          <h1 className="text-xl font-semibold">{title ?? m.plural}</h1>
-          <p className="text-xs text-muted">
-            {total.toLocaleString()} {total === 1 ? 'record' : 'records'}
-            {title ? ` · ${m.plural}` : ''}
-          </p>
+    <div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-baseline gap-4">
+          <h1 className="section-title">{m.plural}</h1>
+          <span className="text-[11px] tracking-[0.06em] text-subtle">
+            {total.toLocaleString()} {total === 1 ? 'entry' : 'entries'}
+          </span>
         </div>
-        <div className="relative w-64">
-          <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-subtle" />
-          <Input className="pl-8" placeholder={`Search ${m.plural.toLowerCase()}…`} value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
-        <Button icon={<Filter className="size-4" />} variant={showFilter ? 'outline' : 'secondary'} onClick={() => setShowFilter((s) => !s)}>
-          Filter
-        </Button>
-        <Button icon={<Download className="size-4" />} onClick={exportCsv}>
-          Export
-        </Button>
-        {m.canCreate && (
-          <Button variant="primary" icon={<Plus className="size-4" />} onClick={() => navigate(`/workspace/record/${table}/-1`)}>
-            New
+        <div className="flex flex-wrap items-center gap-2">
+          <Button icon={<Filter className="size-4" />} variant={showFilter ? 'outline' : 'secondary'} onClick={() => setShowFilter((s) => !s)}>
+            Filter
           </Button>
+          <Button icon={<Download className="size-4" />} onClick={exportCsv}>
+            Export
+          </Button>
+          {m.canCreate && (
+            <Button variant="primary" icon={<Plus className="size-4" />} onClick={() => navigate(`/workspace/record/${table}/-1`)}>
+              New
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center">
+        {filters.length > 0 && (
+          <div className="min-w-0 md:flex-1">
+            <Segmented options={filters} value={current?.title ?? (title ? '__current' : null)} className="w-fit" />
+          </div>
         )}
+        <div className="relative shrink-0 md:ml-auto md:w-72">
+          <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-subtle" />
+          <Input className="h-10 pl-10" placeholder={`Search ${m.plural.toLowerCase()}…`} value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
       </div>
 
       {parsed.blocks.length > 0 && (
-        <div className="mb-3 flex flex-wrap items-center gap-1.5 text-xs">
-          <button type="button" className="font-medium text-brand-600 hover:underline" onClick={() => setQuery(stringifyQuery({ blocks: [], orderBy: parsed.orderBy }))}>
-            All
+        <div className="mt-4 flex flex-wrap items-center gap-1.5 text-xs">
+          <button type="button" className="micro mr-1 text-accent hover:underline" onClick={() => setQuery(stringifyQuery({ blocks: [], orderBy: parsed.orderBy }))}>
+            Clear
           </button>
           {parsed.blocks.map((block, bi) =>
             block.map((cluster, ci) => (
-              <span key={`${bi}-${ci}`} className="inline-flex items-center gap-1 rounded-md border border-line bg-surface px-2 py-0.5">
-                {bi > 0 && ci === 0 && <span className="font-semibold text-ember-600">OR</span>}
+              <span key={`${bi}-${ci}`} className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1 text-ink/90">
+                {bi > 0 && ci === 0 && <span className="font-bold text-gold-600">OR</span>}
                 {cluster.map((c) => conditionLabel(m, c.field, c.op, c.value)).join(' or ')}
                 <button type="button" aria-label="Remove condition" onClick={() => removeCondition(bi, ci)} className="text-subtle hover:text-ink">
                   <X className="size-3" />
@@ -143,7 +182,7 @@ export function ListPage() {
       )}
 
       {showFilter && (
-        <Card className="mb-3 p-4">
+        <Card className="mt-4 p-5">
           <FilterBuilder
             meta={m}
             query={query}
@@ -155,7 +194,7 @@ export function ListPage() {
         </Card>
       )}
 
-      <Card>
+      <Card className="mt-4 overflow-hidden">
         {data.isLoading ? (
           <Loading />
         ) : (
@@ -166,11 +205,19 @@ export function ListPage() {
             sort={sort}
             onSort={setSort}
             onOpen={(r) => navigate(`/workspace/record/${r.table ?? table}/${r.sys_id}`)}
-            emptyState={<Empty title="No records match" icon={<Search className="size-6" />}>Try removing a condition or changing your search.</Empty>}
+            emptyState={
+              <Empty title="No records match" icon={<Search className="size-5" />}>
+                Try removing a condition or changing your search.
+              </Empty>
+            }
           />
         )}
-        <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2 text-xs text-muted">
-          <div className="flex items-center gap-2 whitespace-nowrap">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 text-xs text-muted">
+          <div className="flex items-center gap-3 whitespace-nowrap">
+            <span>
+              <b className="text-ink">{total.toLocaleString()}</b> {total === 1 ? m.label.toLowerCase() : m.plural.toLowerCase()}
+            </span>
+            <span className="h-4 w-px bg-line" aria-hidden />
             Rows per page
             <Select
               className="h-7 w-20 text-xs"
@@ -190,7 +237,7 @@ export function ListPage() {
           </div>
           <div className="flex items-center gap-2">
             <span>
-              {total === 0 ? 0 : page * pageSize + 1}–{Math.min(total, (page + 1) * pageSize)} of {total.toLocaleString()}
+              {total === 0 ? 0 : page * pageSize + 1} to {Math.min(total, (page + 1) * pageSize)} of {total.toLocaleString()}
             </span>
             <Button size="sm" variant="ghost" disabled={page === 0} onClick={() => setPage(page - 1)} aria-label="Previous page">
               <ChevronLeft className="size-4" />

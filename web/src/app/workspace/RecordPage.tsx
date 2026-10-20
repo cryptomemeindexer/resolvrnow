@@ -1,11 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, Copy, MoreHorizontal, Save, Trash2 } from 'lucide-react';
+import { ArrowLeft, Copy, History, MoreHorizontal, Save, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Activity } from '../../components/Activity';
 import { DataTable } from '../../components/DataTable';
 import { FieldEditor } from '../../components/fields/FieldEditor';
-import { Badge, Button, Card, cx, Empty, Label, Loading, Modal, Tabs, useToast, ValueBadge } from '../../components/ui';
+import { Badge, Button, Card, cx, Empty, Label, Loading, Modal, Stepper, Tabs, useToast, ValueBadge } from '../../components/ui';
 import { api, type ColumnInfo, type FieldValue, fv, type RecordPayload, type RelatedList, type TableMeta, type UiAction } from '../../lib/api';
 import { evaluate } from '../../lib/encoded';
 
@@ -266,20 +266,30 @@ export function RecordPage() {
   const related = rec.related ?? [];
   const tabs = [{ id: 'activity', label: 'Activity' }, ...related.map((r, i) => ({ id: `rl${i}`, label: r.label ?? r.table }))];
 
+  const primaryActions = rec.actions.filter((a) => a.style === 'primary');
+  const otherActions = rec.actions.filter((a) => a.style !== 'primary');
+  const shownActions = otherActions.slice(0, 2);
+  const moreActions = otherActions.slice(2);
+  const stateChoices = (meta.columns.state?.choices ?? []).filter((c) => !c.inactive && !/cancel/i.test(c.label));
+  const stateIndex = stateChoices.findIndex((c) => c.value === fv(values.state).value);
+  const showSteps = !isNew && stateIndex >= 0 && stateChoices.length >= 3 && stateChoices.length <= 9;
+
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-4 lg:px-6">
-      <div className="mb-4 flex flex-wrap items-start gap-3">
-        <button type="button" onClick={() => navigate(-1)} className="mt-1 rounded-lg p-1.5 text-muted hover:bg-raised" aria-label="Back">
-          <ArrowLeft className="size-4" />
-        </button>
+    <div>
+      <button type="button" onClick={() => navigate(-1)} className="micro mb-5 inline-flex items-center gap-1.5 text-subtle hover:text-ink">
+        <ArrowLeft className="size-3.5" /> Back
+      </button>
+      <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-4">
         <div className="min-w-0 flex-1">
-          <div className="text-xs font-medium uppercase tracking-wide text-muted">{meta.label}</div>
-          <h1 className="flex flex-wrap items-center gap-2 text-xl font-semibold">
-            <span>{rec.display_value}</span>
-            {!isNew && values.short_description?.value && <span className="truncate font-normal text-muted">{values.short_description.value}</span>}
+          <div className="eyebrow">
+            {meta.label}
+            {!isNew && <span className="text-subtle">{rec.display_value}</span>}
+          </div>
+          <h1 className="mt-3 max-w-4xl text-[28px] leading-tight font-bold tracking-[-0.02em] text-ink sm:text-[32px]">
+            {isNew ? `New ${meta.label.toLowerCase()}` : values.short_description?.value || rec.display_value}
           </h1>
           {!isNew && (
-            <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
               {highlights.map((h) => {
                 const v = fv(values[h]);
                 if (!v.display_value) return null;
@@ -298,23 +308,19 @@ export function RecordPage() {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {rec.actions
-            .filter((a) => a.style === 'primary')
-            .map((a) => (
-              <Button key={a.id} variant="primary" onClick={() => startAction(a)} loading={runAction.isPending && runAction.variables?.action.id === a.id}>
-                {a.label}
-              </Button>
-            ))}
-          {rec.actions
-            .filter((a) => a.style !== 'primary')
-            .map((a) => (
-              <Button key={a.id} variant={a.style === 'destructive' ? 'danger' : 'secondary'} onClick={() => startAction(a)}>
-                {a.label}
-              </Button>
-            ))}
+          {primaryActions.map((a) => (
+            <Button key={a.id} variant="primary" onClick={() => startAction(a)} loading={runAction.isPending && runAction.variables?.action.id === a.id}>
+              {a.label}
+            </Button>
+          ))}
+          {shownActions.map((a) => (
+            <Button key={a.id} variant={a.style === 'destructive' ? 'danger' : 'secondary'} onClick={() => startAction(a)}>
+              {a.label}
+            </Button>
+          ))}
           {canWrite && (
             <Button
-              variant={rec.actions.some((a) => a.style === 'primary') ? 'secondary' : 'primary'}
+              variant={rec.actions.some((a) => a.style === 'primary') ? 'outline' : 'primary'}
               icon={<Save className="size-4" />}
               loading={save.isPending}
               disabled={!isNew && dirty.size === 0}
@@ -325,24 +331,38 @@ export function RecordPage() {
           )}
           {!isNew && (
             <details className="relative">
-              <summary className="list-none rounded-lg border border-line p-2 text-muted hover:bg-raised [&::-webkit-details-marker]:hidden" aria-label="More">
+              <summary className="list-none rounded-control border border-line bg-surface p-2 text-muted shadow-card hover:bg-raised [&::-webkit-details-marker]:hidden" aria-label="More">
                 <MoreHorizontal className="size-4" />
               </summary>
-              <div className="absolute right-0 z-20 mt-1 w-48 rounded-lg border border-line bg-surface py-1 shadow-lg">
+              <div className="absolute right-0 z-20 mt-2 w-60 rounded-tile border border-line bg-surface p-1.5 shadow-pop">
+                {moreActions.map((a) => (
+                  <button
+                    key={a.id}
+                    type="button"
+                    className={cx('flex w-full items-center rounded-lg px-3 py-2 text-left text-[13px] hover:bg-sunken', a.style === 'destructive' && 'text-red-600')}
+                    onClick={(e) => {
+                      (e.currentTarget.closest('details') as HTMLDetailsElement).open = false;
+                      startAction(a);
+                    }}
+                  >
+                    {a.label}
+                  </button>
+                ))}
+                {moreActions.length > 0 && <div className="my-1 h-px bg-line" />}
                 <button
                   type="button"
-                  className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm hover:bg-raised"
+                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[13px] hover:bg-sunken"
                   onClick={() => navigator.clipboard.writeText(window.location.href)}
                 >
                   <Copy className="size-3.5" /> Copy link
                 </button>
-                <Link className="flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-raised" to={`/workspace/list/sys_audit?query=documentkey=${sysId}^ORDERBYDESCsys_created_on`}>
-                  History
+                <Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-[13px] hover:bg-sunken" to={`/workspace/list/sys_audit?query=documentkey=${sysId}^ORDERBYDESCsys_created_on`}>
+                  <History className="size-3.5" /> History
                 </Link>
                 {rec.can_delete && (
                   <button
                     type="button"
-                    className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-red-600 hover:bg-raised"
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[13px] text-red-600 hover:bg-sunken"
                     onClick={() => window.confirm('Delete this record permanently?') && del.mutate()}
                   >
                     <Trash2 className="size-3.5" /> Delete
@@ -354,7 +374,13 @@ export function RecordPage() {
         </div>
       </div>
 
-      <div className={cx('grid gap-5', !isNew && 'xl:grid-cols-[minmax(0,1fr)_420px]')}>
+      {showSteps && (
+        <div className="mt-6 overflow-x-auto rounded-tile border border-line bg-surface px-5 py-4 shadow-card scrollbar-none">
+          <Stepper steps={stateChoices.map((c) => ({ id: c.value, label: c.label }))} current={stateIndex} />
+        </div>
+      )}
+
+      <div className={cx('mt-6 grid gap-6', !isNew && 'xl:grid-cols-[minmax(0,1fr)_420px]')}>
         <div className="space-y-4">
           {meta.form.sections.map((s, i) => {
             const fields = s.fields ?? [];
@@ -364,7 +390,7 @@ export function RecordPage() {
             if (!visible) return null;
             return (
               <Card key={i} title={s.caption}>
-                <div className="space-y-4 p-4">
+                <div className="space-y-4 p-5">
                   {(left.length > 0 || right.length > 0) && (
                     <div className="grid gap-x-6 gap-y-4 md:grid-cols-2">
                       <div className="space-y-4">
@@ -394,7 +420,7 @@ export function RecordPage() {
           {!isNew &&
             related.map((rl, i) => (
               <div key={`${rl.table}-${i}`} className={cx(tab === `rl${i}` ? 'block' : 'hidden xl:block')}>
-                <h3 className="mb-2 mt-2 text-sm font-semibold">{rl.label ?? rl.table}</h3>
+                <h3 className="section-title mt-4 mb-3">{rl.label ?? rl.table}</h3>
                 <RelatedListPanel table={table} sysId={sysId} rl={rl} />
               </div>
             ))}
@@ -402,7 +428,7 @@ export function RecordPage() {
         {!isNew && (
           <aside className={cx(tab === 'activity' ? 'block' : 'hidden xl:block')}>
             <div className="xl:sticky xl:top-4">
-              <h3 className="mb-2 text-sm font-semibold">Activity</h3>
+              <h3 className="section-title mb-3">Activity</h3>
               <Activity table={table} sysId={sysId} canWrite={canWrite} />
             </div>
           </aside>

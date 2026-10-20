@@ -117,7 +117,7 @@ export function ReferencePicker({
         </div>
       </div>
       {open && (
-        <ul id={listId} role="listbox" className="absolute z-30 mt-1 max-h-64 w-full overflow-auto rounded-lg border border-line bg-surface py-1 shadow-lg">
+        <ul id={listId} role="listbox" className="absolute z-30 mt-1 max-h-64 w-full overflow-auto rounded-tile border border-line bg-surface p-1 shadow-pop">
           {results.isLoading && <li className="px-3 py-2 text-sm text-muted">Searching…</li>}
           {!results.isLoading && items.length === 0 && <li className="px-3 py-2 text-sm text-muted">No matches</li>}
           {items.map((it, i) => (
