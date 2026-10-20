@@ -20,6 +20,7 @@ export function ReferencePicker({
   invalid,
   placeholder,
   id,
+  showLink = true,
 }: {
   table: string;
   value: RefValue;
@@ -29,6 +30,8 @@ export function ReferencePicker({
   invalid?: boolean;
   placeholder?: string;
   id?: string;
+  /** Link to the record in the agent workspace under the field. */
+  showLink?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState('');
@@ -137,7 +140,7 @@ export function ReferencePicker({
           ))}
         </ul>
       )}
-      {value.value && !open && (
+      {showLink && value.value && !open && (
         <Link to={`/workspace/record/${table}/${value.value}`} className="mt-0.5 inline-block text-[11px] text-brand-600 hover:underline">
           Open record
         </Link>
