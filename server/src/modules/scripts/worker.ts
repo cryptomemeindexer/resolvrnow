@@ -27,6 +27,7 @@ const PRELUDE = workerData.prelude;
 const STACK_LIMIT = workerData.stackLimit;
 const MAX_DEPTH = workerData.maxDepth;
 const FINISH_BUDGET_MS = 250;
+const PRELUDE_BUDGET_MS = 1000;
 const ERROR_HEADROOM = 4 * 1024 * 1024;
 const MAX_RESULT = 16 * 1024 * 1024;
 
@@ -212,7 +213,19 @@ function runScript(m) {
         memoryLimit = m.mem;
         rt.setMemoryLimit(memoryLimit);
       }
-      c = pool.length ? pool.pop() : createContext();
+      if (pool.length) {
+        c = pool.pop();
+      } else {
+        // Building a context is sandbox work, not script work: it gets its own budget, so a
+        // short script time limit on a busy machine cannot fail before the script starts.
+        const scriptDeadline = deadline;
+        deadline = Date.now() + PRELUDE_BUDGET_MS;
+        try {
+          c = createContext();
+        } finally {
+          deadline = scriptDeadline;
+        }
+      }
       out = execute(c, m);
     }
   } catch (e) {

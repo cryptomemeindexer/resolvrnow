@@ -1093,6 +1093,22 @@ describe('sandbox limits', () => {
     expect(run('2 * 21').value).toBe(42);
   });
 
+  it('does not charge sandbox start-up to a short time limit', () => {
+    p.properties.set('resolvr.script.timeout_ms', '1');
+    try {
+      for (let i = 0; i < 12; i++) {
+        try {
+          run('2 * 21');
+        } catch (e) {
+          // A 1 ms limit may stop the script itself, but building its context must not fail.
+          expect((e as ScriptError).kind).toBe('timeout');
+        }
+      }
+    } finally {
+      p.properties.set('resolvr.script.timeout_ms', '300');
+    }
+  });
+
   it('replaces the sandbox when native code ignores the time limit', () => {
     const before = sandboxEngine().restartCount;
     const t0 = Date.now();
