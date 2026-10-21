@@ -3,6 +3,7 @@ import { ArrowLeft, Copy, History, MoreHorizontal, Network, Save, Trash2 } from 
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Activity } from '../../components/Activity';
+import { AiAssist } from '../../components/AiAssist';
 import { DataTable } from '../../components/DataTable';
 import { FieldEditor } from '../../components/fields/FieldEditor';
 import { Badge, Button, Card, cx, Empty, Label, Loading, Modal, Stepper, Tabs, useToast, ValueBadge } from '../../components/ui';
@@ -435,7 +436,8 @@ export function RecordPage() {
         </div>
         {!isNew && (
           <aside className={cx(tab === 'activity' ? 'block' : 'hidden xl:block')}>
-            <div className="xl:sticky xl:top-4">
+            <div className="space-y-5">
+              <AiAssist table={table} sysId={sysId} values={values} onApply={onChange} />
               <h3 className="section-title mb-3">Activity</h3>
               <Activity table={table} sysId={sysId} canWrite={canWrite} />
             </div>
