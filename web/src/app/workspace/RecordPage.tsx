@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, Copy, History, MoreHorizontal, Save, Trash2 } from 'lucide-react';
+import { ArrowLeft, Copy, History, MoreHorizontal, Network, Save, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Activity } from '../../components/Activity';
@@ -328,6 +328,14 @@ export function RecordPage() {
             >
               {isNew ? 'Submit' : 'Save'}
             </Button>
+          )}
+          {!isNew && table.startsWith('cmdb_ci') && (
+            <Link
+              to={`/workspace/cmdb/map/${sysId}`}
+              className="inline-flex h-9 items-center gap-1.5 rounded-control border border-line bg-surface px-4 text-[13px] font-semibold shadow-card hover:bg-raised"
+            >
+              <Network className="size-4" /> Dependency map
+            </Link>
           )}
           {!isNew && (
             <details className="relative">

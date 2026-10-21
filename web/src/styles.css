@@ -73,6 +73,17 @@
   --app-muted: #5c5248;
   --app-subtle: #7a6c5b;
   --app-accent: var(--color-brand-600);
+  /* Charts: categorical slots validated for CVD on the card surface (dataviz validator) */
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-3: #1baf7a;
+  --viz-4: #eda100;
+  --viz-other: #a9a297;
+  --viz-bar: #ee5738;
+  --viz-grid: #efe9e2;
+  --viz-axis: #d6cabb;
+  --viz-good: #006300;
+  --viz-bad: #d03b3b;
   --app-backdrop:
     radial-gradient(circle at 18% 12%, rgb(242 244 250 / 0.85), transparent 45%),
     radial-gradient(circle at 82% 4%, rgb(233 235 248 / 0.85), transparent 45%),
@@ -91,6 +102,16 @@
   --app-muted: #c4b8aa;
   --app-subtle: #9c8e7e;
   --app-accent: var(--color-brand-400);
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-other: #6f675e;
+  --viz-bar: #fb7b5e;
+  --viz-grid: #2c2620;
+  --viz-axis: #4a4037;
+  --viz-good: #0ca30c;
+  --viz-bad: #e66767;
   --app-backdrop:
     radial-gradient(circle at 18% 10%, rgb(66 56 92 / 0.32), transparent 45%),
     radial-gradient(circle at 85% 0%, rgb(52 46 76 / 0.28), transparent 45%),
