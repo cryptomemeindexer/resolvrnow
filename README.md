@@ -72,10 +72,19 @@ CIs, incidents, problems, changes, catalog items, knowledge articles and dashboa
 | **SLAs** | Response and resolution SLAs on business schedules, pause/resume/reset conditions, breach warnings |
 | **On-call** | Rotations and rosters, escalation policies, "who's on call" |
 | **Approvals and flows** | Any/all/first-response/percentage approval rules, delegation, record-triggered flows with approvals, waits and branching |
-| **Notifications** | Event- and condition-driven email with templates and `${field}` substitution, SMTP or log transport, inbound email that threads replies |
+| **Notifications** | Event- and condition-driven email with templates and `${field}` substitution, SMTP or log transport, inbound email (through a webhook) that threads replies |
 | **Analytics** | Reports (bar, pie, trend, pivot, single score, list), dashboards, an ITSM KPI catalogue with daily snapshots |
 | **Platform** | Users, groups, roles with containment, row- and field-level ACLs, dictionary, choice lists, business rules, UI policies and actions, audit history, activity streams, attachments, sandboxed server-side scripting |
-| **Workspace and portal** | A fast React agent workspace (lists, filters, forms, activity, ⌘K search) and an employee self-service portal |
+| **Workspace and portal** | A React agent workspace (lists, quick filters, forms with state steps, activity, ⌘K search, dashboards, change calendar, CMDB map) and an employee portal (search, catalog, tickets, approvals, knowledge, virtual agent) |
+
+## Screenshots
+
+| | |
+|---|---|
+| <img src="site/assets/screens/feat-portal.webp" alt="Employee portal home" /> | <img src="site/assets/screens/feat-dashboards.webp" alt="Service desk dashboard" /> |
+| **Employee portal**: search, quick links, topics and your tickets, with a virtual agent | **Dashboards**: KPIs, reports and trends, each opening the records behind it |
+| <img src="site/assets/screens/feat-calendar.webp" alt="Change calendar" /> | <img src="site/assets/screens/feat-map.webp" alt="CMDB dependency map" /> |
+| **Change calendar**: two weeks of changes with maintenance windows | **CMDB dependency map**: what a service runs on, and what an outage touches |
 
 ## API compatibility
 
@@ -142,8 +151,8 @@ docs/reverse-engineering/   how the target was studied, evidence ledger, tooling
 ```
 
 - **One synchronous engine.** All modules share it: business rules run before and after writes,
-  inside one SQLite transaction (WAL mode). The engine handles about 6,000 inserts per second,
-  including rules, numbering and audit.
+  inside one SQLite transaction (WAL mode). With every module loaded, it creates about 2,800
+  incidents per second on a laptop, including business rules, numbering, SLAs and audit.
 - **Table-per-hierarchy storage.** `incident`, `problem` and `change_request` rows live in `task`,
   and every CI class lives in `cmdb`. That makes polymorphic queries and references cheap.
 - **Modules declare everything as data.** Tables, choices, roles, ACLs, rules, events, jobs,
