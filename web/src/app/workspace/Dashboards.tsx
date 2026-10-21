@@ -20,7 +20,14 @@ interface Series {
   data: number[];
   points: Point[];
 }
+interface Pivot {
+  rows: { label: string; total: number }[];
+  columns: { label: string; total: number }[];
+  cells: number[][];
+  cellQueries?: string[][];
+}
 interface ReportData {
+  pivot?: Pivot;
   type: string;
   kind: string;
   table: string;
@@ -43,7 +50,7 @@ interface KpiData {
   delta: number | null;
   deltaPct: number | null;
   status: 'good' | 'bad' | 'neutral' | string;
-  sparkline: { date: string; value: number }[];
+  sparkline: { date: string; value: number | null }[];
   error?: string | null;
 }
 interface Widget {
@@ -86,12 +93,13 @@ function listHref(table: string, query: string | undefined, title: string) {
 
 // ---------------------------------------------------------------- KPI tile
 
-function Sparkline({ points }: { points: { value: number }[] }) {
-  if (points.length < 2) return null;
+function Sparkline({ points }: { points: { value: number | null }[] }) {
+  const known = points.map((p, i) => ({ i, v: p.value })).filter((p): p is { i: number; v: number } => p.v !== null);
+  if (known.length < 2) return null;
   const w = 120;
   const h = 32;
-  const max = Math.max(...points.map((p) => p.value), 1);
-  const xy = points.map((p, i) => [(i / (points.length - 1)) * (w - 8) + 4, h - 4 - (p.value / max) * (h - 8)]);
+  const max = Math.max(...known.map((p) => p.v), 1);
+  const xy = known.map((p) => [(p.i / (points.length - 1)) * (w - 8) + 4, h - 4 - (p.v / max) * (h - 8)]);
   const last = xy[xy.length - 1];
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden className="overflow-visible">
@@ -106,13 +114,18 @@ function KpiTile({ title, data }: { title: string; data: KpiData }) {
   const flat = !data.delta;
   const tone = data.status === 'good' ? 'var(--viz-good)' : data.status === 'bad' ? 'var(--viz-bad)' : 'var(--app-subtle)';
   const DeltaIcon = flat ? Minus : up ? ArrowUpRight : ArrowDownRight;
+  const latest = data.value === null ? [...(data.sparkline ?? [])].reverse().find((p) => p.value !== null) : null;
+  const shown = data.value ?? latest?.value ?? null;
+  const unit = data.unit === 'percent' ? '%' : '';
+  const display = data.value !== null && data.displayValue ? data.displayValue : shown === null ? '–' : `${fmt.format(shown)}${unit}`;
   return (
     <Card className="flex h-full flex-col justify-between p-5">
       <p className="micro text-subtle">{title}</p>
       <div className="mt-3 flex items-end justify-between gap-3">
-        <div className="text-[32px] leading-none font-bold tracking-[-0.02em]">{data.displayValue ?? (data.value === null ? '–' : fmt.format(data.value))}</div>
+        <div className="text-[32px] leading-none font-bold tracking-[-0.02em]">{display}</div>
         <Sparkline points={data.sparkline ?? []} />
       </div>
+      {latest && <p className="mt-3 text-xs text-subtle">Latest score, {new Date(`${latest.date}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</p>}
       {data.delta !== null && (
         <p className="mt-3 flex flex-wrap items-center gap-x-1.5 text-xs">
           <span className="inline-flex items-center gap-0.5 font-semibold" style={{ color: tone }}>
@@ -304,6 +317,60 @@ function LineChart({ data }: { data: ReportData }) {
   );
 }
 
+// ---------------------------------------------------------------- heatmap
+
+/** Sequential ramp (one hue, light to dark); the first steps keep dark text, the rest white. */
+const RAMP = ['var(--color-brand-50)', 'var(--color-brand-100)', 'var(--color-brand-200)', 'var(--color-brand-300)', 'var(--color-brand-400)', 'var(--color-brand-500)', 'var(--color-brand-600)'];
+
+function Heatmap({ data, title }: { data: ReportData; title: string }) {
+  const navigate = useNavigate();
+  const p = data.pivot;
+  if (!p?.rows.length || !p.columns.length) return <Empty title="No data" />;
+  const max = Math.max(...p.cells.flat(), 1);
+  return (
+    <div className="overflow-x-auto p-5">
+      <table className="w-full border-separate border-spacing-0.5 text-[13px]">
+        <thead>
+          <tr>
+            <th />
+            {p.columns.map((c) => (
+              <th key={c.label} className="micro px-2 pb-2 text-center font-bold text-subtle">
+                {c.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {p.rows.map((r, i) => (
+            <tr key={r.label}>
+              <th className="pe-3 text-end text-[13px] font-normal whitespace-nowrap text-muted">{r.label}</th>
+              {p.columns.map((c, j) => {
+                const v = p.cells[i]?.[j] ?? 0;
+                const step = v === 0 ? -1 : Math.min(RAMP.length - 1, Math.floor((v / max) * (RAMP.length - 1)));
+                const q = p.cellQueries?.[i]?.[j];
+                return (
+                  <td key={c.label} className="p-0">
+                    <button
+                      type="button"
+                      disabled={!q || v === 0}
+                      onClick={() => q && navigate(listHref(data.table, q, `${title}: ${r.label}, ${c.label}`))}
+                      title={`${r.label} · ${c.label}: ${fmt.format(v)}`}
+                      className={cx('block h-10 w-full min-w-14 rounded-[4px] text-center font-semibold tabular-nums transition-[filter] enabled:hover:brightness-95', step >= 4 ? 'text-white' : 'text-ink')}
+                      style={{ background: step < 0 ? 'var(--app-sunken)' : RAMP[step] }}
+                    >
+                      {v ? fmt.format(v) : ''}
+                    </button>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------- tables
 
 function DataTableView({ data }: { data: ReportData }) {
@@ -387,6 +454,7 @@ function ReportWidget({ w }: { w: Widget }) {
   else if (d?.kind === 'series') body = <LineChart data={d} />;
   else if (d?.kind === 'category') body = <BarList data={d} title={w.title} />;
   else if (d?.kind === 'list') body = <RecordList data={d} />;
+  else if (d?.kind === 'pivot') body = <Heatmap data={d} title={w.title} />;
   else if (d) body = <div className="p-5 text-[40px] leading-none font-bold tracking-[-0.02em]">{fmt.format(d.total ?? 0)}</div>;
   return (
     <Card
