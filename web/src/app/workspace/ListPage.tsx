@@ -37,6 +37,9 @@ function toCsv(columns: string[], labels: string[], rows: Record<string, FieldVa
   return [labels.map(esc).join(','), ...rows.map((r) => columns.map((c) => esc(fv(r[c]).display_value || fv(r[c]).value)).join(','))].join('\n');
 }
 
+/** An encoded query without its ORDERBY clauses (they always come last). */
+const withoutOrder = (q: string) => q.replace(/\^?ORDERBY.*$/, '');
+
 /** List modules from the navigation that show the same table, used as quick filters. */
 function useSiblingModules(table: string): NavModule[] {
   const nav = useQuery({
@@ -84,7 +87,7 @@ export function ListPage() {
     setParams(next);
   };
 
-  const fullQuery = search.trim() ? [query.replace(/\^?ORDERBY.*$/, ''), `123TEXTQUERY321=${search.trim()}`, ...parsed.orderBy.map((o) => `${o.desc ? 'ORDERBYDESC' : 'ORDERBY'}${o.field}`)].filter(Boolean).join('^') : query;
+  const fullQuery = search.trim() ? [withoutOrder(query), `123TEXTQUERY321=${search.trim()}`, ...parsed.orderBy.map((o) => `${o.desc ? 'ORDERBYDESC' : 'ORDERBY'}${o.field}`)].filter(Boolean).join('^') : query;
   const data = useQuery({
     queryKey: ['list', table, fullQuery, page, pageSize, columns.join(',')],
     enabled: !!meta.data,
@@ -98,7 +101,10 @@ export function ListPage() {
   const total = data.data?.total ?? 0;
   const rows = (data.data?.rows ?? []).map((r) => ({ sys_id: fv(r.sys_id).value, table: fv(r.sys_class_name).value || table, values: r }));
 
-  const current = siblings.find((s) => s.title === title && (s.query ?? '') === query);
+  // A module link carries its title; without one (a plain or re-sorted list) match on the conditions alone.
+  const current = title
+    ? siblings.find((s) => s.title === title && (s.query ?? '') === query)
+    : siblings.find((s) => withoutOrder(s.query ?? '') === withoutOrder(query));
   const filters = [
     ...(title && !current ? [{ id: '__current', label: title }] : []),
     ...siblings.map((s) => ({ id: s.title, label: s.title, to: moduleHref(s) })),

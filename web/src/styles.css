@@ -60,6 +60,8 @@
   --color-muted: var(--app-muted);
   --color-subtle: var(--app-subtle);
   --color-accent: var(--app-accent);
+  --color-well: var(--app-well);
+  --color-well-line: var(--app-well-line);
 }
 
 :root {
@@ -73,6 +75,9 @@
   --app-muted: #5c5248;
   --app-subtle: #7a6c5b;
   --app-accent: var(--color-brand-600);
+  /* Neutral fill and line for table headers, chips and filter bars */
+  --app-well: #eaeaea;
+  --app-well-line: #d8d8d8;
   /* Charts: categorical slots validated for CVD on the card surface (dataviz validator) */
   --viz-1: #2a78d6;
   --viz-2: #eb6834;
@@ -102,6 +107,8 @@
   --app-muted: #c4b8aa;
   --app-subtle: #9c8e7e;
   --app-accent: var(--color-brand-400);
+  --app-well: #2a2521;
+  --app-well-line: #3b342d;
   --viz-1: #3987e5;
   --viz-2: #d95926;
   --viz-3: #199e70;
@@ -177,7 +184,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;

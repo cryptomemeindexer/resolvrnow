@@ -3,7 +3,7 @@ import { Copy, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { api, type ApiError, type FieldValue } from '../lib/api';
-import { Button, Card, Modal, useToast } from './ui';
+import { Button, Card, cx, Modal, useToast } from './ui';
 
 /** Predictions, similar records, suggested articles and generative skills for a record (the ai module). */
 
@@ -68,7 +68,8 @@ export function AiAssist({ table, sysId, values, onApply }: { table: string; sys
   // Only suggestions the model is confident about (above its solution's threshold) are offered.
   const predictions = r.predictions.filter((p) => p.above_threshold !== false && p.value && p.value !== (values[p.field]?.value ?? p.current_value));
   const available = (skills.data ?? []).filter((s) => s.allowed && s.needs_record && SKILLS.includes(s.id) && (s.table === table || s.table === 'task'));
-  if (!predictions.length && !r.similar_records.length && !r.knowledge.length && !available.length) return null;
+  const insights = predictions.length > 0 || r.similar_records.length > 0 || r.knowledge.length > 0;
+  if (!insights && !available.length) return null;
 
   return (
     <Card
@@ -119,7 +120,7 @@ export function AiAssist({ table, sysId, values, onApply }: { table: string; sys
           </div>
         )}
         {available.length > 0 && (
-          <div className="flex flex-wrap gap-2 border-t border-line pt-4">
+          <div className={cx('flex flex-wrap gap-2', insights && 'border-t border-line pt-4')}>
             {available.map((s) => (
               <Button key={s.id} size="sm" loading={run.isPending && run.variables === s.id} onClick={() => run.mutate(s.id)}>
                 {s.id === 'incident_summarization' ? 'Summarize' : s.id === 'resolution_notes_generation' ? 'Draft resolution notes' : 'Draft email'}

@@ -161,7 +161,7 @@ export function StatTile({ value, label, to, className }: { value: ReactNode; la
   const body = (
     <>
       <div className="text-2xl leading-none font-bold tracking-[-0.02em] text-brand-500 tabular-nums dark:text-brand-400">{value}</div>
-      <div className="micro mt-2 text-subtle">{label}</div>
+      <div className="micro mt-2 text-[9px] text-subtle">{label}</div>
     </>
   );
   const cls = cx('block min-w-[136px] rounded-tile border border-line bg-surface px-5 pt-3.5 pb-4 transition-colors', className);
@@ -176,7 +176,7 @@ export function StatTile({ value, label, to, className }: { value: ReactNode; la
 
 export function Chip({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cx('inline-flex items-center rounded-lg border border-line bg-sunken px-2 py-1 text-[10px] font-medium tracking-[0.04em] text-muted uppercase', className)}>
+    <span className={cx('inline-flex items-center rounded-lg border border-well-line bg-well px-2 py-1.5 text-[9px] leading-tight tracking-[0.04em] text-ink/85 uppercase', className)}>
       {children}
     </span>
   );
@@ -204,11 +204,11 @@ export interface SegmentOption<T extends string> {
 /** Row of filter tabs in a white container; the active one is outlined in coral. */
 export function Segmented<T extends string>({ options, value, onChange, className }: { options: SegmentOption<T>[]; value: T | null; onChange?: (v: T) => void; className?: string }) {
   return (
-    <div className={cx('flex max-w-full items-center gap-1 overflow-x-auto rounded-tile border border-line bg-surface p-1 scrollbar-none', className)} role="tablist">
+    <div className={cx('flex max-w-full items-center gap-1 overflow-x-auto rounded-lg border border-well-line bg-surface p-[5px] scrollbar-none', className)} role="tablist">
       {options.map((o) => {
         const active = o.id === value;
         const cls = cx(
-          'micro shrink-0 rounded-[9px] border px-3.5 py-2 whitespace-nowrap transition-colors',
+          'shrink-0 rounded-lg border px-4 py-2 text-[11px] font-bold tracking-[0.05em] whitespace-nowrap uppercase transition-colors',
           active ? 'border-brand-500 text-brand-600 dark:text-brand-300' : 'border-transparent text-ink/80 hover:bg-sunken hover:text-ink',
         );
         return o.to ? (
@@ -233,18 +233,18 @@ export function Stepper({ steps, current }: { steps: { id: string; label: string
         const state = i < current ? 'done' : i === current ? 'current' : 'next';
         return (
           <li key={s.id} className="flex items-center gap-2.5">
-            {i > 0 && <span className="h-px w-5 bg-line-strong" aria-hidden />}
+            {i > 0 && <span className="h-px w-[18px] bg-well-line" aria-hidden />}
             <span
               className={cx(
-                'inline-flex size-6 items-center justify-center rounded-[7px] text-[11px] font-bold',
-                state === 'current' && 'bg-brand-500 text-white shadow-card',
+                'inline-flex size-7 items-center justify-center rounded-lg text-[10px] font-bold',
+                state === 'current' && 'bg-brand-500 text-white',
                 state === 'done' && 'bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-300',
-                state === 'next' && 'border border-line-strong bg-surface text-subtle',
+                state === 'next' && 'border border-well-line bg-raised text-subtle',
               )}
             >
               {state === 'done' ? <Check className="size-3.5" strokeWidth={3} /> : i + 1}
             </span>
-            <span className={cx('micro', state === 'current' ? 'text-ink' : 'text-subtle')} aria-current={state === 'current' ? 'step' : undefined}>
+            <span className={cx('text-[10px] font-bold tracking-[0.07em] uppercase', state === 'current' ? 'text-ink' : 'text-subtle')} aria-current={state === 'current' ? 'step' : undefined}>
               {s.label}
             </span>
           </li>

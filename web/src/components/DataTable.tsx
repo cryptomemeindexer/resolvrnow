@@ -52,7 +52,7 @@ export function DataTable({
     <div className="overflow-x-auto scrollbar-thin">
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="border-b border-line bg-sunken text-left">
+          <tr className="border-b border-well-line bg-well text-left">
             {selectable && (
               <th className="w-10 px-4 py-3">
                 <input
@@ -68,7 +68,7 @@ export function DataTable({
               const label = meta[c.split('.')[0]]?.label ?? c;
               const active = sort?.field === c;
               return (
-                <th key={c} className="micro px-4 py-3 whitespace-nowrap text-subtle">
+                <th key={c} className="micro px-4 py-3 text-[9px] whitespace-nowrap text-muted">
                   <button
                     type="button"
                     className={cx('inline-flex items-center gap-1 tracking-[inherit] uppercase hover:text-ink', active && 'text-ink')}

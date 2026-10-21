@@ -322,7 +322,7 @@ export function WorkspaceShell() {
               </div>
             </details>
           </header>
-          <main className="min-w-0 flex-1 pt-4 pb-10">
+          <main className="min-w-0 flex-1 pt-12 pb-10">
             <Outlet />
           </main>
           <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-line py-5 text-[13px] text-muted">

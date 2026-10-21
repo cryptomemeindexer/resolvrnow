@@ -100,7 +100,7 @@ function AppCard({ def }: { def: AppCardDef }) {
     <div className="group relative flex flex-col rounded-card border border-line bg-surface p-[22px] shadow-card transition-shadow hover:shadow-pop">
       <div className="flex items-center gap-3">
         <IconTile tint={def.tint} icon={<Icon name={def.icon} className="size-[18px]" strokeWidth={1.8} />} />
-        <h3 className={`text-lg font-bold tracking-[-0.01em] ${TINTS[def.tint].text}`}>
+        <h3 className={`text-base font-bold tracking-[-0.01em] ${TINTS[def.tint].text}`}>
           <Link to={to} className="after:absolute after:inset-0">
             {def.title}
           </Link>
@@ -127,9 +127,9 @@ export function WorkspaceHome() {
   const cards = APP_CARDS.filter((c) => installed.has(c.app));
   const mine = useCount('task', MINE);
   return (
-    <div className="space-y-12">
+    <div className="space-y-10">
       <div>
-        <PageHero title="ResolvrNow" eyebrow="Agent workspace">
+        <PageHero title={<span className="uppercase">ResolvrNow</span>} eyebrow="Agent workspace">
           Incidents, problems, changes and requests in one place. Work your queue, keep SLAs on track and resolve what matters first.
         </PageHero>
         <div className="mt-8 flex flex-wrap gap-2.5">
@@ -141,6 +141,17 @@ export function WorkspaceHome() {
         </div>
       </div>
 
+      {cards.length > 0 && (
+        <section>
+          <SectionHeader title="Service desk" aside={`${String(cards.length).padStart(2, '0')} available`} />
+          <div className="mt-5 grid gap-[22px] sm:grid-cols-2 xl:grid-cols-4">
+            {cards.map((c) => (
+              <AppCard key={c.app} def={c} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section>
         <SectionHeader title="Your work" aside={mine.data !== undefined ? `${mine.data} assigned to you` : undefined} />
         <div className="mt-5 grid gap-6 xl:grid-cols-2">
@@ -148,17 +159,6 @@ export function WorkspaceHome() {
           <Queue title="Unassigned in my groups" query={GROUP_UNASSIGNED} />
         </div>
       </section>
-
-      {cards.length > 0 && (
-        <section>
-          <SectionHeader title="Service desk" aside={`${String(cards.length).padStart(2, '0')} available`} />
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {cards.map((c) => (
-              <AppCard key={c.app} def={c} />
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
 }
