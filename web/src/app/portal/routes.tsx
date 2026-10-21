@@ -4,6 +4,7 @@ import { Link, NavLink, Route, Routes, useNavigate } from 'react-router';
 import { Logo } from '../../components/Logo';
 import { Avatar, cx } from '../../components/ui';
 import { useAuth } from '../../lib/auth';
+import { Assistant } from './Assistant';
 import { ArticlePage, CatalogPage, KnowledgeHome, SearchPage, TopicPage } from './Browse';
 import { usePortalHome } from './data';
 import { PortalHome } from './Home';
@@ -86,6 +87,7 @@ function PortalLayout({ children }: { children: ReactNode }) {
         </nav>
       </header>
       <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-10 sm:px-6">{children}</main>
+      <Assistant />
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-5 text-[13px] text-muted sm:px-6">
           <span>{t('app.title')}</span>
