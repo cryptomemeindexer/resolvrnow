@@ -163,6 +163,11 @@ docs/reverse-engineering/   how the target was studied, evidence ledger, tooling
 
 Developer guide: [`docs/dev/modules.md`](docs/dev/modules.md).
 
+## Status
+
+ResolvrNow is young: the processes above work end to end, and
+[`docs/known-gaps.md`](docs/known-gaps.md) lists what is not built yet. Contributions are welcome.
+
 ## Configuration
 
 | Variable | Default | Purpose |
