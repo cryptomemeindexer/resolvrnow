@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import fastifyCookie from '@fastify/cookie';
 import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import { AuthService } from './api/auth.js';
 import { registerUiApi } from './api/app/ui.js';
 import { type ApiDeps, sendError, type ServerConfig } from './api/http.js';
@@ -79,12 +79,17 @@ export async function buildApp(platform: Platform, config: ServerConfig, opts: A
   registerCompatLayer(app);
 
   app.setErrorHandler((err, req, reply) => sendError(reply, err, platform, req));
-  app.setNotFoundHandler((req, reply) => {
-    if (req.url.startsWith('/api/')) return sendApiNotFound(app, req, reply);
+  const sendAppShell = (reply: FastifyReply) => {
     const index = config.webDir ? join(config.webDir, 'index.html') : null;
     if (index && existsSync(index)) return reply.type('text/html').send(readFileSync(index));
     return reply.code(404).send('Not found');
+  };
+  app.setNotFoundHandler((req, reply) => {
+    if (req.url.startsWith('/api/')) return sendApiNotFound(app, req, reply);
+    return sendAppShell(reply);
   });
+  // The static handler answers 403 for the bare directory, so the root gets the app shell too.
+  app.get('/', (_req, reply) => sendAppShell(reply));
 
   app.get('/healthz', async () => ({ status: 'ok' }));
 

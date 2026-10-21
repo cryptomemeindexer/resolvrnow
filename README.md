@@ -35,8 +35,10 @@ reimplementation of the processes and REST APIs of the market-leading ITSM platf
 ```bash
 git clone https://github.com/cryptomemeindexer/resolvrnow
 cd resolvrnow
-docker compose up -d          # http://localhost:8080
+docker compose up -d
 ```
+
+Then open http://localhost:8080.
 
 **Node.js 22+**:
 

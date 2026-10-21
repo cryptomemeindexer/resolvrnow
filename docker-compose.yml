@@ -2,6 +2,8 @@ services:
   resolvrnow:
     build: .
     image: resolvrnow:latest
+    # Always build from this checkout; there is no published image to pull.
+    pull_policy: build
     ports:
       - "8080:8080"
     environment:
